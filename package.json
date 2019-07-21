@@ -1,0 +1,46 @@
+{
+  "name": "power-markdown",
+  "version": "0.1.0",
+  "description": "A Markdown CLI to easily generate HTML documents from Markdown files.",
+  "bin": {
+    "pmd": "./src/cli.js"
+  },
+  "main": "./src/cli.js",
+  "scripts": {
+    "format": "prettier --write \"{src,assets}/**/*.{js,css,html}\"",
+    "format:check": "prettier --check \"{src,assets}/**/*.{js,css,html}\"",
+    "lint": "eslint **/*.js"
+  },
+  "keywords": [
+    "markdown", "cli", "html"
+  ],
+  "author": "Gael Girodon <contact@gaelgirodon.fr>",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "bluebird": "^3.5.5",
+    "chalk": "^2.4.2",
+    "cheerio": "^1.0.0-rc.3",
+    "chokidar": "^3.0.2",
+    "clean-css": "^4.2.1",
+    "clipboard": "^2.0.4",
+    "commander": "^2.20.0",
+    "glob": "^7.1.4",
+    "highlight.js": "^9.15.8",
+    "lodash": "^4.17.15",
+    "markdown-it": "^9.0.1",
+    "markdown-it-abbr": "^1.0.4",
+    "markdown-it-anchor": "^5.2.4",
+    "markdown-it-container": "^2.0.0",
+    "markdown-it-deflist": "^2.0.3",
+    "markdown-it-footnote": "^3.0.2",
+    "markdown-it-ins": "^2.0.0",
+    "markdown-it-mark": "^2.0.0",
+    "markdown-it-sub": "^1.0.0",
+    "markdown-it-sup": "^1.0.0",
+    "markdown-it-toc-done-right": "^4.0.2"
+  },
+  "devDependencies": {
+    "eslint": "^6.1.0",
+    "prettier": "^1.18.2"
+  }
+}
