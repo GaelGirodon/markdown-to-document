@@ -2,6 +2,20 @@ const Promise = require("bluebird");
 const fs = Promise.promisifyAll(require("fs"));
 
 /**
+ * Tests that the file specified by path exists.
+ * @param {string} path A path to a file or directory.
+ * @return {Promise<boolean>} true if the file exists.
+ */
+async function exists(path) {
+    try {
+        await fs.accessAsync(path, fs.constants.F_OK);
+        return true;
+    } catch (err) {
+        return false;
+    }
+}
+
+/**
  * Tests that the file specified by path is a directory.
  * @param {string} path A path to a file or directory.
  * @return {Promise<boolean>} true if the file is a directory.
@@ -11,13 +25,17 @@ async function isDirectory(path) {
 }
 
 /**
- * Tests that the file specified by path is readable.
+ * Tests that the file specified by path exists and is readable.
  * @param {string} path A path to a file or directory.
- * @return {Promise<boolean>} true if the file is readable.
+ * @return {Promise<boolean>} true if the file exists and is readable.
  */
 async function isReadable(path) {
-    const err = await fs.accessAsync(path, fs.constants.R_OK);
-    return !err;
+    try {
+        await fs.accessAsync(path, fs.constants.F_OK | fs.constants.R_OK);
+        return true;
+    } catch (err) {
+        return false;
+    }
 }
 
 /**
@@ -31,6 +49,7 @@ function readAllText(path) {
 }
 
 module.exports = {
+    exists,
     isDirectory,
     isReadable,
     readAllText

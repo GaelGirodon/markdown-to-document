@@ -42,6 +42,7 @@ function compiler(codeCopy) {
 
     /** Markdown.it instance */
     let md = markdownIt({
+        html: true,
         linkify: true,
         typographer: true,
         highlight

@@ -99,7 +99,7 @@ class Style {
      */
     async validate(path, name, type) {
         if (!(await io.isReadable(path))) {
-            throw new Error(`Invalid ${type} '${name}': file not found.`);
+            throw new Error(`Invalid ${type} '${name}': file not found or not readable.`);
         }
         return path;
     }
