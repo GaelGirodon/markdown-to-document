@@ -18,7 +18,7 @@ npm i power-markdown -g
 Compile Markdown files (`path`) into HTML files.
 
 ```shell
-pmd [options] <path...>
+pwmd [options] <path...>
 ```
 
 ### Options
@@ -41,19 +41,19 @@ pmd [options] <path...>
 **Compile a single Markdown file (`doc.md`) into HTML (`doc.html`)**
 
 ```shell
-pmd doc.md
+pwmd doc.md
 ```
 
 **Watch and compile multiple Markdown files using glob syntax**
 
 ```shell
-pmd *.md --watch
+pwmd *.md --watch
 ```
 
 **Improve the HTML output with a layout and embedded styles**
 
 ```shell
-pmd doc.md --layout "page" --theme "github" --highlight-style "atom-one-light" --embed
+pwmd doc.md --layout "page" --theme "github" --highlight-style "atom-one-light" --embed
 ```
 
 > The compiled Markdown is now included into the predefined layout `page`
@@ -62,7 +62,7 @@ pmd doc.md --layout "page" --theme "github" --highlight-style "atom-one-light" -
 **Enable additional extensions**
 
 ```shell
-pmd doc.md -l "page" -t "github" -h "atom-one-light" -e --numbered-headings --code-copy
+pwmd doc.md -l "page" -t "github" -h "atom-one-light" -e --numbered-headings --code-copy
 ```
 
 > HTML headings are now automatically numbered and a button <kbd>Copy</kbd>
@@ -70,7 +70,7 @@ pmd doc.md -l "page" -t "github" -h "atom-one-light" -e --numbered-headings --co
 
 ## Development
 
-- Link the `pmd` command for development: `npm link`
+- Link the `pwmd` command for development: `npm link`
   - Unlink: `npm unlink`
 - Format code with Prettier: `npm run format[:check]`
 - Lint code with ESLint : `npm run lint`

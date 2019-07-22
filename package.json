@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "A Markdown CLI to easily generate HTML documents from Markdown files.",
   "bin": {
-    "pmd": "./src/cli.js"
+    "pwmd": "./src/cli.js"
   },
   "main": "./src/cli.js",
   "scripts": {
@@ -12,7 +12,9 @@
     "lint": "eslint **/*.js"
   },
   "keywords": [
-    "markdown", "cli", "html"
+    "markdown",
+    "cli",
+    "html"
   ],
   "author": "Gael Girodon <contact@gaelgirodon.fr>",
   "license": "GPL-3.0-or-later",
