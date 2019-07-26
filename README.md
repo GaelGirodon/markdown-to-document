@@ -3,7 +3,7 @@
 A Markdown CLI to easily generate HTML documents from Markdown files.
 
 > The original purpose of this tool was to provide an alternative to using
-> Word to write and share technical documents.
+> Microsoft Word to write and share technical documents.
 
 ## Install
 
@@ -56,8 +56,8 @@ mdtodoc *.md --watch
 mdtodoc doc.md --layout "page" --theme "github" --highlight-style "atom-one-light" --embed
 ```
 
-> The compiled Markdown is now included into the predefined layout `page`
-> and some CSS styling is added directly into the HTML file.
+The compiled Markdown is now included into the predefined layout `page`
+and some CSS styling is added directly into the HTML file.
 
 **Enable additional extensions**
 
@@ -65,8 +65,8 @@ mdtodoc doc.md --layout "page" --theme "github" --highlight-style "atom-one-ligh
 mdtodoc doc.md -l "page" -t "github" -h "atom-one-light" -e --numbered-headings --code-copy
 ```
 
-> HTML headings are now automatically numbered and a button <kbd>Copy</kbd>
-> is added in each code block `<pre>` to copy the content.
+HTML headings are now automatically numbered and a button <kbd>Copy</kbd>
+is added in each code block `<pre>` to copy the content.
 
 ## Development
 
@@ -76,6 +76,31 @@ mdtodoc doc.md -l "page" -t "github" -h "atom-one-light" -e --numbered-headings 
 - Lint code with ESLint : `npm run lint`
 
 ## Resources
+
+### Useful apps, packages & more
+
+#### Code editors
+
+Although Markdown documents are simple text files and can be written using
+basic text editors, most code editors provide features and extensions to make
+writing these documents easier, e.g.:
+
+- [Markdown All in One](https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one)
+  (Visual Studio Code)
+- [Markdown-Writer](https://atom.io/packages/markdown-writer) (Atom)
+- [Markdown​Editing](https://packagecontrol.io/packages/MarkdownEditing) (Sublime Text)
+
+#### Formatting
+
+Markdown files can be easily formatted with [code editors](#code-editors)
+using built-in features or additional extensions but code formatters like
+[Prettier](https://prettier.io/) also do a good job:
+
+```shell
+npm install --global prettier
+prettier --check "*.md"
+prettier --write "*.md"
+```
 
 ### Markdown compiler
 
