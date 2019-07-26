@@ -1,5 +1,4 @@
 # To-Do
 
-- [ ] Minify embedded JS
-- [ ] Embed images
 - [ ] Add a live reload server
+- [ ] Allow external layouts and themes

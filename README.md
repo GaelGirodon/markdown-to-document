@@ -32,9 +32,21 @@ mdtodoc [options] <path...>
 | `-h, --highlight-style [value]` | Syntax highlighting style                     |
 | `-n, --numbered-headings`       | Enable numbered headings                      |
 | `-c, --code-copy`               | Enable copy code button                       |
-| `-e, --embed`                   | Embed external resources                      |
+| `-e, --embed-mode`              | Embed external resources (default: `light`)   |
 | `-w, --watch`                   | Watch input files and compile on change       |
 | `-h, --help`                    | Output usage information                      |
+
+#### About embed mode
+
+The `--embed-mode` option allows to inline externally referenced resources
+(JS, CSS and images) to output a single HTML file without external dependencies.
+
+3 modes are available:
+
+- `none`: disable inlining
+- `light`: inline only scripts, stylesheets and light images
+  (size < 8KB) (**default**)
+- `full`: inline everything (this can lead to a large output file)
 
 ### Examples
 
@@ -121,13 +133,15 @@ compiler and the following plugins to generate HTML code from Markdown:
 Additional features also use the following packages:
 
 - [highlight.js](https://highlightjs.org/) - Javascript syntax highlighter
+- [web-resource-inliner](https://github.com/jrit/web-resource-inliner) - Brings
+  externally referenced resources, such as js, css and images, into a single file
+- [html-minifier](https://github.com/kangax/html-minifier) - Javascript-based
+  HTML compressor/minifier
 - [clipboard.js](https://clipboardjs.com/) - A modern approach to copy text to clipboard
-- [cheerio](https://cheerio.js.org/) - Fast, flexible, and lean implementation of core
-  jQuery designed specifically for the server
-- [chokidar](https://github.com/paulmillr/chokidar) - A neat wrapper around node.js
-  fs.watch / fs.watchFile / FSEvents.
-- [clean-css](https://github.com/jakubpawlowicz/clean-css) - Fast and efficient
-  CSS optimizer for node.js and the Web
+- [cheerio](https://cheerio.js.org/) - Fast, flexible, and lean implementation
+  of core jQuery designed specifically for the server
+- [chokidar](https://github.com/paulmillr/chokidar) - A neat wrapper around
+  node.js fs.watch / fs.watchFile / FSEvents
 
 Open [package.json](package.json) to see the full list of dependencies.
 

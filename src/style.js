@@ -1,5 +1,6 @@
 const path = require("path");
-const CleanCSS = require("clean-css");
+const url = require("url");
+
 const io = require("./io");
 
 /** Path to assets directory */
@@ -34,7 +35,6 @@ class Style {
         this.highlightStyle = opts.highlightStyle; // Syntax highlighting style
         this.numberedHeadings = opts.numberedHeadings; // Enable numbered headings
         this.codeCopy = opts.codeCopy; // Enable copy code button
-        this.embed = opts.embed; // Embed external resources
     }
 
     /**
@@ -43,30 +43,24 @@ class Style {
      */
     async load() {
         // Template
-        const lPath = path.join(LAYOUTS_PATH, this.layout + ".html");
-        this.template = await io.readAllText(await this.validate(lPath, this.layout, "layout"));
+        const layoutPath = path.join(LAYOUTS_PATH, this.layout + ".html");
+        this.template = await io.readAllText(await this.validate(layoutPath, this.layout, "layout"));
 
         // Styles: theme, highlight style and extensions
         const styles = [];
         if (this.theme) {
-            const tPath = path.join(THEMES_PATH, this.theme + ".css");
-            styles.push(await this.validate(tPath, this.theme, "style"));
+            const themePath = path.join(THEMES_PATH, this.theme + ".css");
+            styles.push(await this.validate(themePath, this.theme, "style"));
         }
         if (this.highlightStyle) {
-            const hPath = path.join(HLJS_STYLES_PATH, this.highlightStyle + ".css");
-            styles.push(await this.validate(hPath, this.highlightStyle, "highlight style"));
+            const highlightPath = path.join(HLJS_STYLES_PATH, this.highlightStyle + ".css");
+            styles.push(await this.validate(highlightPath, this.highlightStyle, "highlight style"));
         }
         if (this.numberedHeadings) styles.push(path.join(EXT_PATH, "numbered-headings.css"));
         if (this.codeCopy) styles.push(path.join(EXT_PATH, "code-copy.css"));
-
         this.styles = "";
         for (const s of styles) {
-            this.styles += this.embed
-                ? await io.readAllText(s)
-                : `<link rel="stylesheet" href="file://${s}">\n`;
-        }
-        if (this.embed && this.styles) {
-            this.styles = "<style>\n" + new CleanCSS().minify(this.styles).styles + "\n</style>";
+            this.styles += `<link rel="stylesheet" href="${url.pathToFileURL(s)}">\n`;
         }
 
         // Scripts
@@ -75,15 +69,9 @@ class Style {
             scripts.push(path.join(NODE_MODULES_PATH, "clipboard", "dist", "clipboard.min.js"));
             scripts.push(path.join(EXT_PATH, "code-copy.js"));
         }
-
         this.scripts = "";
         for (const s of scripts) {
-            this.scripts += this.embed
-                ? await io.readAllText(s)
-                : `<script src="file://${s}"></script>>\n`;
-        }
-        if (this.embed && this.scripts) {
-            this.scripts = "<script>\n" + this.scripts + "\n</script>";
+            this.scripts += `<script src="${url.pathToFileURL(s)}"></script>\n`;
         }
 
         return this;

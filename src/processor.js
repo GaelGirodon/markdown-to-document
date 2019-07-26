@@ -5,6 +5,8 @@ const glob = Promise.promisify(require("glob"));
 const watcher = require("chokidar");
 const chalk = require("chalk");
 const cheerio = require("cheerio");
+const inline = Promise.promisify(require("web-resource-inliner").html);
+const minify = require("html-minifier").minify;
 
 const io = require("./io");
 const { compiler } = require("./compiler");
@@ -19,6 +21,7 @@ class Processor {
      * @param {*} opts Processor options.
      */
     constructor(opts) {
+        this.embedMode = opts.embedMode;
         this.style = new Style(opts);
         this.compiler = compiler(opts.codeCopy);
     }
@@ -73,11 +76,23 @@ class Processor {
             .first()
             .text();
         // Use style
-        const output = this.style.template
+        let output = this.style.template
             .replace(/{{ title }}/g, title || path.basename(src))
             .replace(/{{ body }}/g, body)
             .replace(/{{ styles }}/g, this.style.styles)
             .replace(/{{ scripts }}/g, this.style.scripts);
+        // Inline resources
+        if (["light", "full"].includes(this.embedMode)) {
+            // web-resource-inliner doesn't support file URL scheme
+            output = output.replace(/(src|href)="file:\/\//g, "$1=\"");
+            let options = { fileContent: output, relativeTo: path.dirname(src) };
+            if (this.embedMode == "full") {
+                Object.assign(options, { images: true, svgs: true });
+            }
+            output = await inline(options);
+        }
+        // Minify
+        output = minify(output, { minifyCSS: true, minifyJS: true });
         // Save output file
         const outputFileName = path.basename(src).replace(/\.md$/, ".html");
         const outputFile = path.join(dest || path.dirname(src), outputFileName);
