@@ -1,5 +1,8 @@
 # Markdown To Document
 
+[![npm - version](https://img.shields.io/npm/v/markdown-to-document?color=informational&style=flat-square)](https://www.npmjs.com/package/markdown-to-document)
+![npm - license](https://img.shields.io/npm/l/markdown-to-document?color=informational&style=flat-square)
+
 A Markdown CLI to easily generate HTML documents from Markdown files.
 
 > The original purpose of this tool was to provide an alternative to using
