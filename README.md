@@ -32,7 +32,7 @@ mdtodoc [options] <path...>
 | `-h, --highlight-style [value]` | Syntax highlighting style                     |
 | `-n, --numbered-headings`       | Enable numbered headings                      |
 | `-c, --code-copy`               | Enable copy code button                       |
-| `-e, --embed-mode`              | Embed external resources (default: `light`)   |
+| `-e, --embed-mode [value]`      | Embed external resources (default: `light`)   |
 | `-w, --watch`                   | Watch input files and compile on change       |
 | `-h, --help`                    | Output usage information                      |
 
@@ -62,10 +62,10 @@ mdtodoc doc.md
 mdtodoc *.md --watch
 ```
 
-**Improve the HTML output with a layout and embedded styles**
+**Improve the HTML output with a layout, a theme and a highlight style**
 
 ```shell
-mdtodoc doc.md --layout "page" --theme "github" --highlight-style "atom-one-light" --embed
+mdtodoc doc.md --layout "page" --theme "github" --highlight-style "atom-one-light"
 ```
 
 The compiled Markdown is now included into the predefined layout `page`
@@ -74,11 +74,20 @@ and some CSS styling is added directly into the HTML file.
 **Enable additional extensions**
 
 ```shell
-mdtodoc doc.md -l "page" -t "github" -h "atom-one-light" -e --numbered-headings --code-copy
+mdtodoc doc.md -l "page" -t "github" -h "atom-one-light" --numbered-headings --code-copy
 ```
 
 HTML headings are now automatically numbered and a button <kbd>Copy</kbd>
 is added in each code block `<pre>` to copy the content.
+
+**Embed all externally referenced resources**
+
+```shell
+mdtodoc doc.md -l "page" -t "github" -h "atom-one-light" -n -c --embed-mode "full"
+```
+
+All external resources (CSS, JS, images) referenced in the Markdown file
+are now embedded into the output HTML file.
 
 ## Development
 
