@@ -2,7 +2,6 @@
 
 const program = require("commander");
 const chalk = require("chalk");
-const pick = require("lodash/pick");
 const package = require("../package.json");
 const { Processor } = require("./processor");
 
@@ -20,14 +19,14 @@ program
     .option("-e, --embed-mode [value]", "embed external resources: none, light or full", /^(none|light|full)$/, 'light')
     .option("-w, --watch", "watch input files and compile on change")
     .action(function(path, cmd) {
-        const opts = pick(cmd, [
-            "layout",
-            "theme",
-            "highlightStyle",
-            "numberedHeadings",
-            "codeCopy",
-            "embedMode"
-        ]);
+        const opts = {
+            layout: cmd.layout,
+            theme: cmd.theme,
+            highlightStyle: cmd.highlightStyle,
+            numberedHeadings: cmd.numberedHeadings,
+            codeCopy: cmd.codeCopy,
+            embedMode: cmd.embedMode
+        };
         const proc = new Processor(opts);
         proc.init()
             .then(() => proc.process(path, cmd.output, cmd.watch))

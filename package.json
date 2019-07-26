@@ -29,7 +29,6 @@
     "glob": "^7.1.4",
     "highlight.js": "^9.15.8",
     "html-minifier": "^4.0.0",
-    "lodash": "^4.17.15",
     "markdown-it": "^9.0.1",
     "markdown-it-abbr": "^1.0.4",
     "markdown-it-anchor": "^5.2.4",
