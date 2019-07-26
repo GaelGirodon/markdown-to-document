@@ -1,0 +1,26 @@
+.hljs {
+    position: relative;
+}
+.hljs textarea {
+    position: absolute;
+    top: 0;
+    z-index: -1;
+}
+.hljs .clipboard {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+
+    background-color: rgb(255, 255, 255);
+    border: solid 1px rgb(219, 219, 219);
+    border-radius: 2px;
+    color: rgb(54, 54, 54);
+    cursor: pointer;
+    padding: 3px 8px;
+}
+.hljs .clipboard:hover {
+    border-color: #b5b5b5;
+}
+.hljs .clipboard:active {
+    border-color: #4a4a4a;
+}
