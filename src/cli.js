@@ -10,7 +10,7 @@ program.version(package.version);
 
 program
     .arguments("<path...>")
-    .description("Compile Markdown files into HTML files")
+    .description("Compile Markdown files into HTML documents")
     .option("-d, --dest [value]", "destination path (default: next to .md files)")
     .option("-l, --layout [value]", "HTML layout")
     .option("-t, --theme [value]", "CSS theme")

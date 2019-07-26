@@ -1,9 +1,9 @@
 {
-  "name": "power-markdown",
+  "name": "markdown-to-document",
   "version": "0.1.0",
   "description": "A Markdown CLI to easily generate HTML documents from Markdown files.",
   "bin": {
-    "pwmd": "./src/cli.js"
+    "mdtodoc": "./src/cli.js"
   },
   "main": "./src/cli.js",
   "scripts": {
@@ -13,6 +13,7 @@
   },
   "keywords": [
     "markdown",
+    "markdown-to-document",
     "cli",
     "html"
   ],

@@ -1,4 +1,4 @@
-# Power Markdown
+# Markdown To Document
 
 A Markdown CLI to easily generate HTML documents from Markdown files.
 
@@ -10,15 +10,15 @@ A Markdown CLI to easily generate HTML documents from Markdown files.
 Install the CLI globally using NPM:
 
 ```shell
-npm i power-markdown -g
+npm i markdown-to-document -g
 ```
 
 ## Usage
 
-Compile Markdown files (`path`) into HTML files.
+Compile Markdown files (`path`) into HTML documents.
 
 ```shell
-pwmd [options] <path...>
+mdtodoc [options] <path...>
 ```
 
 ### Options
@@ -41,19 +41,19 @@ pwmd [options] <path...>
 **Compile a single Markdown file (`doc.md`) into HTML (`doc.html`)**
 
 ```shell
-pwmd doc.md
+mdtodoc doc.md
 ```
 
 **Watch and compile multiple Markdown files using glob syntax**
 
 ```shell
-pwmd *.md --watch
+mdtodoc *.md --watch
 ```
 
 **Improve the HTML output with a layout and embedded styles**
 
 ```shell
-pwmd doc.md --layout "page" --theme "github" --highlight-style "atom-one-light" --embed
+mdtodoc doc.md --layout "page" --theme "github" --highlight-style "atom-one-light" --embed
 ```
 
 > The compiled Markdown is now included into the predefined layout `page`
@@ -62,7 +62,7 @@ pwmd doc.md --layout "page" --theme "github" --highlight-style "atom-one-light" 
 **Enable additional extensions**
 
 ```shell
-pwmd doc.md -l "page" -t "github" -h "atom-one-light" -e --numbered-headings --code-copy
+mdtodoc doc.md -l "page" -t "github" -h "atom-one-light" -e --numbered-headings --code-copy
 ```
 
 > HTML headings are now automatically numbered and a button <kbd>Copy</kbd>
@@ -70,7 +70,7 @@ pwmd doc.md -l "page" -t "github" -h "atom-one-light" -e --numbered-headings --c
 
 ## Development
 
-- Link the `pwmd` command for development: `npm link`
+- Link the `mdtodoc` command for development: `npm link`
   - Unlink: `npm unlink`
 - Format code with Prettier: `npm run format[:check]`
 - Lint code with ESLint : `npm run lint`
@@ -79,7 +79,7 @@ pwmd doc.md -l "page" -t "github" -h "atom-one-light" -e --numbered-headings --c
 
 ### Markdown compiler
 
-**Power Markdown** uses the [Markdown.it](https://github.com/markdown-it/markdown-it)
+**Markdown To Document** uses the [Markdown.it](https://github.com/markdown-it/markdown-it)
 compiler and the following plugins to generate HTML code from Markdown:
 
 - `markdown-it-abbr` - Abbreviation (`<abbr>`) tag support
@@ -114,4 +114,4 @@ Open [package.json](package.json) to see the full list of dependencies.
 
 ## License
 
-**Power Markdown** is licensed under the GNU General Public License.
+**Markdown To Document** is licensed under the GNU General Public License.
