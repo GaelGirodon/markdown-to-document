@@ -16,7 +16,12 @@ program
     .option("-h, --highlight-style [value]", "syntax highlighting style")
     .option("-n, --numbered-headings", "enable numbered headings")
     .option("-c, --code-copy", "enable copy code button")
-    .option("-e, --embed-mode [value]", "embed external resources: none, light or full", /^(none|light|full)$/, 'light')
+    .option(
+        "-e, --embed-mode [value]",
+        "embed external resources: none, light or full",
+        /^(none|light|full)$/,
+        "light"
+    )
     .option("-w, --watch", "watch input files and compile on change")
     .action(function(path, cmd) {
         const opts = {

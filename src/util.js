@@ -1,6 +1,6 @@
 /**
  * Generate a random id.
- * @return {string} A random id.
+ * @return {string} A random id
  */
 function randomId() {
     return `_${Math.random()

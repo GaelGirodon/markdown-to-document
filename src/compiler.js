@@ -12,8 +12,8 @@ const COPY_BLOCK =
 
 /**
  * Construct a Markdown compiler using Markdown.it.
- * @param {boolean} codeCopy Enable the "Copy to clipboard" button in code blocks.
- * @return The initialized Markdown.it compiler.
+ * @param {boolean} codeCopy Enable the "Copy to clipboard" button in code blocks
+ * @return The initialized Markdown.it compiler
  */
 function compiler(codeCopy) {
     /**

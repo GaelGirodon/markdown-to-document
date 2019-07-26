@@ -1,6 +1,5 @@
 const Promise = require("bluebird");
 const path = require("path");
-const fs = Promise.promisifyAll(require("fs"));
 const glob = Promise.promisify(require("glob"));
 const watcher = require("chokidar");
 const chalk = require("chalk");
@@ -18,7 +17,7 @@ const { Style } = require("./style");
 class Processor {
     /**
      * Construct a Markdown processor.
-     * @param {*} opts Processor options.
+     * @param {*} opts Processor options
      */
     constructor(opts) {
         this.embedMode = opts.embedMode;
@@ -30,7 +29,7 @@ class Processor {
      * Initialize the processor instance.
      */
     async init() {
-        await this.style.load();
+        await this.style.build();
     }
 
     /**
@@ -52,11 +51,17 @@ class Processor {
         for (const file of sources) {
             if (watch) {
                 console.log(`${chalk.gray("[watch]")} ${file}`);
-                watcher
-                    .watch(file, { awaitWriteFinish: { stabilityThreshold: 500 } })
-                    .on("change", path => this.compileFile(path, dest));
+                watcher.watch(file, { awaitWriteFinish: { stabilityThreshold: 500 } }).on(
+                    "change",
+                    async path =>
+                        await this.compileFile(path, dest).catch(err => {
+                            throw err;
+                        })
+                );
             } else {
-                this.compileFile(file, dest);
+                await this.compileFile(file, dest).catch(err => {
+                    throw err;
+                });
             }
         }
     }
@@ -68,8 +73,12 @@ class Processor {
      * @return {Promise<string>} Output compiled file path
      */
     async compileFile(src, dest) {
+        // Check source file
+        if (!(await io.isReadable(src))) {
+            throw new Error(`Invalid source file '${src}': file not found or not readable.`);
+        }
         // Load and compile Markdown file
-        const md = await fs.readFileAsync(src, "utf8");
+        const md = await io.readAllText(src);
         const body = this.compiler.render(md);
         const title = cheerio
             .load(body)("h1")
@@ -84,7 +93,7 @@ class Processor {
         // Inline resources
         if (["light", "full"].includes(this.embedMode)) {
             // web-resource-inliner doesn't support file URL scheme
-            output = output.replace(/(src|href)="file:\/\//g, "$1=\"");
+            output = output.replace(/(src|href)="file:\/\//g, '$1="');
             let options = { fileContent: output, relativeTo: path.dirname(src) };
             if (this.embedMode == "full") {
                 Object.assign(options, { images: true, svgs: true });
@@ -96,7 +105,7 @@ class Processor {
         // Save output file
         const outputFileName = path.basename(src).replace(/\.md$/, ".html");
         const outputFile = path.join(dest || path.dirname(src), outputFileName);
-        fs.writeFileAsync(outputFile, output, "utf8");
+        io.writeAllText(outputFile, output);
         console.log(`${src} -> ${outputFile}`);
         return outputFile;
     }

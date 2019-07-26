@@ -26,8 +26,9 @@ const HLJS_STYLES_PATH = path.join(NODE_MODULES_PATH, "highlight.js", "styles");
  */
 class Style {
     /**
-     * Construct the style.
-     * @param {*} opts Style options.
+     * Construct a style from a layout, a theme, a highlight style
+     * and other options (numbered headings, code copy).
+     * @param {*} opts Style options
      */
     constructor(opts) {
         this.layout = opts.layout || "none"; // HTML layout
@@ -38,13 +39,15 @@ class Style {
     }
 
     /**
-     * Load the style.
-     * @return {Promise<Style>} this.
+     * Build the style (load the HTML template layout and prepare styles and scripts).
+     * @return {Promise<Style>} this
      */
-    async load() {
+    async build() {
         // Template
         const layoutPath = path.join(LAYOUTS_PATH, this.layout + ".html");
-        this.template = await io.readAllText(await this.validate(layoutPath, this.layout, "layout"));
+        this.template = await io.readAllText(
+            await this.validate(layoutPath, this.layout, "layout")
+        );
 
         // Styles: theme, highlight style and extensions
         const styles = [];
@@ -83,7 +86,7 @@ class Style {
      * @param {string} path The resource path
      * @param {string} name The resource name
      * @param {string} type The resource type
-     * @return {string} The file path (if the file is readable).
+     * @return {string} The file path (if the file is readable)
      */
     async validate(path, name, type) {
         if (!(await io.isReadable(path))) {
