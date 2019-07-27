@@ -16,6 +16,10 @@ Install the CLI globally using NPM:
 npm i markdown-to-document -g
 ```
 
+> **Linux users:** `EACCES` permissions errors when installing packages globally?<br>
+> → Follow [this guide](https://docs.npmjs.com/resolving-eacces-permissions-errors-when-installing-packages-globally)
+> to resolve them.
+
 ## Usage
 
 Compile Markdown files (`path`) into HTML documents.
