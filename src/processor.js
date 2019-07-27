@@ -100,6 +100,8 @@ class Processor {
             }
             output = await inline(options);
         }
+        // Apply .hljs CSS class to all <pre> tags
+        output = output.replace(/<pre>/g, '<pre class="hljs">');
         // Minify
         output = minify(output, { minifyCSS: true, minifyJS: true });
         // Save output file

@@ -1,5 +1,8 @@
 # Markdown To Document
 
+[![npm - version](https://img.shields.io/npm/v/markdown-to-document?color=informational&style=flat-square)](https://www.npmjs.com/package/markdown-to-document)
+![npm - license](https://img.shields.io/npm/l/markdown-to-document?color=informational&style=flat-square)
+
 A Markdown CLI to easily generate HTML documents from Markdown files.
 
 > The original purpose of this tool was to provide an alternative to using
@@ -21,6 +24,8 @@ Compile Markdown files (`path`) into HTML documents.
 mdtodoc [options] <path...>
 ```
 
+Read [usage examples](#examples) to learn how to use the CLI.
+
 ### Options
 
 | Option                          | Description                                   |
@@ -36,7 +41,56 @@ mdtodoc [options] <path...>
 | `-w, --watch`                   | Watch input files and compile on change       |
 | `-h, --help`                    | Output usage information                      |
 
-#### About embed mode
+#### Layout (`--layout`)
+
+A layout is a HTML template used as a base for the output HTML file, e.g.:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--        ⬐ Markdown document title included here -->
+  <title>{{ title }}</title>
+  {{ styles }} <!-- ← CSS styles (theme, highlight styles, etc.) included here -->
+</head>
+<body>
+{{ body }}     <!-- ← Compiled Markdown included here -->
+</body>
+{{ scripts }}  <!-- ← JS scripts included here -->
+</html>
+```
+
+The `--layout` option can receive the name of a [preset](./assets/layouts/)
+(e.g. `page` for `page.html`) or the path to a custom layout file
+(`path/to/my-layout.html`).
+
+#### Theme (`--theme`)
+
+A theme is a CSS stylesheet included in the HTML layout.
+
+The `--theme` option can receive the name of a [preset](./assets/themes/)
+(e.g. `github`) or the path to a custom theme file (`path/to/my-theme.css`).
+
+#### Highlight style (`--highlight-style`)
+
+A highlight style is a CSS stylesheet included in the HTML layout
+to add a style to code blocks.
+
+The `--highlight-style` option can receive the name of a
+[Hightlight.js style](https://github.com/highlightjs/highlight.js/tree/master/src/styles)
+(file name without extension, e.g. `solarized-dark`) or the path to a custom
+style file.
+
+#### Additional features
+
+_Markdown To Document_ includes additional features:
+
+- **Numbered headings** (`--numbered-headings`): enable automatic headings
+  numbering (`h2` to `h6`, e.g. `1.1.1.`)
+- **Code copy** (`--code-copy`): add a button <kbd>Copy</kbd> in each
+  code block to easily copy the block content
+
+#### Embed mode (`--embed-mode`)
 
 The `--embed-mode` option allows to inline externally referenced resources
 (JS, CSS and images) to output a single HTML file without external dependencies.
@@ -86,15 +140,8 @@ is added in each code block `<pre>` to copy the content.
 mdtodoc doc.md -l "page" -t "github" -h "atom-one-light" -n -c --embed-mode "full"
 ```
 
-All external resources (CSS, JS, images) referenced in the Markdown file
+All external resources (CSS, JS and images) referenced in the Markdown file
 are now embedded into the output HTML file.
-
-## Development
-
-- Link the `mdtodoc` command for development: `npm link`
-  - Unlink: `npm unlink`
-- Format code with Prettier: `npm run format[:check]`
-- Lint code with ESLint : `npm run lint`
 
 ## Resources
 
@@ -125,7 +172,7 @@ prettier --write "*.md"
 
 ### Markdown compiler
 
-**Markdown To Document** uses the [Markdown.it](https://github.com/markdown-it/markdown-it)
+_Markdown To Document_ uses the [Markdown.it](https://github.com/markdown-it/markdown-it)
 compiler and the following plugins to generate HTML code from Markdown:
 
 - `markdown-it-abbr` - Abbreviation (`<abbr>`) tag support
@@ -159,6 +206,13 @@ Open [package.json](package.json) to see the full list of dependencies.
 - [A guide to creating a NodeJS command-line package](https://medium.com/netscape/a-guide-to-create-a-nodejs-command-line-package-c2166ad0452e)
 - [Building a Node JS interactive CLI](https://codeburst.io/building-a-node-js-interactive-cli-3cb80ed76c86)
 - [Numbered Headings in Markdown via CSS](https://gist.github.com/patik/89ee6092c72a9e39950445c01598517a)
+
+## Development
+
+- Link the `mdtodoc` command for development: `npm link`
+  - Unlink: `npm unlink`
+- Format code with Prettier: `npm run format[:check]`
+- Lint code with ESLint : `npm run lint`
 
 ## License
 

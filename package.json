@@ -1,24 +1,31 @@
 {
   "name": "markdown-to-document",
-  "version": "0.1.0",
-  "description": "A Markdown CLI to easily generate HTML documents from Markdown files.",
-  "bin": {
-    "mdtodoc": "./src/cli.js"
-  },
-  "main": "./src/cli.js",
-  "scripts": {
-    "format": "prettier --write \"{src,assets}/**/*.{js,css}\"",
-    "format:check": "prettier --check \"{src,assets}/**/*.{js,css}\"",
-    "lint": "eslint **/*.js"
-  },
+  "version": "0.2.0",
+  "description": "A Markdown CLI to easily generate HTML documents from Markdown files",
   "keywords": [
     "markdown",
     "markdown-to-document",
     "cli",
     "html"
   ],
-  "author": "Gael Girodon <contact@gaelgirodon.fr>",
+  "homepage": "https://github.com/GaelGirodon/markdown-to-document#readme",
+  "bugs": "https://github.com/GaelGirodon/markdown-to-document/issues",
   "license": "GPL-3.0-or-later",
+  "author": "Gael Girodon <contact@gaelgirodon.fr>",
+  "main": "./src/cli.js",
+  "bin": {
+    "mdtodoc": "./src/cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GaelGirodon/markdown-to-document.git"
+  },
+  "scripts": {
+    "format": "prettier --write \"{src,assets}/**/*.{js,css}\"",
+    "format:check": "prettier --check \"{src,assets}/**/*.{js,css}\"",
+    "lint": "eslint **/*.js",
+    "postinstall": "node ./src/patch.js"
+  },
   "dependencies": {
     "bluebird": "^3.5.5",
     "chalk": "^2.4.2",
@@ -26,6 +33,7 @@
     "chokidar": "^3.0.2",
     "clipboard": "^2.0.4",
     "commander": "^2.20.0",
+    "github-markdown-css": "^3.0.1",
     "glob": "^7.1.4",
     "highlight.js": "^9.15.8",
     "html-minifier": "^4.0.0",
@@ -45,5 +53,8 @@
   "devDependencies": {
     "eslint": "^6.1.0",
     "prettier": "^1.18.2"
+  },
+  "engines": {
+    "node": ">=10.0.0"
   }
 }
