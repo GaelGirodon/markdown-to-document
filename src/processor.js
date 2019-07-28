@@ -7,7 +7,7 @@ const cheerio = require("cheerio");
 const inline = Promise.promisify(require("web-resource-inliner").html);
 const minify = require("html-minifier").minify;
 
-const io = require("./io");
+const files = require("./files");
 const { compiler } = require("./compiler");
 const { Style } = require("./style");
 
@@ -26,13 +26,6 @@ class Processor {
     }
 
     /**
-     * Initialize the processor instance.
-     */
-    async init() {
-        await this.style.build();
-    }
-
-    /**
      * Process Markdown files.
      * @param {string} src Path to the Markdown files to process
      * @param {string} dest Output path
@@ -44,9 +37,11 @@ class Processor {
             throw new Error("Invalid source file(s) (should be valid .md files).");
         }
         // Check destination path
-        if (dest && !(await io.isDirectory(dest))) {
+        if (dest && !(await files.isDirectory(dest))) {
             throw new Error("Invalid output path (should be a valid directory).");
         }
+        // Initialize style
+        await this.style.init();
         // Compile source files
         for (const file of sources) {
             if (watch) {
@@ -74,27 +69,26 @@ class Processor {
      */
     async compileFile(src, dest) {
         // Check source file
-        if (!(await io.isReadable(src))) {
+        if (!(await files.isReadable(src))) {
             throw new Error(`Invalid source file '${src}': file not found or not readable.`);
         }
         // Load and compile Markdown file
-        const md = await io.readAllText(src);
+        const md = await files.readAllText(src);
         const body = this.compiler.render(md);
         const title = cheerio
             .load(body)("h1")
             .first()
             .text();
         // Use style
+        const base = path.dirname(src);
         let output = this.style.template
+            .replace(/{{ styles }}/g, await this.style.styles(base))
+            .replace(/{{ scripts }}/g, await this.style.scripts(base))
             .replace(/{{ title }}/g, title || path.basename(src))
-            .replace(/{{ body }}/g, body)
-            .replace(/{{ styles }}/g, this.style.styles)
-            .replace(/{{ scripts }}/g, this.style.scripts);
+            .replace(/{{ body }}/g, body);
         // Inline resources
         if (["light", "full"].includes(this.embedMode)) {
-            // web-resource-inliner doesn't support file URL scheme
-            output = output.replace(/(src|href)="file:\/\//g, '$1="');
-            let options = { fileContent: output, relativeTo: path.dirname(src) };
+            let options = { fileContent: output, relativeTo: base };
             if (this.embedMode == "full") {
                 Object.assign(options, { images: true, svgs: true });
             }
@@ -103,11 +97,11 @@ class Processor {
         // Apply .hljs CSS class to all <pre> tags
         output = output.replace(/<pre>/g, '<pre class="hljs">');
         // Minify
-        output = minify(output, { minifyCSS: true, minifyJS: true });
+        output = minify(output, { minifyCSS: true, minifyJS: true, removeComments: true });
         // Save output file
         const outputFileName = path.basename(src).replace(/\.md$/, ".html");
         const outputFile = path.join(dest || path.dirname(src), outputFileName);
-        io.writeAllText(outputFile, output);
+        files.writeAllText(outputFile, output);
         console.log(`${src} -> ${outputFile}`);
         return outputFile;
     }

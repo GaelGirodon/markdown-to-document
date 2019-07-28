@@ -6,9 +6,7 @@ const { randomId } = require("./util");
 const PRE_BLOCK = '<pre class="hljs"><code>{{ code }}</code>{{ copy_block }}</pre>';
 
 /** "Copy to clipboard" additional block */
-const COPY_BLOCK =
-    '<textarea id="{{ id }}" rows="1" cols="2">{{ code }}</textarea>' +
-    '<button class="clipboard" data-clipboard-target="#{{ id }}">Copy</button>';
+const COPY_BLOCK = '<textarea id="{{ id }}" rows="1" cols="2">{{ code }}</textarea>';
 
 /**
  * Construct a Markdown compiler using Markdown.it.

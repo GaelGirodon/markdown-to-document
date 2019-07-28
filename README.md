@@ -67,14 +67,15 @@ A layout is a HTML template used as a base for the output HTML file, e.g.:
 
 The `--layout` option can receive the name of a [preset](./assets/layouts/)
 (e.g. `page` for `page.html`) or the path to a custom layout file
-(`path/to/my-layout.html`).
+(`path/to/my-layout.html` or a HTTP URL).
 
 #### Theme (`--theme`)
 
 A theme is a CSS stylesheet included in the HTML layout.
 
 The `--theme` option can receive the name of a [preset](./assets/themes/)
-(e.g. `github`) or the path to a custom theme file (`path/to/my-theme.css`).
+(e.g. `github`) or the path to a custom theme file (`path/to/my-theme.css`
+or a HTTP URL).
 
 #### Highlight style (`--highlight-style`)
 
@@ -84,7 +85,7 @@ to add a style to code blocks.
 The `--highlight-style` option can receive the name of a
 [Hightlight.js style](https://github.com/highlightjs/highlight.js/tree/master/src/styles)
 (file name without extension, e.g. `solarized-dark`) or the path to a custom
-style file.
+style file (a local path or a HTTP URL).
 
 #### Additional features
 
@@ -148,10 +149,10 @@ mdtodoc doc.md -l "page" -t "github" -h "atom-one-light" -n -c --embed-mode "ful
 All external resources (CSS, JS and images) referenced in the Markdown file
 are now embedded into the output HTML file.
 
-**Use a custom layout**
+**Use a custom layout (local file) and a custom highlight style (URL)**
 
 ```shell
-mdtodoc doc.md -l "./assets/layouts/page.html" -t "github" -h "monokai" -n -c -e "full"
+mdtodoc doc.md -l "./assets/layouts/page.html" -t "github" -h "https://raw.githubusercontent.com/highlightjs/highlight.js/master/src/styles/monokai.css" -n -c -e "full"
 ```
 
 Read [options documentation](#options) for more information on how to use
