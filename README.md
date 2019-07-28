@@ -7,7 +7,7 @@
 A Markdown CLI to easily generate HTML documents from Markdown files.
 
 > The original purpose of this tool was to provide an alternative to using
-> Microsoft Word to write and share technical documents.
+> Microsoft Word to write and send technical documents.
 
 ## Install
 
