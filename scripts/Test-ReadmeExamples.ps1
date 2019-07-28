@@ -7,6 +7,10 @@ Push-Location (Join-Path -Path $PSScriptRoot -ChildPath "..")
 
 $exitCode = 0
 
+if (-not (Get-Command "mdtodoc" -ErrorAction SilentlyContinue)) {
+    npm link
+}
+
 Get-Content ./README.md |
     Select-String -Pattern "^mdtodoc .+\.md" |
     ForEach-Object { $_ -replace "doc.md","README.md" -replace "--?w(atch)?","" } |
