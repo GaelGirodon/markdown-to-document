@@ -97,7 +97,7 @@ class Processor {
         // Apply .hljs CSS class to all <pre> tags
         output = output.replace(/<pre>/g, '<pre class="hljs">');
         // Minify
-        output = minify(output, { minifyCSS: true, minifyJS: true });
+        output = minify(output, { minifyCSS: true, minifyJS: true, removeComments: true });
         // Save output file
         const outputFileName = path.basename(src).replace(/\.md$/, ".html");
         const outputFile = path.join(dest || path.dirname(src), outputFileName);
