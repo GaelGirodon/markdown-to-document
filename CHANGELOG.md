@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.4.0 - 2019-07-28
+
+- Improve resources paths management
+- Support remote paths to custom layouts, themes and highlight styles
+- Improve resources inlining
+- Improve the code copy feature
+
 ## 0.3.0 - 2019-07-28
 
 - Improve CLI
