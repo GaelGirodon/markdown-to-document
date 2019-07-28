@@ -2,11 +2,12 @@
 
 [![npm - version](https://img.shields.io/npm/v/markdown-to-document?color=informational&style=flat-square)](https://www.npmjs.com/package/markdown-to-document)
 ![npm - license](https://img.shields.io/npm/l/markdown-to-document?color=informational&style=flat-square)
+![node](https://img.shields.io/node/v/markdown-to-document?style=flat-square)
 
 A Markdown CLI to easily generate HTML documents from Markdown files.
 
 > The original purpose of this tool was to provide an alternative to using
-> Microsoft Word to write and share technical documents.
+> Microsoft Word to write and send technical documents.
 
 ## Install
 
@@ -15,6 +16,10 @@ Install the CLI globally using NPM:
 ```shell
 npm i markdown-to-document -g
 ```
+
+> **Linux users:** `EACCES` permissions errors when installing packages globally?<br>
+> → Follow [this guide](https://docs.npmjs.com/resolving-eacces-permissions-errors-when-installing-packages-globally)
+> to resolve them.
 
 ## Usage
 
@@ -142,6 +147,15 @@ mdtodoc doc.md -l "page" -t "github" -h "atom-one-light" -n -c --embed-mode "ful
 
 All external resources (CSS, JS and images) referenced in the Markdown file
 are now embedded into the output HTML file.
+
+**Use a custom layout**
+
+```shell
+mdtodoc doc.md -l "./assets/layouts/page.html" -t "github" -h "monokai" -n -c -e "full"
+```
+
+Read [options documentation](#options) for more information on how to use
+`--layout`, `--theme` and `--highlight-style` options.
 
 ## Resources
 

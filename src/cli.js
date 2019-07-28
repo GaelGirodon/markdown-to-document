@@ -35,7 +35,14 @@ program
         const proc = new Processor(opts);
         proc.init()
             .then(() => proc.process(path, cmd.output, cmd.watch))
-            .catch(err => console.error(chalk.redBright(err)));
+            .catch(err => {
+                console.error(chalk.redBright(err));
+                process.exit(1);
+            });
     });
 
 program.parse(process.argv);
+
+if (!process.argv.slice(2).length) {
+    program.help();
+}
