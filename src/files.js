@@ -1,3 +1,4 @@
+const paths = require("path");
 const Promise = require("bluebird");
 const fs = Promise.promisifyAll(require("fs"));
 
@@ -39,6 +40,29 @@ async function isReadable(path) {
 }
 
 /**
+ * Check whether the file specified by path is a local
+ * or remote resource (HTTP/network).
+ * @param {string} path A path to a file or directory
+ * @return {boolean} true if the file is a remote file
+ */
+function isRemote(path) {
+    return /^https?:\/\/|^\/\//.test(path);
+}
+
+/**
+ * Transform a local absolute path to an URL (ignores remote paths).
+ * @example
+ * localToUrl("C:\\path\\assets\\file.ext", "C:\\path\\") -> "assets/file.ext"
+ * @param {string} path A path to a file
+ * @param {string} base Web root path (the output URL will be relative to this)
+ * @return {string} The URL
+ */
+function localToUrl(path, base) {
+    if (isRemote(path)) return path;
+    return paths.relative(base, path).replace(/\\/g, "/");
+}
+
+/**
  * Opens a text file, reads all the text in the file into a string,
  * and then closes the file.
  * @param {string} path The path to the file to read
@@ -63,6 +87,8 @@ module.exports = {
     exists,
     isDirectory,
     isReadable,
+    isRemote,
+    localToUrl,
     readAllText,
     writeAllText
 };

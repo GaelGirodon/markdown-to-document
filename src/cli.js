@@ -33,12 +33,10 @@ program
             embedMode: cmd.embedMode
         };
         const proc = new Processor(opts);
-        proc.init()
-            .then(() => proc.process(path, cmd.output, cmd.watch))
-            .catch(err => {
-                console.error(chalk.redBright(err));
-                process.exit(1);
-            });
+        proc.process(path, cmd.output, cmd.watch).catch(err => {
+            console.error(chalk.redBright(err));
+            process.exit(1);
+        });
     });
 
 program.parse(process.argv);
