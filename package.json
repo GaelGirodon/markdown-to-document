@@ -21,8 +21,8 @@
     "url": "https://github.com/GaelGirodon/markdown-to-document.git"
   },
   "scripts": {
-    "format": "prettier --write \"{src,assets}/**/*.{js,css}\"",
-    "format:check": "prettier --check \"{src,assets}/**/*.{js,css}\"",
+    "format": "prettier --write \"**/*.{js,json,css}\"",
+    "format:check": "prettier --check \"**/*.{js,json,css}\"",
     "lint": "eslint **/*.js",
     "postinstall": "node ./src/patch.js"
   },

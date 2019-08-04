@@ -8,12 +8,12 @@ const fs = Promise.promisifyAll(require("fs"));
  * @return {Promise<boolean>} true if the file exists
  */
 async function exists(path) {
-    try {
-        await fs.accessAsync(path, fs.constants.F_OK);
-        return true;
-    } catch (err) {
-        return false;
-    }
+  try {
+    await fs.accessAsync(path, fs.constants.F_OK);
+    return true;
+  } catch (err) {
+    return false;
+  }
 }
 
 /**
@@ -22,7 +22,7 @@ async function exists(path) {
  * @return {Promise<boolean>} true if the file is a directory
  */
 async function isDirectory(path) {
-    return (await fs.statAsync(path)).isDirectory();
+  return (await fs.statAsync(path)).isDirectory();
 }
 
 /**
@@ -31,12 +31,12 @@ async function isDirectory(path) {
  * @return {Promise<boolean>} true if the file exists and is readable
  */
 async function isReadable(path) {
-    try {
-        await fs.accessAsync(path, fs.constants.F_OK | fs.constants.R_OK);
-        return true;
-    } catch (err) {
-        return false;
-    }
+  try {
+    await fs.accessAsync(path, fs.constants.F_OK | fs.constants.R_OK);
+    return true;
+  } catch (err) {
+    return false;
+  }
 }
 
 /**
@@ -46,7 +46,7 @@ async function isReadable(path) {
  * @return {boolean} true if the file is a remote file
  */
 function isRemote(path) {
-    return /^https?:\/\/|^\/\//.test(path);
+  return /^https?:\/\/|^\/\//.test(path);
 }
 
 /**
@@ -58,8 +58,8 @@ function isRemote(path) {
  * @return {string} The URL
  */
 function localToUrl(path, base) {
-    if (isRemote(path)) return path;
-    return paths.relative(base, path).replace(/\\/g, "/");
+  if (isRemote(path)) return path;
+  return paths.relative(base, path).replace(/\\/g, "/");
 }
 
 /**
@@ -69,7 +69,7 @@ function localToUrl(path, base) {
  * @return {Promise<string>} A string containing all the text in the file.
  */
 function readAllText(path) {
-    return fs.readFileAsync(path, "utf8");
+  return fs.readFileAsync(path, "utf8");
 }
 
 /**
@@ -80,15 +80,15 @@ function readAllText(path) {
  * @return {Promise}
  */
 function writeAllText(path, contents) {
-    return fs.writeFileAsync(path, contents, "utf8");
+  return fs.writeFileAsync(path, contents, "utf8");
 }
 
 module.exports = {
-    exists,
-    isDirectory,
-    isReadable,
-    isRemote,
-    localToUrl,
-    readAllText,
-    writeAllText
+  exists,
+  isDirectory,
+  isReadable,
+  isRemote,
+  localToUrl,
+  readAllText,
+  writeAllText,
 };
