@@ -2,10 +2,9 @@
 
 const program = require("commander");
 const chalk = require("chalk");
-const package = require("../package.json");
 const { Processor } = require("./processor");
 
-program.version(package.version);
+program.version("0.4.0");
 
 program
   .arguments("<path...>")

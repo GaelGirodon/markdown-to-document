@@ -22,7 +22,7 @@ async function exists(path) {
  * @return {Promise<boolean>} true if the file is a directory
  */
 async function isDirectory(path) {
-  return (await fs.statAsync(path)).isDirectory();
+  return (await exists(path)) && (await fs.statAsync(path)).isDirectory();
 }
 
 /**

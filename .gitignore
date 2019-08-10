@@ -4,3 +4,6 @@
 
 node_modules
 /*.html
+.nyc_output
+coverage
+test-results.xml

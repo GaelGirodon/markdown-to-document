@@ -20,7 +20,7 @@ class Processor {
    * @param {*} opts Processor options
    */
   constructor(opts) {
-    this.embedMode = opts.embedMode;
+    this.embedMode = opts.embedMode || "light";
     this.style = new Style(opts);
     this.compiler = compiler(opts.codeCopy);
   }

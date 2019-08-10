@@ -24,7 +24,10 @@
     "format": "prettier --write \"**/*.{js,json,css}\"",
     "format:check": "prettier --check \"**/*.{js,json,css}\"",
     "lint": "eslint **/*.js",
-    "postinstall": "node ./src/patch.js"
+    "postinstall": "node ./src/patch.js",
+    "test": "mocha --timeout 5000",
+    "test:coverage": "nyc --reporter=html --reporter=text --all --include \"{assets,src}/**/*.js\" mocha --timeout 5000",
+    "test:ci": "nyc --reporter=cobertura --all --include \"{assets,src}/**/*.js\" mocha --reporter mocha-junit-reporter --timeout 10000"
   },
   "dependencies": {
     "bluebird": "^3.5.5",
@@ -51,8 +54,13 @@
     "web-resource-inliner": "^4.3.3"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
     "eslint": "^6.1.0",
-    "prettier": "^1.18.2"
+    "mocha": "^6.2.0",
+    "mocha-junit-reporter": "^1.23.1",
+    "nyc": "^14.1.1",
+    "prettier": "^1.18.2",
+    "sinon": "^7.4.1"
   },
   "engines": {
     "node": ">=10.0.0"
