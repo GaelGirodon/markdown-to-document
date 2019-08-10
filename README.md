@@ -1,8 +1,11 @@
 # Markdown To Document
 
-[![npm - version](https://img.shields.io/npm/v/markdown-to-document?color=informational&style=flat-square)](https://www.npmjs.com/package/markdown-to-document)
-![npm - license](https://img.shields.io/npm/l/markdown-to-document?color=informational&style=flat-square)
+[![npm version](https://img.shields.io/npm/v/markdown-to-document?color=informational&style=flat-square)](https://www.npmjs.com/package/markdown-to-document)
+![npm license](https://img.shields.io/npm/l/markdown-to-document?color=informational&style=flat-square)
 ![node](https://img.shields.io/node/v/markdown-to-document?style=flat-square)
+[![build](https://img.shields.io/azure-devops/build/gaelgirodon/markdown-to-document/9?style=flat-square)](https://gaelgirodon.visualstudio.com/markdown-to-document)
+![tests](https://img.shields.io/azure-devops/tests/gaelgirodon/markdown-to-document/9?style=flat-square)
+![coverage](https://img.shields.io/azure-devops/coverage/gaelgirodon/markdown-to-document/9?style=flat-square)
 
 A Markdown CLI to easily generate HTML documents from Markdown files.
 
@@ -11,7 +14,7 @@ A Markdown CLI to easily generate HTML documents from Markdown files.
 
 ## Install
 
-Install the CLI globally using NPM:
+Install the CLI globally using NPM ([Node.js](https://nodejs.org/) >= 10.0.0 required):
 
 ```shell
 npm i markdown-to-document -g

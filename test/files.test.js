@@ -46,7 +46,7 @@ describe("files", () => {
 
   describe("localToUrl", () => {
     it("should transform a local absolute path to an URL", () => {
-      assert.equal(files.localToUrl("C:\\path\\assets\\file.ext", "C:\\path\\"), "assets/file.ext");
+      assert.equal(files.localToUrl("/path/assets/file.ext", "/path/"), "assets/file.ext");
     });
   });
 
