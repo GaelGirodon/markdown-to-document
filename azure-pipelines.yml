@@ -42,3 +42,6 @@ stages:
             inputs:
               codeCoverageTool: Cobertura
               summaryFileLocation: '**/*coverage.xml'
+
+          - powershell: scripts/Test-ReadmeExamples.ps1
+            displayName: 'Test usage examples from README.md'
