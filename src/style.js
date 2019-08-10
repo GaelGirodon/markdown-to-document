@@ -15,7 +15,7 @@ const THEMES_PATH = paths.join(ASSETS_PATH, "themes");
 
 /** Themes from external modules */
 const NODE_THEMES = {
-    github: paths.join(NODE_MODULES_PATH, "github-markdown-css", "github-markdown.css")
+  github: paths.join(NODE_MODULES_PATH, "github-markdown-css", "github-markdown.css"),
 };
 
 /** Path to Highlight.js styles directory */
@@ -28,134 +28,133 @@ const EXT_PATH = paths.join(ASSETS_PATH, "ext");
  * A Markdown compiler style.
  */
 class Style {
-    /**
-     * Construct a style from a layout, a theme, a highlight style
-     * and other options (numbered headings, code copy).
-     * @param {*} opts Style options
-     */
-    constructor(opts) {
-        this.layout = opts.layout || "none"; // HTML layout
-        this.theme = opts.theme; // CSS theme
-        this.highlightStyle = opts.highlightStyle; // Syntax highlighting style
-        this.numberedHeadings = opts.numberedHeadings; // Enable numbered headings
-        this.codeCopy = opts.codeCopy; // Enable copy code button
-        this.stylePaths = [];
-        this.scriptsPaths = [];
+  /**
+   * Construct a style from a layout, a theme, a highlight style
+   * and other options (numbered headings, code copy).
+   * @param {*} opts Style options
+   */
+  constructor(opts) {
+    this.layout = opts.layout || "none"; // HTML layout
+    this.theme = opts.theme; // CSS theme
+    this.highlightStyle = opts.highlightStyle; // Syntax highlighting style
+    this.numberedHeadings = opts.numberedHeadings; // Enable numbered headings
+    this.codeCopy = opts.codeCopy; // Enable copy code button
+    this.stylePaths = [];
+    this.scriptsPaths = [];
+  }
+
+  /**
+   * Prepare the style
+   * (load the HTML template layout and prepare styles and scripts paths).
+   * @return {Promise<Style>} this
+   */
+  async init() {
+    // Template
+    this.template = await this.loadLayout(this.layout);
+
+    // Styles: theme, highlight style and extensions
+    if (this.theme) this.stylePaths.push(await this.loadTheme(this.theme));
+    if (this.highlightStyle)
+      this.stylePaths.push(await this.loadHighlightStyle(this.highlightStyle));
+    if (this.numberedHeadings) this.stylePaths.push(paths.join(EXT_PATH, "numbered-headings.css"));
+    if (this.codeCopy) this.stylePaths.push(paths.join(EXT_PATH, "code-copy.css"));
+
+    // Scripts
+    if (this.codeCopy) {
+      this.scriptsPaths.push(
+        paths.join(NODE_MODULES_PATH, "clipboard", "dist", "clipboard.min.js")
+      );
+      this.scriptsPaths.push(paths.join(EXT_PATH, "code-copy.js"));
     }
+    return this;
+  }
 
-    /**
-     * Prepare the style
-     * (load the HTML template layout and prepare styles and scripts paths).
-     * @return {Promise<Style>} this
-     */
-    async init() {
-        // Template
-        this.template = await this.loadLayout(this.layout);
+  /**
+   * Prepare and return styles tags (theme, highlight style and extensions).
+   * @param {string} base Transform styles path to make them relative to this path.
+   * @return {Promise<string>} Styles tags
+   */
+  async styles(base) {
+    return this.stylePaths
+      .map(s => `<link rel="stylesheet" href="${files.localToUrl(s, base)}">`)
+      .join("\n");
+  }
 
-        // Styles: theme, highlight style and extensions
-        if (this.theme) this.stylePaths.push(await this.loadTheme(this.theme));
-        if (this.highlightStyle)
-            this.stylePaths.push(await this.loadHighlightStyle(this.highlightStyle));
-        if (this.numberedHeadings)
-            this.stylePaths.push(paths.join(EXT_PATH, "numbered-headings.css"));
-        if (this.codeCopy) this.stylePaths.push(paths.join(EXT_PATH, "code-copy.css"));
+  /**
+   * Prepare and return scripts tags.
+   * @param {string} base Transform scripts path to make them relative to this path.
+   * @return {Promise<string>} Scripts tags
+   */
+  async scripts(base) {
+    return this.scriptsPaths
+      .map(s => `<script src="${files.localToUrl(s, base)}"></script>`)
+      .join("\n");
+  }
 
-        // Scripts
-        if (this.codeCopy) {
-            this.scriptsPaths.push(
-                paths.join(NODE_MODULES_PATH, "clipboard", "dist", "clipboard.min.js")
-            );
-            this.scriptsPaths.push(paths.join(EXT_PATH, "code-copy.js"));
-        }
-        return this;
+  /**
+   * Load a layout.
+   * @param {string} layout Predefined layout name or custom layout path
+   * @return {Promise<string>} The layout file content
+   */
+  async loadLayout(layout) {
+    // Predefined layout
+    let layoutPath = paths.join(LAYOUTS_PATH, layout + ".html");
+    if (!/^[\w-]+$/.test(layout) || !(await files.isReadable(layoutPath))) {
+      // Custom layout
+      layoutPath = await this.validate(layout, layout, "layout");
     }
+    return await files.readAllText(layoutPath);
+  }
 
-    /**
-     * Prepare and return styles tags (theme, highlight style and extensions).
-     * @param {string} base Transform styles path to make them relative to this path.
-     * @return {Promise<string>} Styles tags
-     */
-    async styles(base) {
-        return this.stylePaths
-            .map(s => `<link rel="stylesheet" href="${files.localToUrl(s, base)}">`)
-            .join("\n");
+  /**
+   * Load a theme.
+   * @param {string} theme Predefined theme name or custom theme path
+   * @return {Promise<string>} The valid theme file path
+   */
+  async loadTheme(theme) {
+    // Predefined theme
+    let themePath =
+      theme in NODE_THEMES ? NODE_THEMES[theme] : paths.join(THEMES_PATH, theme + ".css");
+    if (!/^[\w-]+$/.test(theme) || !(await files.isReadable(themePath))) {
+      // Custom theme
+      themePath = await this.validate(theme, theme, "theme");
     }
+    return themePath;
+  }
 
-    /**
-     * Prepare and return scripts tags.
-     * @param {string} base Transform scripts path to make them relative to this path.
-     * @return {Promise<string>} Scripts tags
-     */
-    async scripts(base) {
-        return this.scriptsPaths
-            .map(s => `<script src="${files.localToUrl(s, base)}"></script>`)
-            .join("\n");
+  /**
+   * Load a highlight style.
+   * @param {string} style Predefined style name or custom style path
+   * @return {Promise<string>} The valid highlight style file path
+   */
+  async loadHighlightStyle(style) {
+    // Predefined highlight style
+    let stylePath = paths.join(HLJS_STYLES_PATH, style + ".css");
+    if (!/^[\w-]+$/.test(style) || !(await files.isReadable(stylePath))) {
+      // Custom highlight style
+      stylePath = await this.validate(style, style, "highlight style");
     }
+    return stylePath;
+  }
 
-    /**
-     * Load a layout.
-     * @param {string} layout Predefined layout name or custom layout path
-     * @return {Promise<string>} The layout file content
-     */
-    async loadLayout(layout) {
-        // Predefined layout
-        let layoutPath = paths.join(LAYOUTS_PATH, layout + ".html");
-        if (!/^[\w-]+$/.test(layout) || !(await files.isReadable(layoutPath))) {
-            // Custom layout
-            layoutPath = await this.validate(layout, layout, "layout");
-        }
-        return await files.readAllText(layoutPath);
+  /**
+   * Tests a resource path to check if it is a readable file.
+   * Returns the file path on success, throws on error.
+   * If the path is a remote path (HTTP/network), the test is skipped
+   * and the file URL is returned.
+   * @param {string} path The resource path
+   * @param {string} name The resource name
+   * @param {string} type The resource type
+   * @return {Promise<string>} The file path (if the file is readable)
+   */
+  async validate(path, name, type) {
+    if (!files.isRemote(path) && !(await files.isReadable(path))) {
+      throw new Error(`Invalid ${type} '${name}': file not found or not readable.`);
     }
-
-    /**
-     * Load a theme.
-     * @param {string} theme Predefined theme name or custom theme path
-     * @return {Promise<string>} The valid theme file path
-     */
-    async loadTheme(theme) {
-        // Predefined theme
-        let themePath =
-            theme in NODE_THEMES ? NODE_THEMES[theme] : paths.join(THEMES_PATH, theme + ".css");
-        if (!/^[\w-]+$/.test(theme) || !(await files.isReadable(themePath))) {
-            // Custom theme
-            themePath = await this.validate(theme, theme, "theme");
-        }
-        return themePath;
-    }
-
-    /**
-     * Load a highlight style.
-     * @param {string} style Predefined style name or custom style path
-     * @return {Promise<string>} The valid highlight style file path
-     */
-    async loadHighlightStyle(style) {
-        // Predefined highlight style
-        let stylePath = paths.join(HLJS_STYLES_PATH, style + ".css");
-        if (!/^[\w-]+$/.test(style) || !(await files.isReadable(stylePath))) {
-            // Custom highlight style
-            stylePath = await this.validate(style, style, "highlight style");
-        }
-        return stylePath;
-    }
-
-    /**
-     * Tests a resource path to check if it is a readable file.
-     * Returns the file path on success, throws on error.
-     * If the path is a remote path (HTTP/network), the test is skipped
-     * and the file URL is returned.
-     * @param {string} path The resource path
-     * @param {string} name The resource name
-     * @param {string} type The resource type
-     * @return {Promise<string>} The file path (if the file is readable)
-     */
-    async validate(path, name, type) {
-        if (!files.isRemote(path) && !(await files.isReadable(path))) {
-            throw new Error(`Invalid ${type} '${name}': file not found or not readable.`);
-        }
-        return path;
-    }
+    return path;
+  }
 }
 
 module.exports = {
-    Style
+  Style,
 };
