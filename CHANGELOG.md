@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.5.0 - 2019-08-10
+
+- Improve testing
+- Setup CI
+
 ## 0.4.0 - 2019-07-28
 
 - Improve resources paths management

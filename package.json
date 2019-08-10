@@ -1,6 +1,6 @@
 {
   "name": "markdown-to-document",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "A Markdown CLI to easily generate HTML documents from Markdown files",
   "keywords": [
     "markdown",
@@ -38,7 +38,7 @@
     "commander": "^2.20.0",
     "github-markdown-css": "^3.0.1",
     "glob": "^7.1.4",
-    "highlight.js": "^9.15.8",
+    "highlight.js": "^9.15.9",
     "html-minifier": "^4.0.0",
     "markdown-it": "^9.0.1",
     "markdown-it-abbr": "^1.0.4",
