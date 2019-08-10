@@ -4,7 +4,7 @@ const program = require("commander");
 const chalk = require("chalk");
 const { Processor } = require("./processor");
 
-program.version("0.4.0");
+program.version("0.5.0");
 
 program
   .arguments("<path...>")
