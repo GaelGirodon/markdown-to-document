@@ -1,0 +1,12 @@
+#
+# .npmignore
+#
+
+scripts
+test
+.editorconfig
+.eslintrc.js
+.prettierignore
+.prettierrc
+azure-pipelines.yml
+jsconfig.json
