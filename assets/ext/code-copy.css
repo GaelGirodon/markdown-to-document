@@ -1,27 +1,28 @@
-.code-container,
-.hljs {
+.code-container {
     position: relative;
 }
-.hljs code {
-    /* "Copy" button will take some place on the right side */
-    margin-right: 72px !important;
-}
 .hljs textarea {
-    /* Hide the textarea under the code block*/
+    /* Hide the textarea under the code block */
     position: absolute;
     top: 0;
     z-index: -1;
 }
 .code-container .btn-copy {
     position: absolute;
-    top: 14px;
-    right: 14px;
+    top: 13px;
+    right: 4px;
     background-color: rgb(255, 255, 255);
     border: solid 1px rgba(0, 0, 0, 0.15);
     border-radius: 2px;
     color: rgb(54, 54, 54);
     cursor: pointer;
     padding: 3px 8px;
+    opacity: 0;
+    transition: right 0.15s ease, opacity 0.15s ease;
+}
+.code-container:hover .btn-copy {
+    right: 14px;
+    opacity: 1;
 }
 .code-container .btn-copy:hover {
     border-color: rgba(0, 0, 0, 0.3);
