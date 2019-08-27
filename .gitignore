@@ -2,6 +2,11 @@
 # .gitignore
 #
 
+# IDE
+.idea/
+.vscode/
+
+# Project
 node_modules
 /*.html
 /*.tgz
