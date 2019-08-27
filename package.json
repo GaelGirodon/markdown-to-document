@@ -23,7 +23,7 @@
   "scripts": {
     "format": "prettier --write \"**/*.{js,json,css}\"",
     "format:check": "prettier --check \"**/*.{js,json,css}\"",
-    "lint": "eslint **/*.js",
+    "lint": "eslint \"**/*.js\"",
     "postinstall": "node ./src/patch.js",
     "test": "mocha --timeout 5000",
     "test:coverage": "nyc --reporter=html --reporter=text --all --include \"{assets,src}/**/*.js\" mocha --timeout 5000",
