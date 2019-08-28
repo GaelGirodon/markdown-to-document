@@ -13,10 +13,16 @@ const githubPath = path.join(
   "github-markdown-css",
   "github-markdown.css"
 );
-files.readAllText(githubPath).then(css => {
-  css = css
-    .replace(/\.markdown-body/g, "body")
-    .replace(/(list-style-type: lower-.*;)/g, "/* $1 */")
-    .replace("\n  padding: 16px;\n}", "\n  padding: 16px !important;\n}");
-  return files.writeAllText(githubPath, css);
+files.exists(githubPath).then(exists => {
+  if (exists) {
+    files.readAllText(githubPath).then(css => {
+      css = css
+        .replace(/\.markdown-body/g, "body")
+        .replace(/(list-style-type: lower-.*;)/g, "/* $1 */")
+        .replace("\n  padding: 16px;\n}", "\n  padding: 16px !important;\n}");
+      return files.writeAllText(githubPath, css);
+    });
+  } else {
+    console.error(`GitHub Markdown CSS stylesheet (${githubPath}) not found, patch skipped.`);
+  }
 });

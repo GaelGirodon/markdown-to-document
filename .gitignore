@@ -2,8 +2,15 @@
 # .gitignore
 #
 
+# IDE
+.idea
+*.iml
+.vscode
+
+# Project
 node_modules
 /*.html
+/*.tgz
 .nyc_output
 coverage
 test-results.xml
