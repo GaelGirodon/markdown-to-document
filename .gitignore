@@ -3,8 +3,9 @@
 #
 
 # IDE
-.idea/
-.vscode/
+.idea
+*.iml
+.vscode
 
 # Project
 node_modules
