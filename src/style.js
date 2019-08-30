@@ -1,5 +1,6 @@
 const paths = require("path");
 const files = require("./files");
+const { fetchText } = require("./net");
 
 /** Path to node_modules directory */
 const NODE_MODULES_PATH = paths.join(__dirname, "..", "node_modules");
@@ -93,10 +94,18 @@ class Style {
 
   /**
    * Load a layout.
-   * @param {string} layout Predefined layout name or custom layout path
+   * @param {string} layout Predefined layout name or custom layout path (local file or URL)
    * @return {Promise<string>} The layout file content
    */
   async loadLayout(layout) {
+    // URL
+    if (files.isRemote(layout)) {
+      try {
+        return await fetchText(layout, true);
+      } catch (e) {
+        throw new Error(`Invalid layout '${layout}': ${e.message}.`);
+      }
+    } // else: Local path
     // Predefined layout
     let layoutPath = paths.join(LAYOUTS_PATH, layout + ".html");
     if (!/^[\w-]+$/.test(layout) || !(await files.isReadable(layoutPath))) {

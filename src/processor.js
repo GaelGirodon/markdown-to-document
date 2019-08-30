@@ -29,11 +29,12 @@ class Processor {
    * Process Markdown files.
    * @param {string} src Path to the Markdown files to process
    * @param {string} dest Output path
+   * @param {boolean} watch Watch Markdown files
    */
   async process(src, dest, watch) {
     // List and check source files
-    const sources = src.length == 1 && glob.hasMagic(src[0]) ? await glob(src[0]) : src;
-    if (!sources || sources.length == 0 || !sources.every(s => /\.md$/.test(s))) {
+    const sources = src.length === 1 && glob.hasMagic(src[0]) ? await glob(src[0]) : src;
+    if (!sources || sources.length === 0 || !sources.every(s => /\.md$/.test(s))) {
       throw new Error("Invalid source file(s) (should be valid .md files).");
     }
     // Check destination path
@@ -89,7 +90,7 @@ class Processor {
     // Inline resources
     if (["light", "full"].includes(this.embedMode)) {
       let options = { fileContent: output, relativeTo: base };
-      if (this.embedMode == "full") {
+      if (this.embedMode === "full") {
         Object.assign(options, { images: true, svgs: true });
       }
       output = await inline(options);

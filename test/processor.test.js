@@ -73,12 +73,13 @@ describe("Processor", () => {
     it("should fail if the destination is invalid", async () => {
       const proc = new Processor({});
       const src = buildPath("README.md");
+      let throws = false;
       try {
         await proc.process([src], buildPath("unknown"));
-        assert.fail();
       } catch (ex) {
-        // success
+        throws = true;
       }
+      assert.isTrue(throws);
     });
   });
 
@@ -108,12 +109,13 @@ describe("Processor", () => {
         theme: "unknown", // "unknown" is not a valid theme
         highlightStyle: "atom-one-light",
       });
+      let throws = false;
       try {
         await proc.process([buildPath("README.md")]);
-        assert.fail();
       } catch (ex) {
-        // success
+        throws = true;
       }
+      assert.isTrue(throws);
     });
   });
 
@@ -167,12 +169,68 @@ describe("Processor", () => {
           "https://raw.githubusercontent.com/highlightjs/highlight.js/master/src/styles/monokai.css",
         numberedHeadings: true,
         codeCopy: true,
-        embedMode: true,
+        embedMode: "full",
       });
       const src = buildPath("README.md");
       const dst = buildPath("README.html");
       await proc.process([src]);
       assert.isTrue(await files.exists(dst));
+    });
+    it("should use a custom layout, theme and highlight style (URL)", async () => {
+      const proc = new Processor({
+        layout:
+          "https://raw.githubusercontent.com/GaelGirodon/markdown-to-document/master/assets/layouts/page.html",
+        theme:
+          "https://raw.githubusercontent.com/highlightjs/highlight.js/master/src/styles/monokai.css",
+        highlightStyle:
+          "https://raw.githubusercontent.com/highlightjs/highlight.js/master/src/styles/monokai.css",
+        numberedHeadings: true,
+        codeCopy: true,
+        embedMode: "full",
+      });
+      const src = buildPath("README.md");
+      const dst = buildPath("README.html");
+      await proc.process([src]);
+      assert.isTrue(await files.exists(dst));
+    });
+    it("should fail if the custom layout doesn't exist (local file)", async () => {
+      const proc = new Processor({
+        layout: buildPath("assets/layouts/unknown.html"),
+        theme:
+          "https://raw.githubusercontent.com/highlightjs/highlight.js/master/src/styles/monokai.css",
+        highlightStyle:
+          "https://raw.githubusercontent.com/highlightjs/highlight.js/master/src/styles/monokai.css",
+        numberedHeadings: true,
+        codeCopy: true,
+        embedMode: "full",
+      });
+      let throws = false;
+      try {
+        await proc.process([buildPath("README.md")]);
+      } catch (ex) {
+        throws = true;
+      }
+      assert.isTrue(throws);
+    });
+    it("should fail if the custom layout doesn't exist (URL)", async () => {
+      const proc = new Processor({
+        layout:
+          "https://raw.githubusercontent.com/GaelGirodon/markdown-to-document/master/assets/layouts/unknown.html",
+        theme:
+          "https://raw.githubusercontent.com/highlightjs/highlight.js/master/src/styles/monokai.css",
+        highlightStyle:
+          "https://raw.githubusercontent.com/highlightjs/highlight.js/master/src/styles/monokai.css",
+        numberedHeadings: true,
+        codeCopy: true,
+        embedMode: "full",
+      });
+      let throws = false;
+      try {
+        await proc.process([buildPath("README.md")]);
+      } catch (ex) {
+        throws = true;
+      }
+      assert.isTrue(throws);
     });
   });
 });
