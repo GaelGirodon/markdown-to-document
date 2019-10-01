@@ -32,7 +32,7 @@ program
       embedMode: cmd.embedMode,
     };
     const proc = new Processor(opts);
-    proc.process(path, cmd.output, cmd.watch).catch(err => {
+    proc.process(path, cmd.dest, cmd.watch).catch(err => {
       console.error(chalk.redBright(err));
       process.exit(1);
     });
