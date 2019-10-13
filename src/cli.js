@@ -4,7 +4,7 @@ const program = require("commander");
 const chalk = require("chalk");
 const { Processor } = require("./processor");
 
-program.version("0.6.0");
+program.version("0.7.0");
 
 program
   .arguments("<path...>")
@@ -32,7 +32,7 @@ program
       embedMode: cmd.embedMode,
     };
     const proc = new Processor(opts);
-    proc.process(path, cmd.output, cmd.watch).catch(err => {
+    proc.process(path, cmd.dest, cmd.watch).catch(err => {
       console.error(chalk.redBright(err));
       process.exit(1);
     });
