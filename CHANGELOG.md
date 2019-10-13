@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.7.0 - 2019-10-13
+
+- Improve HTML minifier configuration
+- Add support for custom layout URL
+- Fix `dest` CLI option
+
 ## 0.6.0 - 2019-08-28
 
 - Improve code copy feature
