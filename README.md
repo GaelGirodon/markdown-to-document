@@ -42,12 +42,16 @@ Read [usage examples](#examples) to learn how to use the CLI.
 | `-d, --dest [value]`            | Destination path (default: next to .md files) |
 | `-l, --layout [value]`          | HTML layout                                   |
 | `-t, --theme [value]`           | CSS theme                                     |
-| `-h, --highlight-style [value]` | Syntax highlighting style                     |
+| `-s, --highlight-style [value]` | Syntax highlighting style                     |
 | `-n, --numbered-headings`       | Enable numbered headings                      |
 | `-c, --code-copy`               | Enable copy code button                       |
 | `-e, --embed-mode [value]`      | Embed external resources (default: `light`)   |
 | `-w, --watch`                   | Watch input files and compile on change       |
 | `-h, --help`                    | Output usage information                      |
+
+#### Destination (`--dest`)
+
+The destination path can be used to change where output HTML files are written.
 
 #### Layout (`--layout`)
 
@@ -137,7 +141,7 @@ and some CSS styling is added directly into the HTML file.
 **Enable additional extensions**
 
 ```shell
-mdtodoc doc.md -l "page" -t "github" -h "atom-one-light" --numbered-headings --code-copy
+mdtodoc doc.md -l "page" -t "github" -s "atom-one-light" --numbered-headings --code-copy
 ```
 
 HTML headings are now automatically numbered and a button <kbd>Copy</kbd>
@@ -146,7 +150,7 @@ is added in each code block `<pre>` to copy the content.
 **Embed all externally referenced resources**
 
 ```shell
-mdtodoc doc.md -l "page" -t "github" -h "atom-one-light" -n -c --embed-mode "full"
+mdtodoc doc.md -l "page" -t "github" -s "atom-one-light" -n -c --embed-mode "full"
 ```
 
 All external resources (CSS, JS and images) referenced in the Markdown file
@@ -155,7 +159,7 @@ are now embedded into the output HTML file.
 **Use a custom layout (local file) and a custom highlight style (URL)**
 
 ```shell
-mdtodoc doc.md -l "./assets/layouts/page.html" -t "github" -h "https://raw.githubusercontent.com/highlightjs/highlight.js/master/src/styles/monokai.css" -n -c -e "full"
+mdtodoc doc.md -l "./assets/layouts/page.html" -t "github" -s "https://raw.githubusercontent.com/highlightjs/highlight.js/master/src/styles/monokai.css" -n -c -e "full"
 ```
 
 Read [options documentation](#options) for more information on how to use
@@ -230,7 +234,8 @@ Open [package.json](package.json) to see the full list of dependencies.
 - Link the `mdtodoc` command for development: `npm link`
   - Unlink: `npm unlink`
 - Format code with Prettier: `npm run format[:check]`
-- Lint code with ESLint : `npm run lint`
+- Lint code with ESLint: `npm run lint`
+- Build assets with Gulp: `npm run build:assets`
 
 ## License
 

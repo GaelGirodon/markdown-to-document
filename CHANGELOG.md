@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.8.0 - 2019-12-01
+
+- Improve assets generation (remove `postinstall` script)
+- Fix `-h` CLI option conflict
+- Add a new `basic` layout
+- Update dependencies
+
 ## 0.7.0 - 2019-10-13
 
 - Improve HTML minifier configuration
