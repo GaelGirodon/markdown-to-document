@@ -234,7 +234,8 @@ Open [package.json](package.json) to see the full list of dependencies.
 - Link the `mdtodoc` command for development: `npm link`
   - Unlink: `npm unlink`
 - Format code with Prettier: `npm run format[:check]`
-- Lint code with ESLint : `npm run lint`
+- Lint code with ESLint: `npm run lint`
+- Build assets with Gulp: `npm run build:assets`
 
 ## License
 
