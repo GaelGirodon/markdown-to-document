@@ -119,7 +119,7 @@ describe("Processor", () => {
     });
   });
 
-  describe('mdtodoc doc.md -l "page" -t "github" -h "atom-one-light" --numbered-headings --code-copy', () => {
+  describe('mdtodoc doc.md -l "page" -t "github" -s "atom-one-light" --numbered-headings --code-copy', () => {
     it("should enable additional extensions", async () => {
       const proc = new Processor({
         layout: "page",
@@ -142,7 +142,7 @@ describe("Processor", () => {
     });
   });
 
-  describe('mdtodoc doc.md -l "page" -t "github" -h "atom-one-light" -n -c --embed-mode "full"', () => {
+  describe('mdtodoc doc.md -l "page" -t "github" -s "atom-one-light" -n -c --embed-mode "full"', () => {
     it("should embed everything", async () => {
       const proc = new Processor({
         layout: "page",
@@ -159,7 +159,7 @@ describe("Processor", () => {
     });
   });
 
-  describe('mdtodoc doc.md -l <custom_layout> -t <custom_theme> -h <custom_highlight_style> -n -c -e "full"', () => {
+  describe('mdtodoc doc.md -l <custom_layout> -t <custom_theme> -s <custom_highlight_style> -n -c -e "full"', () => {
     it("should use a custom layout (local file) and a custom theme and highlight style (URL)", async () => {
       const proc = new Processor({
         layout: buildPath("assets/layouts/page.html"),

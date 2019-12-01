@@ -12,7 +12,7 @@ program
   .option("-d, --dest [value]", "destination path (default: next to .md files)")
   .option("-l, --layout [value]", "HTML layout")
   .option("-t, --theme [value]", "CSS theme")
-  .option("-h, --highlight-style [value]", "syntax highlighting style")
+  .option("-s, --highlight-style [value]", "syntax highlighting style")
   .option("-n, --numbered-headings", "enable numbered headings")
   .option("-c, --code-copy", "enable copy code button")
   .option(
