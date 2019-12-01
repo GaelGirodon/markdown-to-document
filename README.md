@@ -49,6 +49,10 @@ Read [usage examples](#examples) to learn how to use the CLI.
 | `-w, --watch`                   | Watch input files and compile on change       |
 | `-h, --help`                    | Output usage information                      |
 
+#### Destination (`--dest`)
+
+The destination path can be used to change where output HTML files are written.
+
 #### Layout (`--layout`)
 
 A layout is a HTML template used as a base for the output HTML file, e.g.:

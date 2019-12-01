@@ -14,11 +14,6 @@ const LAYOUTS_PATH = paths.join(ASSETS_PATH, "layouts");
 /** Path to themes directory */
 const THEMES_PATH = paths.join(ASSETS_PATH, "themes");
 
-/** Themes from external modules */
-const NODE_THEMES = {
-  github: paths.join(NODE_MODULES_PATH, "github-markdown-css", "github-markdown.css"),
-};
-
 /** Path to Highlight.js styles directory */
 const HLJS_STYLES_PATH = paths.join(NODE_MODULES_PATH, "highlight.js", "styles");
 
@@ -121,14 +116,18 @@ class Style {
    * @return {Promise<string>} The valid theme file path
    */
   async loadTheme(theme) {
-    // Predefined theme
-    let themePath =
-      theme in NODE_THEMES ? NODE_THEMES[theme] : paths.join(THEMES_PATH, theme + ".css");
-    if (!/^[\w-]+$/.test(theme) || !(await files.isReadable(themePath))) {
-      // Custom theme
-      themePath = await this.validate(theme, theme, "theme");
-    }
-    return themePath;
+    // Predefined theme (.css)
+    let themePath = paths.join(THEMES_PATH, theme + ".css");
+    if (/^[\w-]+$/.test(theme) && (await files.isReadable(themePath))) {
+      return themePath;
+    } // else
+    // Predefined generated theme (.min.css)
+    themePath = paths.join(THEMES_PATH, theme + ".min.css");
+    if (/^[\w-]+$/.test(theme) && (await files.isReadable(themePath))) {
+      return themePath;
+    } // else
+    // Custom theme
+    return await this.validate(theme, theme, "theme");
   }
 
   /**
