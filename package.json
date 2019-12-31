@@ -33,11 +33,11 @@
     "bluebird": "^3.7.2",
     "chalk": "^2.4.2",
     "cheerio": "^1.0.0-rc.3",
-    "chokidar": "^3.3.0",
+    "chokidar": "^3.3.1",
     "clipboard": "^2.0.4",
     "commander": "^4.0.1",
     "glob": "^7.1.6",
-    "highlight.js": "^9.16.2",
+    "highlight.js": "^9.17.1",
     "html-minifier": "^4.0.0",
     "markdown-it": "^10.0.0",
     "markdown-it-abbr": "^1.0.4",
@@ -56,19 +56,19 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "eslint": "^6.7.2",
+    "eslint": "^6.8.0",
     "github-markdown-css": "^3.0.1",
     "gulp": "^4.0.2",
     "gulp-clean-css": "^4.2.0",
-    "gulp-rename": "^1.4.0",
+    "gulp-rename": "^2.0.0",
     "gulp-replace": "^1.0.0",
     "mocha": "^6.2.2",
     "mocha-junit-reporter": "^1.23.1",
-    "nyc": "^14.1.1",
+    "nyc": "^15.0.0",
     "prettier": "^1.19.1",
-    "sinon": "^7.5.0"
+    "sinon": "^8.0.2"
   },
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=12.0.0"
   }
 }
