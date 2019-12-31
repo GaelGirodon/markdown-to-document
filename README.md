@@ -144,11 +144,12 @@ and some CSS styling is added directly into the HTML file.
 **Enable additional extensions**
 
 ```shell
-mdtodoc doc.md -l "page" -t "github" -s "atom-one-light" --numbered-headings --code-copy
+mdtodoc doc.md -l "page" -t "github" -s "atom-one-light" --numbered-headings --code-copy --mermaid
 ```
 
-HTML headings are now automatically numbered and a button <kbd>Copy</kbd>
-is added in each code block `<pre>` to copy the content.
+HTML headings are now automatically numbered, a button <kbd>Copy</kbd>
+is added in each code block `<pre>` to copy the content and diagrams
+are generated from `mermaid` code blocks (` ```mermaid `).
 
 **Embed all externally referenced resources**
 
