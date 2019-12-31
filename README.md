@@ -45,6 +45,7 @@ Read [usage examples](#examples) to learn how to use the CLI.
 | `-s, --highlight-style [value]` | Syntax highlighting style                     |
 | `-n, --numbered-headings`       | Enable numbered headings                      |
 | `-c, --code-copy`               | Enable copy code button                       |
+| `-m, --mermaid`                 | Enable mermaid                                |
 | `-e, --embed-mode [value]`      | Embed external resources (default: `light`)   |
 | `-w, --watch`                   | Watch input files and compile on change       |
 | `-h, --help`                    | Output usage information                      |
@@ -102,6 +103,8 @@ _Markdown To Document_ includes additional features:
   numbering (`h2` to `h6`, e.g. `1.1.1.`)
 - **Code copy** (`--code-copy`): add a button <kbd>Copy</kbd> in each
   code block to easily copy the block content
+- **Mermaid** (`--mermaid`): add support for [mermaid](https://mermaid-js.github.io/mermaid/)
+  diagrams using fenced code blocks (` ```mermaid `)
 
 #### Embed mode (`--embed-mode`)
 
@@ -220,6 +223,8 @@ Additional features also use the following packages:
   of core jQuery designed specifically for the server
 - [chokidar](https://github.com/paulmillr/chokidar) - A neat wrapper around
   node.js fs.watch / fs.watchFile / FSEvents
+- [mermaid](https://mermaid-js.github.io/mermaid/) - Generation of diagram and
+  flowchart from text in a similar manner as markdown
 
 Open [package.json](package.json) to see the full list of dependencies.
 

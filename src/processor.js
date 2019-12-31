@@ -102,7 +102,7 @@ class Processor {
       minifyCSS: true,
       minifyJS: true,
       removeComments: true,
-      ignoreCustomComments: [/^\s*!/], // Keep comments starting with "!"
+      ignoreCustomComments: [/^\s*!!!/], // Keep comments starting with "!!!"
     });
     // Save output file
     const outputFileName = path.basename(src).replace(/\.md$/, ".html");
