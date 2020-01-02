@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.9.0 - 2020-01-02
+
+- Add support for mermaid diagrams
+- Update dependencies
+
 ## 0.8.0 - 2019-12-01
 
 - Improve assets generation (remove `postinstall` script)
