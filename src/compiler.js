@@ -3,7 +3,8 @@ const markdownIt = require("markdown-it");
 const { randomId } = require("./util");
 
 /** <pre> code block for highlighting function */
-const PRE_BLOCK = '<pre class="hljs"><code>{{ code }}</code>{{ copy_block }}</pre>';
+const PRE_BLOCK =
+  '<pre class="{{ pre_class }}"><code class="{{ code_class }}">{{ code }}</code>{{ copy_block }}</pre>';
 
 /** "Copy to clipboard" additional block */
 const COPY_BLOCK = '<textarea id="{{ id }}" rows="1" cols="2">{{ code }}</textarea>';
@@ -24,15 +25,19 @@ function compiler(codeCopy) {
       : "";
     if (lang && hljs.getLanguage(lang)) {
       try {
-        return PRE_BLOCK.replace(/{{ code }}/g, hljs.highlight(lang, str, true).value).replace(
-          "{{ copy_block }}",
-          copyBlock
-        );
+        return PRE_BLOCK.replace(/{{ pre_class }}/g, "hljs")
+          .replace(/{{ code_class }}/g, `language-${lang} ${lang}`)
+          .replace(/{{ code }}/g, hljs.highlight(lang, str, true).value)
+          .replace(/{{ copy_block }}/g, copyBlock);
       } catch (e) {
         console.debug(e);
       }
     }
-    return PRE_BLOCK.replace(/{{ code }}/g, escapedCode).replace(/{{ copy_block }}/g, copyBlock);
+    const preClass = "no-hljs" + (lang === "mermaid" ? " mermaid-container" : "");
+    return PRE_BLOCK.replace(/{{ pre_class }}/g, preClass)
+      .replace(/{{ code_class }}/g, `language-${lang} ${lang}`)
+      .replace(/{{ code }}/g, escapedCode)
+      .replace(/{{ copy_block }}/g, copyBlock);
   }
 
   /** Markdown.it instance */

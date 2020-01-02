@@ -35,6 +35,7 @@ class Style {
     this.highlightStyle = opts.highlightStyle; // Syntax highlighting style
     this.numberedHeadings = opts.numberedHeadings; // Enable numbered headings
     this.codeCopy = opts.codeCopy; // Enable copy code button
+    this.mermaid = opts.mermaid; // Enable mermaid support
     this.stylePaths = [];
     this.scriptsPaths = [];
   }
@@ -54,6 +55,7 @@ class Style {
       this.stylePaths.push(await this.loadHighlightStyle(this.highlightStyle));
     if (this.numberedHeadings) this.stylePaths.push(paths.join(EXT_PATH, "numbered-headings.css"));
     if (this.codeCopy) this.stylePaths.push(paths.join(EXT_PATH, "code-copy.css"));
+    if (this.mermaid) this.stylePaths.push(paths.join(EXT_PATH, "mermaid.css"));
 
     // Scripts
     if (this.codeCopy) {
@@ -61,6 +63,10 @@ class Style {
         paths.join(NODE_MODULES_PATH, "clipboard", "dist", "clipboard.min.js")
       );
       this.scriptsPaths.push(paths.join(EXT_PATH, "code-copy.js"));
+    }
+    if (this.mermaid) {
+      this.scriptsPaths.push(paths.join(NODE_MODULES_PATH, "mermaid", "dist", "mermaid.min.js"));
+      this.scriptsPaths.push(paths.join(EXT_PATH, "mermaid.js"));
     }
     return this;
   }

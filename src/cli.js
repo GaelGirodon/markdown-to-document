@@ -4,7 +4,7 @@ const program = require("commander");
 const chalk = require("chalk");
 const { Processor } = require("./processor");
 
-program.version("0.8.0");
+program.version("0.9.0");
 
 program
   .arguments("<path...>")
@@ -15,6 +15,7 @@ program
   .option("-s, --highlight-style [value]", "syntax highlighting style")
   .option("-n, --numbered-headings", "enable numbered headings")
   .option("-c, --code-copy", "enable copy code button")
+  .option("-m, --mermaid", "enable mermaid")
   .option(
     "-e, --embed-mode [value]",
     "embed external resources: none, light or full",
@@ -29,6 +30,7 @@ program
       highlightStyle: cmd.highlightStyle,
       numberedHeadings: cmd.numberedHeadings,
       codeCopy: cmd.codeCopy,
+      mermaid: cmd.mermaid,
       embedMode: cmd.embedMode,
     };
     const proc = new Processor(opts);

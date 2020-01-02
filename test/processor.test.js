@@ -119,7 +119,7 @@ describe("Processor", () => {
     });
   });
 
-  describe('mdtodoc doc.md -l "page" -t "github" -s "atom-one-light" --numbered-headings --code-copy', () => {
+  describe('mdtodoc doc.md -l "page" -t "github" -s "atom-one-light" --numbered-headings --code-copy --mermaid', () => {
     it("should enable additional extensions", async () => {
       const proc = new Processor({
         layout: "page",
@@ -127,6 +127,7 @@ describe("Processor", () => {
         highlightStyle: "atom-one-light",
         numberedHeadings: true,
         codeCopy: true,
+        mermaid: true,
       });
       const src = buildPath("README.md");
       const dst = buildPath("README.html");
@@ -139,6 +140,9 @@ describe("Processor", () => {
       assert.include(html, "<textarea id=");
       assert.include(html, "<script>!"); // clipboard.js
       assert.include(html, 'document.querySelectorAll("pre.hljs")'); // code-copy.js
+      // Mermaid
+      assert.include(html, "<style>.mermaid");
+      assert.include(html, "<script>mermaid");
     });
   });
 

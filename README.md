@@ -14,7 +14,7 @@ A Markdown CLI to easily generate HTML documents from Markdown files.
 
 ## Install
 
-Install the CLI globally using NPM ([Node.js](https://nodejs.org/) >= 10 required):
+Install the CLI globally using NPM ([Node.js](https://nodejs.org/) >= 12):
 
 ```shell
 npm i markdown-to-document -g
@@ -45,6 +45,7 @@ Read [usage examples](#examples) to learn how to use the CLI.
 | `-s, --highlight-style [value]` | Syntax highlighting style                     |
 | `-n, --numbered-headings`       | Enable numbered headings                      |
 | `-c, --code-copy`               | Enable copy code button                       |
+| `-m, --mermaid`                 | Enable mermaid                                |
 | `-e, --embed-mode [value]`      | Embed external resources (default: `light`)   |
 | `-w, --watch`                   | Watch input files and compile on change       |
 | `-h, --help`                    | Output usage information                      |
@@ -102,6 +103,8 @@ _Markdown To Document_ includes additional features:
   numbering (`h2` to `h6`, e.g. `1.1.1.`)
 - **Code copy** (`--code-copy`): add a button <kbd>Copy</kbd> in each
   code block to easily copy the block content
+- **Mermaid** (`--mermaid`): add support for [mermaid](https://mermaid-js.github.io/mermaid/)
+  diagrams using fenced code blocks (` ```mermaid `)
 
 #### Embed mode (`--embed-mode`)
 
@@ -141,11 +144,12 @@ and some CSS styling is added directly into the HTML file.
 **Enable additional extensions**
 
 ```shell
-mdtodoc doc.md -l "page" -t "github" -s "atom-one-light" --numbered-headings --code-copy
+mdtodoc doc.md -l "page" -t "github" -s "atom-one-light" --numbered-headings --code-copy --mermaid
 ```
 
-HTML headings are now automatically numbered and a button <kbd>Copy</kbd>
-is added in each code block `<pre>` to copy the content.
+HTML headings are now automatically numbered, a button <kbd>Copy</kbd>
+is added in each code block `<pre>` to copy the content and diagrams
+are generated from `mermaid` code blocks (` ```mermaid `).
 
 **Embed all externally referenced resources**
 
@@ -220,6 +224,8 @@ Additional features also use the following packages:
   of core jQuery designed specifically for the server
 - [chokidar](https://github.com/paulmillr/chokidar) - A neat wrapper around
   node.js fs.watch / fs.watchFile / FSEvents
+- [mermaid](https://mermaid-js.github.io/mermaid/) - Generation of diagram and
+  flowchart from text in a similar manner as markdown
 
 Open [package.json](package.json) to see the full list of dependencies.
 
