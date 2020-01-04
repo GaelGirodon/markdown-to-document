@@ -170,7 +170,7 @@ are now embedded into the output HTML file.
 **Use a custom layout (local file) and a custom highlight style (URL)**
 
 ```shell
-mdtodoc doc.md -l "./assets/layouts/page.html" -t "github" -s "https://raw.githubusercontent.com/highlightjs/highlight.js/master/src/styles/monokai.css" -n -c -e "full"
+mdtodoc doc.md -l "./assets/layouts/page.html" -t "github" -s "https://raw.githubusercontent.com/highlightjs/highlight.js/master/src/styles/monokai.css" -n -c
 ```
 
 Read [options documentation](#options) for more information on how to use

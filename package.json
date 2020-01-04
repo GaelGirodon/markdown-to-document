@@ -4,9 +4,10 @@
   "description": "A Markdown CLI to easily generate HTML documents from Markdown files",
   "keywords": [
     "markdown",
-    "markdown-to-document",
+    "document",
     "cli",
-    "html"
+    "html",
+    "mermaid"
   ],
   "homepage": "https://github.com/GaelGirodon/markdown-to-document#readme",
   "bugs": "https://github.com/GaelGirodon/markdown-to-document/issues",
