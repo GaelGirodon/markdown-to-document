@@ -27,13 +27,24 @@ class Processor {
 
   /**
    * Process Markdown files.
-   * @param {string} src Path to the Markdown files to process
+   * @param {string[]} src Path(s) to the Markdown files to process
    * @param {string} dest Output path
    * @param {boolean} watch Watch Markdown files
    */
   async process(src, dest, watch) {
     // List and check source files
-    const sources = src.length === 1 && glob.hasMagic(src[0]) ? await glob(src[0]) : src;
+    if (!src || src.length === 0) {
+      throw new Error("Source file(s) are required.");
+    }
+    let sources = [];
+    for (const s of src) {
+      // Expand paths with glob syntax
+      sources.push(...(glob.hasMagic(s) ? await glob(s) : [s]));
+    }
+    // Remove duplicates
+    sources = sources
+      .map(s => path.resolve(s)) // Resolve to an absolute path
+      .filter((s, i, all) => all.indexOf(s) === i);
     if (!sources || sources.length === 0 || !sources.every(s => /\.md$/.test(s))) {
       throw new Error("Invalid source file(s) (should be valid .md files).");
     }
