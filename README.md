@@ -130,7 +130,7 @@ _Markdown To Document_ includes additional features:
 
 ```mermaid
 graph LR
-    Start --> Stop
+    Markdown -- mdtodoc --> HTML
 ```
 
 #### Embed mode (`--embed-mode`)

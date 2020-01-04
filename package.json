@@ -7,7 +7,11 @@
     "document",
     "cli",
     "html",
-    "mermaid"
+    "word",
+    "docx",
+    "pdf",
+    "mermaid",
+    "merge"
   ],
   "homepage": "https://github.com/GaelGirodon/markdown-to-document#readme",
   "bugs": "https://github.com/GaelGirodon/markdown-to-document/issues",
