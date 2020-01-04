@@ -139,27 +139,76 @@ describe("Processor", () => {
       // Code copy
       assert.include(html, "<textarea id=");
       assert.include(html, "<script>!"); // clipboard.js
-      assert.include(html, 'document.querySelectorAll("pre.hljs")'); // code-copy.js
+      assert.include(html, 'document.querySelectorAll("pre.code-block")'); // code-copy.js
       // Mermaid
       assert.include(html, "<style>.mermaid");
       assert.include(html, "<script>mermaid");
     });
   });
 
-  describe('mdtodoc doc.md -l "page" -t "github" -s "atom-one-light" -n -c --embed-mode "full"', () => {
-    it("should embed everything", async () => {
+  describe('mdtodoc doc.md -l "page" -t "github" -s "atom-one-light" -n -c -m --embed-mode <embed-mode>', () => {
+    it("should embed only small scripts and images (light)", async () => {
       const proc = new Processor({
         layout: "page",
         theme: "github",
         highlightStyle: "atom-one-light",
         numberedHeadings: true,
         codeCopy: true,
+        mermaid: true,
+        embedMode: "light",
+      });
+      const src = buildPath("README.md");
+      const dst = buildPath("README.html");
+      await proc.process([src]);
+      assert.isTrue(await files.exists(dst));
+      const html = await files.readAllText(dst);
+      // Page should not include CSS external link
+      assert.notInclude(html, 'link rel="stylesheet" href="');
+      // Page should include Mermaid from CDN
+      assert.include(html, 'script src="https://cdn');
+      // Page should include inlined images
+      assert.include(html, 'src="data:image');
+    });
+    it("should embed images and small scripts (default)", async () => {
+      const proc = new Processor({
+        layout: "page",
+        theme: "github",
+        highlightStyle: "atom-one-light",
+        numberedHeadings: true,
+        codeCopy: true,
+        mermaid: true,
+        embedMode: "default",
+      });
+      const src = buildPath("README.md");
+      const dst = buildPath("README.html");
+      await proc.process([src]);
+      assert.isTrue(await files.exists(dst));
+      const html = await files.readAllText(dst);
+      // Page should not include CSS external link
+      assert.notInclude(html, 'link rel="stylesheet" href="');
+      // Page should include Mermaid from CDN
+      assert.include(html, 'script src="https://cdn');
+      // Page should only include inlined images
+      assert.include(html, 'src="data:image');
+    });
+    it("should embed everything (full)", async () => {
+      const proc = new Processor({
+        layout: "page",
+        theme: "github",
+        highlightStyle: "atom-one-light",
+        numberedHeadings: true,
+        codeCopy: true,
+        mermaid: true,
         embedMode: "full",
       });
       const src = buildPath("README.md");
       const dst = buildPath("README.html");
       await proc.process([src]);
       assert.isTrue(await files.exists(dst));
+      const html = await files.readAllText(dst);
+      // Page should not include any external resource
+      assert.notInclude(html, 'link rel="stylesheet" href="');
+      assert.notInclude(html, 'script src="http');
     });
   });
 

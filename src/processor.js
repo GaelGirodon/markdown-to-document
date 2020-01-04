@@ -20,7 +20,7 @@ class Processor {
    * @param {*} opts Processor options
    */
   constructor(opts) {
-    this.embedMode = opts.embedMode || "light";
+    this.embedMode = opts.embedMode || "default";
     this.style = new Style(opts);
     this.compiler = compiler(opts.codeCopy);
   }
@@ -88,15 +88,17 @@ class Processor {
       .replace(/{{ title }}/g, title || path.basename(src))
       .replace(/{{ body }}/g, body);
     // Inline resources
-    if (["light", "full"].includes(this.embedMode)) {
-      let options = { fileContent: output, relativeTo: base };
-      if (this.embedMode === "full") {
-        Object.assign(options, { images: true, svgs: true });
-      }
-      output = await inline(options);
+    let options = { fileContent: output, relativeTo: base };
+    if (this.embedMode === "light") {
+      Object.assign(options, { images: 16, svgs: 16, scripts: 16 });
+    } else if (this.embedMode === "default") {
+      Object.assign(options, { images: true, svgs: true, scripts: 16 });
+    } else if (this.embedMode === "full") {
+      Object.assign(options, { images: true, svgs: true, scripts: true });
     }
-    // Apply .hljs CSS class to all <pre> tags
-    output = output.replace(/<pre>/g, '<pre class="hljs">');
+    output = await inline(options);
+    // Apply .code-block CSS class to all <pre> tags without class
+    output = output.replace(/<pre>/g, '<pre class="code-block">');
     // Minify
     output = minify(output, {
       minifyCSS: true,

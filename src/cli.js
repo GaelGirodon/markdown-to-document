@@ -18,9 +18,9 @@ program
   .option("-m, --mermaid", "enable mermaid")
   .option(
     "-e, --embed-mode [value]",
-    "embed external resources: none, light or full",
-    /^(none|light|full)$/,
-    "light"
+    "embed external resources: light, default or full",
+    /^(light|default|full)$/,
+    "default"
   )
   .option("-w, --watch", "watch input files and compile on change")
   .action(function(path, cmd) {

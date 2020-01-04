@@ -46,7 +46,7 @@ Read [usage examples](#examples) to learn how to use the CLI.
 | `-n, --numbered-headings`       | Enable numbered headings                      |
 | `-c, --code-copy`               | Enable copy code button                       |
 | `-m, --mermaid`                 | Enable mermaid                                |
-| `-e, --embed-mode [value]`      | Embed external resources (default: `light`)   |
+| `-e, --embed-mode [value]`      | Embed external resources (default: `default`) |
 | `-w, --watch`                   | Watch input files and compile on change       |
 | `-h, --help`                    | Output usage information                      |
 
@@ -104,19 +104,26 @@ _Markdown To Document_ includes additional features:
 - **Code copy** (`--code-copy`): add a button <kbd>Copy</kbd> in each
   code block to easily copy the block content
 - **Mermaid** (`--mermaid`): add support for [mermaid](https://mermaid-js.github.io/mermaid/)
-  diagrams using fenced code blocks (` ```mermaid `)
+  diagrams using fenced code blocks (` ```mermaid `), e.g.:
+
+```mermaid
+graph LR
+    Start --> Stop
+```
 
 #### Embed mode (`--embed-mode`)
 
 The `--embed-mode` option allows to inline externally referenced resources
-(JS, CSS and images) to output a single HTML file without external dependencies.
+(JS, CSS and images) to output a single HTML file without external dependencies
+(it can lead to a large output file).
 
 3 modes are available:
 
-- `none`: disable inlining
-- `light`: inline only scripts, stylesheets and light images
-  (size < 8KB) (**default**)
-- `full`: inline everything (this can lead to a large output file)
+- `light`: inline light scripts (< 16KB), stylesheets and light images
+  (< 16KB)
+- `default`: inline light scripts (< 16KB), stylesheets and all images
+  (**default**)
+- `full`: inline everything
 
 ### Examples
 
