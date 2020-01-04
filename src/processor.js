@@ -20,18 +20,20 @@ class Processor {
    * @param {*} opts Processor options
    */
   constructor(opts) {
-    this.embedMode = opts.embedMode || "default";
+    opts = opts || {};
+    this.dest = opts.dest; // Output path
+    this.join = opts.join; // Concatenate Markdown files
+    this.watch = opts.watch; // Watch Markdown files
+    this.embedMode = opts.embedMode || "default"; // Embed external resources
     this.style = new Style(opts);
     this.compiler = compiler(opts.codeCopy);
   }
 
   /**
    * Process Markdown files.
-   * @param {string[]} src Path(s) to the Markdown files to process
-   * @param {string} dest Output path
-   * @param {boolean} watch Watch Markdown files
+   * @param {string[]} src Path(s) to the Markdown file(s) to process
    */
-  async process(src, dest, watch) {
+  async process(src) {
     // List and check source files
     if (!src || src.length === 0) {
       throw new Error("Source file(s) are required.");
@@ -49,24 +51,28 @@ class Processor {
       throw new Error("Invalid source file(s) (should be valid .md files).");
     }
     // Check destination path
-    if (dest && !(await files.isDirectory(dest))) {
+    if (this.dest && !(await files.isDirectory(this.dest))) {
       throw new Error("Invalid output path (should be a valid directory).");
     }
     // Initialize style
     await this.style.init();
     // Compile source files
-    for (const file of sources) {
-      if (watch) {
+    if (this.watch) {
+      for (const file of sources) {
         console.log(`${chalk.gray("[watch]")} ${file}`);
-        watcher.watch(file, { awaitWriteFinish: { stabilityThreshold: 500 } }).on(
-          "change",
-          async path =>
-            await this.compileFile(path, dest).catch(err => {
+        watcher
+          .watch(file, { awaitWriteFinish: { stabilityThreshold: 500 } })
+          .on("change", async path => {
+            const mergedPath = this.join ? await this.joinFiles(sources) : null;
+            await this.compileFile(mergedPath || path, this.dest).catch(err => {
               throw err;
-            })
-        );
-      } else {
-        await this.compileFile(file, dest).catch(err => {
+            });
+          });
+      }
+    } else {
+      const filesList = this.join ? [await this.joinFiles(sources)] : sources;
+      for (const file of filesList) {
+        await this.compileFile(file, this.dest).catch(err => {
           throw err;
         });
       }
@@ -123,6 +129,44 @@ class Processor {
     await files.writeAllText(outputFile, output);
     console.log(`${src} -> ${outputFile}`);
     return outputFile;
+  }
+
+  /**
+   * Concatenate Markdown files.
+   * @param {string[]} src Path(s) to the Markdown file(s) to merge.
+   * @returns {Promise<string>} Path to the merged file.
+   */
+  async joinFiles(src) {
+    // Sort input files list
+    src = src.sort((a, b) => {
+      if (a.includes(b.replace(/(README|index)\.md$/gi, ""))) return 1;
+      if (b.includes(a.replace(/(README|index)\.md$/gi, ""))) return -1;
+      return a - b;
+    });
+    const base = path.dirname(src[0]); // Path to the base directory
+    let output = ""; // Output content
+    const dest = path.join(base, "MERGED.md"); // Path to the output merged file
+    // Process and concatenate files content
+    for (const f of src) {
+      let content = await files.readAllText(f);
+      // Update titles level
+      const relativePath = path.relative(base, f).replace(/[\\/]/g, "/");
+      let depth = relativePath.split("/").length;
+      if (!/(README|index)\.md$/gi.test(relativePath)) {
+        depth++; // Files beside the main one are children of it
+      }
+      content = content.replace(/^#/gim, "#".repeat(depth));
+      // Remove the front matter (TOML, YAML or JSON)
+      content = content.replace(/^([-+]{3}|{)[\n\r]+[^]+[\n\r]+([-+]{3}|})[\n\r]+/gi, "");
+      // Update relative paths
+      const relativeDirPath = path.dirname(relativePath);
+      content = content.replace(/]\(.\//gi, `](./${relativeDirPath}/`);
+      // Concatenate
+      output += content + "\n";
+    }
+    // Write content to the output file
+    await files.writeAllText(dest, output);
+    return dest;
   }
 }
 

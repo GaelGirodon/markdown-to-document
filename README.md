@@ -11,6 +11,10 @@ A Markdown CLI to easily generate HTML documents from Markdown files.
 
 > The original purpose of this tool was to provide an alternative to using
 > Microsoft Word to write and send technical documents.
+>
+> **Use cases:** replace `docx` and `pdf` files by Markdown (storage in Git,
+> editing, ...) and HTML files (export, sending by email, ...), export a
+> multi-files documentation into a single HTML file, etc.
 
 ## Install
 
@@ -40,6 +44,7 @@ Read [usage examples](#examples) to learn how to use the CLI.
 | ------------------------------- | --------------------------------------------- |
 | `-V, --version`                 | Output the version number                     |
 | `-d, --dest [value]`            | Destination path (default: next to .md files) |
+| `-j, --join`                    | Concatenate all files before compilation      |
 | `-l, --layout [value]`          | HTML layout                                   |
 | `-t, --theme [value]`           | CSS theme                                     |
 | `-s, --highlight-style [value]` | Syntax highlighting style                     |
@@ -53,6 +58,23 @@ Read [usage examples](#examples) to learn how to use the CLI.
 #### Destination (`--dest`)
 
 The destination path can be used to change where output HTML files are written.
+
+#### Join (`--join`)
+
+> :construction: Experimental feature :construction:
+
+The `join` option concatenates all Markdown source files in one (`MERGED.md`)
+before running the compilation (→ `MERGED.html`) :
+
+- _Sorting_: `README.md` and `index.md` files first, other `.md` files and
+  sub-directories next
+- _Front matter_: remove TOML, YAML or JSON front matter from source files
+- _Titles_: refactor titles level to reflect path depth
+- _Paths_: refactor relative paths (`[<...>](./<...>`) to reflect the directory
+  structure
+
+This feature, _experimental and not very configurable for the moment_, can be
+very useful to export a multi-files documentation into a single HTML file.
 
 #### Layout (`--layout`)
 
