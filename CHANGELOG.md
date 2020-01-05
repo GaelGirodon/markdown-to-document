@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.10.0 - 2020-01-05
+
+- Add file concatenation feature (join)
+- Improve inlining (embed mode)
+- Improve code blocks processing
+- Improve CLI (help, options, source files args)
+- Improve tests and documentation
+
 ## 0.9.0 - 2020-01-02
 
 - Add support for mermaid diagrams
