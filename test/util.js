@@ -15,17 +15,6 @@ function buildPath(path) {
   return paths.resolve(__dirname, "..", path);
 }
 
-/**
- * Require a file by name but without cache.
- * @param {string} moduleName Module name
- * @return {*} The module
- */
-function requireForce(moduleName) {
-  delete require.cache[require.resolve(moduleName)];
-  return require(moduleName);
-}
-
 module.exports = {
   buildPath,
-  requireForce,
 };

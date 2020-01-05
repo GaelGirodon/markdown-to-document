@@ -1,7 +1,7 @@
 .code-container {
     position: relative;
 }
-.hljs textarea {
+.code-block textarea {
     /* Hide the textarea under the code block */
     position: absolute;
     top: 0;

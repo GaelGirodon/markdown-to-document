@@ -11,6 +11,10 @@ A Markdown CLI to easily generate HTML documents from Markdown files.
 
 > The original purpose of this tool was to provide an alternative to using
 > Microsoft Word to write and send technical documents.
+>
+> **Use cases:** replace `docx` and `pdf` files by Markdown (storage in Git,
+> editing, ...) and HTML files (export, sending by email, ...), export a
+> multi-files documentation into a single HTML file, etc.
 
 ## Install
 
@@ -40,19 +44,38 @@ Read [usage examples](#examples) to learn how to use the CLI.
 | ------------------------------- | --------------------------------------------- |
 | `-V, --version`                 | Output the version number                     |
 | `-d, --dest [value]`            | Destination path (default: next to .md files) |
+| `-j, --join`                    | Concatenate all files before compilation      |
 | `-l, --layout [value]`          | HTML layout                                   |
 | `-t, --theme [value]`           | CSS theme                                     |
 | `-s, --highlight-style [value]` | Syntax highlighting style                     |
 | `-n, --numbered-headings`       | Enable numbered headings                      |
 | `-c, --code-copy`               | Enable copy code button                       |
 | `-m, --mermaid`                 | Enable mermaid                                |
-| `-e, --embed-mode [value]`      | Embed external resources (default: `light`)   |
+| `-e, --embed-mode [value]`      | Embed external resources (default: `default`) |
 | `-w, --watch`                   | Watch input files and compile on change       |
 | `-h, --help`                    | Output usage information                      |
 
 #### Destination (`--dest`)
 
 The destination path can be used to change where output HTML files are written.
+
+#### Join (`--join`)
+
+> :construction: Experimental feature :construction:
+
+The `--join` option concatenates all Markdown source files in one (`MERGED.md`)
+before running the compilation (→ `MERGED.html`) :
+
+- _Sorting_: `README.md` and `index.md` files first, other `.md` files and
+  sub-directories next
+- _Front matter_: remove TOML, YAML or JSON front matter from source files
+- _Titles_: refactor titles level (`#` syntax only) to reflect path depth
+- _Paths_: refactor relative paths (`[<...>](./<...>`) to reflect the directory
+  structure
+- _Table of contents_: remove table of contents tokens from child pages
+
+This feature, _experimental and not very configurable for the moment_, can be
+very useful to export a multi-files documentation into a single HTML file.
 
 #### Layout (`--layout`)
 
@@ -104,19 +127,26 @@ _Markdown To Document_ includes additional features:
 - **Code copy** (`--code-copy`): add a button <kbd>Copy</kbd> in each
   code block to easily copy the block content
 - **Mermaid** (`--mermaid`): add support for [mermaid](https://mermaid-js.github.io/mermaid/)
-  diagrams using fenced code blocks (` ```mermaid `)
+  diagrams using fenced code blocks (` ```mermaid `), e.g.:
+
+```mermaid
+graph LR
+    Markdown -- mdtodoc --> HTML
+```
 
 #### Embed mode (`--embed-mode`)
 
 The `--embed-mode` option allows to inline externally referenced resources
-(JS, CSS and images) to output a single HTML file without external dependencies.
+(JS, CSS and images) to output a single HTML file without external dependencies
+(it can lead to a large output file).
 
 3 modes are available:
 
-- `none`: disable inlining
-- `light`: inline only scripts, stylesheets and light images
-  (size < 8KB) (**default**)
-- `full`: inline everything (this can lead to a large output file)
+- `light`: inline light scripts (< 16KB), stylesheets and light images
+  (< 16KB)
+- `default`: inline light scripts (< 16KB), stylesheets and all images
+  (**default**)
+- `full`: inline everything
 
 ### Examples
 
@@ -130,6 +160,12 @@ mdtodoc doc.md
 
 ```shell
 mdtodoc *.md --watch
+```
+
+**Compile multiple Markdown files into a single HTML file (`MERGED.html`)**
+
+```shell
+mdtodoc *.md --join
 ```
 
 **Improve the HTML output with a layout, a theme and a highlight style**
@@ -163,7 +199,7 @@ are now embedded into the output HTML file.
 **Use a custom layout (local file) and a custom highlight style (URL)**
 
 ```shell
-mdtodoc doc.md -l "./assets/layouts/page.html" -t "github" -s "https://raw.githubusercontent.com/highlightjs/highlight.js/master/src/styles/monokai.css" -n -c -e "full"
+mdtodoc doc.md -l "./assets/layouts/page.html" -t "github" -s "https://raw.githubusercontent.com/highlightjs/highlight.js/master/src/styles/monokai.css" -n -c
 ```
 
 Read [options documentation](#options) for more information on how to use

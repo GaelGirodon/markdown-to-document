@@ -20,6 +20,32 @@ const HLJS_STYLES_PATH = paths.join(NODE_MODULES_PATH, "highlight.js", "styles")
 /** Path to additional extensions */
 const EXT_PATH = paths.join(ASSETS_PATH, "ext");
 
+/** Paths to JavaScript libraries */
+const LIBRARIES = {
+  clipboard: {
+    local: paths.join(NODE_MODULES_PATH, "clipboard", "dist", "clipboard.min.js"),
+  },
+  mermaid: {
+    local: paths.join(NODE_MODULES_PATH, "mermaid", "dist", "mermaid.min.js"),
+    cdn: "https://cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js",
+  },
+};
+
+/** Path to extensions files */
+const EXTENSIONS = {
+  "numbered-headings": {
+    css: paths.join(EXT_PATH, "numbered-headings.css"),
+  },
+  "code-copy": {
+    css: paths.join(EXT_PATH, "code-copy.css"),
+    js: paths.join(EXT_PATH, "code-copy.js"),
+  },
+  mermaid: {
+    css: paths.join(EXT_PATH, "mermaid.css"),
+    js: paths.join(EXT_PATH, "mermaid.js"),
+  },
+};
+
 /**
  * A Markdown compiler style.
  */
@@ -36,6 +62,7 @@ class Style {
     this.numberedHeadings = opts.numberedHeadings; // Enable numbered headings
     this.codeCopy = opts.codeCopy; // Enable copy code button
     this.mermaid = opts.mermaid; // Enable mermaid support
+    this.embedMode = opts.embedMode; // Embed external resources
     this.stylePaths = [];
     this.scriptsPaths = [];
   }
@@ -53,20 +80,19 @@ class Style {
     if (this.theme) this.stylePaths.push(await this.loadTheme(this.theme));
     if (this.highlightStyle)
       this.stylePaths.push(await this.loadHighlightStyle(this.highlightStyle));
-    if (this.numberedHeadings) this.stylePaths.push(paths.join(EXT_PATH, "numbered-headings.css"));
-    if (this.codeCopy) this.stylePaths.push(paths.join(EXT_PATH, "code-copy.css"));
-    if (this.mermaid) this.stylePaths.push(paths.join(EXT_PATH, "mermaid.css"));
+    if (this.numberedHeadings) this.stylePaths.push(EXTENSIONS["numbered-headings"].css);
+    if (this.codeCopy) this.stylePaths.push(EXTENSIONS["code-copy"].css);
+    if (this.mermaid) this.stylePaths.push(EXTENSIONS["mermaid"].css);
 
     // Scripts
     if (this.codeCopy) {
-      this.scriptsPaths.push(
-        paths.join(NODE_MODULES_PATH, "clipboard", "dist", "clipboard.min.js")
-      );
-      this.scriptsPaths.push(paths.join(EXT_PATH, "code-copy.js"));
+      this.scriptsPaths.push(LIBRARIES["clipboard"].local);
+      this.scriptsPaths.push(EXTENSIONS["code-copy"].js);
     }
     if (this.mermaid) {
-      this.scriptsPaths.push(paths.join(NODE_MODULES_PATH, "mermaid", "dist", "mermaid.min.js"));
-      this.scriptsPaths.push(paths.join(EXT_PATH, "mermaid.js"));
+      const source = this.embedMode !== "full" ? "cdn" : "local";
+      this.scriptsPaths.push(LIBRARIES["mermaid"][source]);
+      this.scriptsPaths.push(EXTENSIONS["mermaid"].js);
     }
     return this;
   }

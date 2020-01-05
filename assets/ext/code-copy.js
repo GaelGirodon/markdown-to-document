@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 // Add "Copy" buttons
-document.querySelectorAll("pre.hljs").forEach(function(codeBlock) {
+document.querySelectorAll("pre.code-block").forEach(function(codeBlock) {
   // Wrap the <pre> tag with a <div>
   var container = document.createElement("div");
   container.classList = "code-container";

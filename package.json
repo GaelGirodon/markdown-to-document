@@ -1,12 +1,17 @@
 {
   "name": "markdown-to-document",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "description": "A Markdown CLI to easily generate HTML documents from Markdown files",
   "keywords": [
     "markdown",
-    "markdown-to-document",
+    "document",
     "cli",
-    "html"
+    "html",
+    "word",
+    "docx",
+    "pdf",
+    "mermaid",
+    "merge"
   ],
   "homepage": "https://github.com/GaelGirodon/markdown-to-document#readme",
   "bugs": "https://github.com/GaelGirodon/markdown-to-document/issues",
@@ -65,8 +70,7 @@
     "mocha": "^6.2.2",
     "mocha-junit-reporter": "^1.23.1",
     "nyc": "^15.0.0",
-    "prettier": "^1.19.1",
-    "sinon": "^8.0.2"
+    "prettier": "^1.19.1"
   },
   "engines": {
     "node": ">=12.0.0"

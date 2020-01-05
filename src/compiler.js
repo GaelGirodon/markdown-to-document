@@ -20,12 +20,13 @@ function compiler(codeCopy) {
    */
   function highlight(str, lang) {
     const escapedCode = md.utils.escapeHtml(str);
-    const copyBlock = codeCopy
-      ? COPY_BLOCK.replace(/{{ id }}/g, randomId()).replace(/{{ code }}/g, escapedCode.trim())
-      : "";
+    const copyBlock =
+      codeCopy && lang !== "mermaid"
+        ? COPY_BLOCK.replace(/{{ id }}/g, randomId()).replace(/{{ code }}/g, escapedCode.trim())
+        : "";
     if (lang && hljs.getLanguage(lang)) {
       try {
-        return PRE_BLOCK.replace(/{{ pre_class }}/g, "hljs")
+        return PRE_BLOCK.replace(/{{ pre_class }}/g, "code-block hljs")
           .replace(/{{ code_class }}/g, `language-${lang} ${lang}`)
           .replace(/{{ code }}/g, hljs.highlight(lang, str, true).value)
           .replace(/{{ copy_block }}/g, copyBlock);
@@ -33,7 +34,7 @@ function compiler(codeCopy) {
         console.debug(e);
       }
     }
-    const preClass = "no-hljs" + (lang === "mermaid" ? " mermaid-container" : "");
+    const preClass = lang === "mermaid" ? "mermaid-block" : "code-block";
     return PRE_BLOCK.replace(/{{ pre_class }}/g, preClass)
       .replace(/{{ code_class }}/g, `language-${lang} ${lang}`)
       .replace(/{{ code }}/g, escapedCode)

@@ -10,6 +10,7 @@
 # Project
 node_modules
 /*.html
+MERGED.*
 /*.tgz
 .nyc_output
 coverage
