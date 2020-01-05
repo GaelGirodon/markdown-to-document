@@ -162,6 +162,12 @@ mdtodoc doc.md
 mdtodoc *.md --watch
 ```
 
+**Compile multiple Markdown files into a single HTML file (`MERGED.html`)**
+
+```shell
+mdtodoc *.md --join
+```
+
 **Improve the HTML output with a layout, a theme and a highlight style**
 
 ```shell
