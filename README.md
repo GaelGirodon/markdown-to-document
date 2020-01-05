@@ -63,15 +63,16 @@ The destination path can be used to change where output HTML files are written.
 
 > :construction: Experimental feature :construction:
 
-The `join` option concatenates all Markdown source files in one (`MERGED.md`)
+The `--join` option concatenates all Markdown source files in one (`MERGED.md`)
 before running the compilation (→ `MERGED.html`) :
 
 - _Sorting_: `README.md` and `index.md` files first, other `.md` files and
   sub-directories next
 - _Front matter_: remove TOML, YAML or JSON front matter from source files
-- _Titles_: refactor titles level to reflect path depth
+- _Titles_: refactor titles level (`#` syntax only) to reflect path depth
 - _Paths_: refactor relative paths (`[<...>](./<...>`) to reflect the directory
   structure
+- _Table of contents_: remove table of contents tokens from child pages
 
 This feature, _experimental and not very configurable for the moment_, can be
 very useful to export a multi-files documentation into a single HTML file.

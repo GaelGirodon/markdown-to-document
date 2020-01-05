@@ -312,6 +312,11 @@ describe("Processor", () => {
 
 ## a
 
+\`\`\`yaml
+# A comment
+item:
+\`\`\`
+
 ## b.index
 
 ### b.b

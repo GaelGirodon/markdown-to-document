@@ -149,18 +149,27 @@ class Processor {
     // Process and concatenate files content
     for (const f of src) {
       let content = await files.readAllText(f);
+      // Remove the front matter (TOML, YAML or JSON)
+      content = content
+        .replace(/^([-+]{3}|{)[\n\r]+[^]+[\n\r]+([-+]{3}|})[\n\r]+/gi, "")
+        .trimStart();
       // Update titles level
       const relativePath = path.relative(base, f).replace(/[\\/]/g, "/");
       let depth = relativePath.split("/").length;
       if (!/(README|index)\.md$/gi.test(relativePath)) {
         depth++; // Files beside the main one are children of it
       }
-      content = content.replace(/^#/gim, "#".repeat(depth));
-      // Remove the front matter (TOML, YAML or JSON)
-      content = content.replace(/^([-+]{3}|{)[\n\r]+[^]+[\n\r]+([-+]{3}|})[\n\r]+/gi, "");
+      // Update H2-H6 titles
+      content = content.replace(/^##/gim, "#".repeat(depth + 1));
+      // Update H1 title after (avoid processing comments in code blocks)
+      content = content.replace(/^#/gi, "#".repeat(depth));
       // Update relative paths
       const relativeDirPath = path.dirname(relativePath);
       content = content.replace(/]\(.\//gi, `](./${relativeDirPath}/`);
+      // Remove table of contents tokens from child pages
+      if (src.indexOf(f) > 0) {
+        content = content.replace(/(\r?\n)(\${toc}|\[\[?_?toc_?]?])(\r?\n)/, "");
+      }
       // Concatenate
       output += content + "\n";
     }
