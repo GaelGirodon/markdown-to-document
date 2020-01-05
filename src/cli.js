@@ -7,6 +7,7 @@ const { Processor } = require("./processor");
 program.version("0.9.0");
 
 program
+  .name("mdtodoc")
   .arguments("<path...>")
   .description("Compile Markdown files into HTML documents")
   .option("-d, --dest [value]", "destination path (default: next to .md files)")
