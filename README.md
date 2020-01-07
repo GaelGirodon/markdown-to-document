@@ -68,7 +68,8 @@ before running the compilation (→ `MERGED.html`) :
 
 - _Sorting_: `README.md` and `index.md` files first, other `.md` files and
   sub-directories next
-- _Front matter_: remove TOML, YAML or JSON front matter from source files
+- _Front matter_: remove YAML (`---`), TOML (`+++`) or JSON (`;;;`) front matter
+  from source files
 - _Titles_: refactor titles level (`#` syntax only) to reflect path depth
 - _Paths_: refactor relative paths (`[<...>](./<...>`) to reflect the directory
   structure

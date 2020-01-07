@@ -150,9 +150,7 @@ class Processor {
     for (const f of src) {
       let content = await files.readAllText(f);
       // Remove the front matter (TOML, YAML or JSON)
-      content = content
-        .replace(/^([-+]{3}|{)[\n\r]+[^]+[\n\r]+([-+]{3}|})[\n\r]+/gi, "")
-        .trimStart();
+      content = content.replace(/^([-+;]{3})[\n\r]+[^]+[\n\r]+([-+;]{3})[\n\r]+/gi, "").trimStart();
       // Update titles level
       const relativePath = path.relative(base, f).replace(/[\\/]/g, "/");
       let depth = relativePath.split("/").length;
