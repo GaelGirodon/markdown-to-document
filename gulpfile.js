@@ -12,7 +12,7 @@ function buildGitHubTheme() {
     .src("node_modules/github-markdown-css/github-markdown.css")
     .pipe(replace(/\.markdown-body/g, "body"))
     .pipe(replace(/(list-style-type: lower-.*;)/g, "/* $1 */"))
-    .pipe(replace("\n  padding: 16px;\n}", "\n  padding: 16px !important;\n}"))
+    .pipe(replace("{\n  padding: 16px;\n", "{\n  padding: 16px !important;\n"))
     .pipe(minify())
     .pipe(rename("github.min.css"))
     .pipe(gulp.dest("assets/themes/"));

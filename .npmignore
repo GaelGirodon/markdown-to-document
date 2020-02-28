@@ -10,6 +10,7 @@ test
 .prettierignore
 .prettierrc
 azure-pipelines.yml
+gulpfile.js
 jsconfig.json
 
 # .gitignore
@@ -22,6 +23,7 @@ jsconfig.json
 # Project
 node_modules
 /*.html
+MERGED.*
 /*.tgz
 .nyc_output
 coverage
