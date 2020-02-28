@@ -279,6 +279,7 @@ Open [package.json](package.json) to see the full list of dependencies.
 - Format code with Prettier: `npm run format[:check]`
 - Lint code with ESLint: `npm run lint`
 - Build assets with Gulp: `npm run build:assets`
+- Run tests: `npm run test[:coverage]`
 
 ## License
 
