@@ -34,6 +34,7 @@ describe("Processor", () => {
       assert.isTrue(await files.exists(dst));
       const html = await files.readAllText(dst);
       assert.include(html, "<h1>");
+      assert.include(html, String.fromCodePoint(0x1f4dd)); // Emoji
       assert.notInclude(html, "<html>");
       assert.notInclude(html, "<body>");
     });

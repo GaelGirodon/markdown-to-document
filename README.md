@@ -239,15 +239,16 @@ _Markdown To Document_ uses the [Markdown.it](https://github.com/markdown-it/mar
 compiler and the following plugins to generate HTML code from Markdown:
 
 - `markdown-it-abbr` - Abbreviation (`<abbr>`) tag support
-- `markdown-it-container` - Custom block containers support
+- `markdown-it-anchor` - Header anchors (permalinks) support
+- `markdown-it-container` - Custom block containers (`:::`) support
 - `markdown-it-deflist` - Definition list (`<dl>`) tag support
-- `markdown-it-footnote` - Footnotes support
+- `markdown-it-emoji` - Emoji syntax (`:memo:` → :memo:) support
+- `markdown-it-footnote` - Footnotes (`[^1]`) support
 - `markdown-it-ins` - Inserted (`<ins>`) tag support
 - `markdown-it-mark` - Marked (`<mark>`) tag support
 - `markdown-it-sub` - Subscript (`<sub>`) tag support
 - `markdown-it-sup` - Superscript (`<sup>`) tag support
-- `markdown-it-anchor` - Header anchors (permalinks) support
-- `markdown-it-toc-done-right` - Table of contents support
+- `markdown-it-toc-done-right` - Table of contents (`[[toc]]`) support
 
 Additional features also use the following packages:
 
