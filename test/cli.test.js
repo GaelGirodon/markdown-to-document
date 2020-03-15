@@ -11,9 +11,16 @@ const cli = buildPath("src/cli.js");
 
 describe("CLI", () => {
   describe("mdtodoc", () => {
-    it("should display help (no arg)", async () => {
-      const { stdout } = await exec(`node ${cli}`);
-      assert.include(stdout.toString(), "Usage");
+    it("should fail without argument", async () => {
+      try {
+        await exec(`node ${cli}`);
+        assert.fail();
+      } catch (e) {
+        assert.isOk(e);
+        assert.equal(e.code, 1);
+        assert.isEmpty(e.stdout);
+        assert.include(e.stderr.toString(), "missing required argument");
+      }
     });
   });
 

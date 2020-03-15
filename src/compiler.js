@@ -54,6 +54,7 @@ function compiler(codeCopy) {
     .use(require("markdown-it-abbr")) // Abbreviation (<abbr>) tag
     .use(require("markdown-it-container"), "warning") // Custom block containers
     .use(require("markdown-it-deflist")) // Definition list (<dl>) tag
+    .use(require("markdown-it-emoji")) // Emoji syntax
     .use(require("markdown-it-footnote")) // Footnotes
     .use(require("markdown-it-ins")) // Inserted (<ins>) tag
     .use(require("markdown-it-mark")) // Marked (<mark>) tag
