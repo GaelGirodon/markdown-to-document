@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.12.0 - 2020-03-15
+
+- Add support for emoji syntax
+- Update dependencies
+
 ## 0.11.0 - 2020-02-28
 
 - Improve the file concatenation feature
