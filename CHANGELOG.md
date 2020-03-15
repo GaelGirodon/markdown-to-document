@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.12.1 - 2020-03-15
+
+- Fix npm package content
+
 ## 0.12.0 - 2020-03-15
 
 - Add support for emoji syntax
