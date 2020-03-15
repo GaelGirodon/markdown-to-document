@@ -30,9 +30,9 @@
     "format": "prettier --write \"**/*.{js,json,css}\"",
     "format:check": "prettier --check \"**/*.{js,json,css}\"",
     "lint": "eslint \"**/*.js\"",
-    "test": "mocha --timeout 10000",
-    "test:coverage": "nyc --reporter=html --reporter=text --all --include \"{assets,src}/**/*.js\" mocha --timeout 10000",
-    "test:ci": "nyc --reporter=cobertura --all --include \"{assets,src}/**/*.js\" mocha --reporter mocha-junit-reporter --timeout 10000 || exit 0"
+    "test": "mocha --timeout 30000",
+    "test:coverage": "nyc --reporter=html --reporter=text --all --include \"{assets,src}/**/*.js\" mocha --timeout 30000",
+    "test:ci": "nyc --reporter=cobertura --all --include \"{assets,src}/**/*.js\" mocha --reporter mocha-junit-reporter --timeout 30000 || exit 0"
   },
   "dependencies": {
     "bluebird": "^3.7.2",
