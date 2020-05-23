@@ -7,7 +7,7 @@ const minify = require("gulp-clean-css");
  * Build the `github` theme from the CSS provided by
  * the github-markdown-css npm package.
  */
-function buildGitHubTheme() {
+function githubTheme() {
   return gulp
     .src("node_modules/github-markdown-css/github-markdown.css")
     .pipe(replace(/\.markdown-body/g, "body"))
@@ -18,5 +18,4 @@ function buildGitHubTheme() {
     .pipe(gulp.dest("assets/themes/"));
 }
 
-exports.buildGitHubTheme = buildGitHubTheme;
-exports.default = gulp.series(buildGitHubTheme);
+exports.default = gulp.series(githubTheme);

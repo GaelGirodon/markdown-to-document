@@ -27,6 +27,9 @@ stages:
           - script: npm install
             displayName: 'Install dependencies'
 
+          - script: npm run build:assets
+            displayName: 'Build assets'
+
           - script: npm run lint
             displayName: 'Lint'
 

@@ -56,7 +56,6 @@
     "markdown-it-sub": "^1.0.0",
     "markdown-it-sup": "^1.0.0",
     "markdown-it-toc-done-right": "^4.1.0",
-    "mermaid": "^8.5.1",
     "node-fetch": "^2.6.0",
     "web-resource-inliner": "^4.3.4"
   },
