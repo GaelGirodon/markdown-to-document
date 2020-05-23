@@ -45,9 +45,9 @@ class Processor {
     }
     // Remove duplicates
     sources = sources
-      .map(s => path.resolve(s)) // Resolve to an absolute path
+      .map((s) => path.resolve(s)) // Resolve to an absolute path
       .filter((s, i, all) => all.indexOf(s) === i);
-    if (!sources || sources.length === 0 || !sources.every(s => /\.md$/.test(s))) {
+    if (!sources || sources.length === 0 || !sources.every((s) => /\.md$/.test(s))) {
       throw new Error("Invalid source file(s) (should be valid .md files).");
     }
     // Check destination path
@@ -62,9 +62,9 @@ class Processor {
         console.log(`${chalk.gray("[watch]")} ${file}`);
         watcher
           .watch(file, { awaitWriteFinish: { stabilityThreshold: 500 } })
-          .on("change", async path => {
+          .on("change", async (path) => {
             const mergedPath = this.join ? await this.joinFiles(sources) : null;
-            await this.compileFile(mergedPath || path, this.dest).catch(err => {
+            await this.compileFile(mergedPath || path, this.dest).catch((err) => {
               throw err;
             });
           });
@@ -72,7 +72,7 @@ class Processor {
     } else {
       const filesList = this.join ? [await this.joinFiles(sources)] : sources;
       for (const file of filesList) {
-        await this.compileFile(file, this.dest).catch(err => {
+        await this.compileFile(file, this.dest).catch((err) => {
           throw err;
         });
       }
@@ -93,10 +93,7 @@ class Processor {
     // Load and compile Markdown file
     const md = await files.readAllText(src);
     const body = this.compiler.render(md);
-    const title = cheerio
-      .load(body)("h1")
-      .first()
-      .text();
+    const title = cheerio.load(body)("h1").first().text();
     // Use style
     const base = path.dirname(src);
     let output = this.style.template

@@ -25,7 +25,7 @@ program
     "default"
   )
   .option("-w, --watch", "watch input files and compile on change")
-  .action(function(path, cmd) {
+  .action(function (path, cmd) {
     const opts = {
       dest: cmd.dest,
       join: cmd.join,
@@ -39,7 +39,7 @@ program
       watch: cmd.watch,
     };
     const proc = new Processor(opts);
-    proc.process(path).catch(err => {
+    proc.process(path).catch((err) => {
       console.error(chalk.redBright(err));
       process.exit(1);
     });

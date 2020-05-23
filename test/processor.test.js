@@ -17,7 +17,7 @@ describe("Processor", () => {
       "test/README.html",
       path.join("test", "data", "join", "MERGED.md"),
       path.join("test", "data", "join", "MERGED.html"),
-    ].map(p => buildPath(p));
+    ].map((p) => buildPath(p));
     for (const p of paths) {
       if (await files.exists(p)) {
         await fs.unlinkAsync(p);

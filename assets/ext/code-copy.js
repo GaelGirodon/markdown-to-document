@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 // Add "Copy" buttons
-document.querySelectorAll("pre.code-block").forEach(function(codeBlock) {
+document.querySelectorAll("pre.code-block").forEach(function (codeBlock) {
   // Wrap the <pre> tag with a <div>
   var container = document.createElement("div");
   container.classList = "code-container";
@@ -24,9 +24,9 @@ document.querySelectorAll("pre.code-block").forEach(function(codeBlock) {
 var clipboard = new ClipboardJS(".btn-copy");
 
 // Copy callback
-clipboard.on("success", function(e) {
+clipboard.on("success", function (e) {
   e.trigger.innerText = "Copied!";
-  setTimeout(function() {
+  setTimeout(function () {
     e.trigger.innerText = "Copy";
   }, 2000);
   e.clearSelection();

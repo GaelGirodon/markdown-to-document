@@ -104,7 +104,7 @@ class Style {
    */
   async styles(base) {
     return this.stylePaths
-      .map(s => `<link rel="stylesheet" href="${files.localToUrl(s, base)}">`)
+      .map((s) => `<link rel="stylesheet" href="${files.localToUrl(s, base)}">`)
       .join("\n");
   }
 
@@ -115,7 +115,7 @@ class Style {
    */
   async scripts(base) {
     return this.scriptsPaths
-      .map(s => `<script src="${files.localToUrl(s, base)}"></script>`)
+      .map((s) => `<script src="${files.localToUrl(s, base)}"></script>`)
       .join("\n");
   }
 
