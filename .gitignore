@@ -9,6 +9,7 @@
 
 # Project
 node_modules
+assets/**/*.min.*
 /*.html
 MERGED.*
 /*.tgz

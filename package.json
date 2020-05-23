@@ -1,6 +1,6 @@
 {
   "name": "markdown-to-document",
-  "version": "0.12.1",
+  "version": "0.13.0",
   "description": "A Markdown CLI to easily generate HTML documents from Markdown files",
   "keywords": [
     "markdown",
@@ -30,23 +30,23 @@
     "format": "prettier --write \"**/*.{js,json,css}\"",
     "format:check": "prettier --check \"**/*.{js,json,css}\"",
     "lint": "eslint \"**/*.js\"",
-    "test": "mocha --timeout 10000",
-    "test:coverage": "nyc --reporter=html --reporter=text --all --include \"{assets,src}/**/*.js\" mocha --timeout 10000",
-    "test:ci": "nyc --reporter=cobertura --all --include \"{assets,src}/**/*.js\" mocha --reporter mocha-junit-reporter --timeout 10000 || exit 0"
+    "test": "mocha --timeout 30000",
+    "test:coverage": "nyc --reporter=html --reporter=text --all --include \"{assets,src}/**/*.js\" mocha --timeout 30000",
+    "test:ci": "nyc --reporter=cobertura --all --include \"{assets,src}/**/*.js\" mocha --reporter mocha-junit-reporter --timeout 30000 || exit 0"
   },
   "dependencies": {
     "bluebird": "^3.7.2",
-    "chalk": "^3.0.0",
+    "chalk": "^4.0.0",
     "cheerio": "^1.0.0-rc.3",
-    "chokidar": "^3.3.1",
+    "chokidar": "^3.4.0",
     "clipboard": "^2.0.6",
-    "commander": "^5.0.0",
+    "commander": "^5.1.0",
     "glob": "^7.1.6",
-    "highlight.js": "^9.18.1",
+    "highlight.js": "^10.0.3",
     "html-minifier": "^4.0.0",
-    "markdown-it": "^10.0.0",
+    "markdown-it": "^11.0.0",
     "markdown-it-abbr": "^1.0.4",
-    "markdown-it-anchor": "^5.2.5",
+    "markdown-it-anchor": "^5.3.0",
     "markdown-it-container": "^2.0.0",
     "markdown-it-deflist": "^2.0.3",
     "markdown-it-emoji": "^1.4.0",
@@ -56,22 +56,21 @@
     "markdown-it-sub": "^1.0.0",
     "markdown-it-sup": "^1.0.0",
     "markdown-it-toc-done-right": "^4.1.0",
-    "mermaid": "^8.4.8",
     "node-fetch": "^2.6.0",
     "web-resource-inliner": "^4.3.4"
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "eslint": "^6.8.0",
+    "eslint": "^7.1.0",
     "github-markdown-css": "^4.0.0",
     "gulp": "^4.0.2",
-    "gulp-clean-css": "^4.2.0",
+    "gulp-clean-css": "^4.3.0",
     "gulp-rename": "^2.0.0",
     "gulp-replace": "^1.0.0",
-    "mocha": "^7.1.0",
+    "mocha": "^7.2.0",
     "mocha-junit-reporter": "^1.23.3",
-    "nyc": "^15.0.0",
-    "prettier": "^1.19.1"
+    "nyc": "^15.0.1",
+    "prettier": "^2.0.5"
   },
   "engines": {
     "node": ">=12.0.0"

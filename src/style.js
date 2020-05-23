@@ -22,13 +22,8 @@ const EXT_PATH = paths.join(ASSETS_PATH, "ext");
 
 /** Paths to JavaScript libraries */
 const LIBRARIES = {
-  clipboard: {
-    local: paths.join(NODE_MODULES_PATH, "clipboard", "dist", "clipboard.min.js"),
-  },
-  mermaid: {
-    local: paths.join(NODE_MODULES_PATH, "mermaid", "dist", "mermaid.min.js"),
-    cdn: "https://cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js",
-  },
+  clipboard: paths.join(NODE_MODULES_PATH, "clipboard", "dist", "clipboard.min.js"),
+  mermaid: "https://cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js",
 };
 
 /** Path to extensions files */
@@ -86,12 +81,11 @@ class Style {
 
     // Scripts
     if (this.codeCopy) {
-      this.scriptsPaths.push(LIBRARIES["clipboard"].local);
+      this.scriptsPaths.push(LIBRARIES["clipboard"]);
       this.scriptsPaths.push(EXTENSIONS["code-copy"].js);
     }
     if (this.mermaid) {
-      const source = this.embedMode !== "full" ? "cdn" : "local";
-      this.scriptsPaths.push(LIBRARIES["mermaid"][source]);
+      this.scriptsPaths.push(LIBRARIES["mermaid"]);
       this.scriptsPaths.push(EXTENSIONS["mermaid"].js);
     }
     return this;
@@ -104,7 +98,7 @@ class Style {
    */
   async styles(base) {
     return this.stylePaths
-      .map(s => `<link rel="stylesheet" href="${files.localToUrl(s, base)}">`)
+      .map((s) => `<link rel="stylesheet" href="${files.localToUrl(s, base)}">`)
       .join("\n");
   }
 
@@ -115,7 +109,7 @@ class Style {
    */
   async scripts(base) {
     return this.scriptsPaths
-      .map(s => `<script src="${files.localToUrl(s, base)}"></script>`)
+      .map((s) => `<script src="${files.localToUrl(s, base)}"></script>`)
       .join("\n");
   }
 

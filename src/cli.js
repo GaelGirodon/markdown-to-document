@@ -4,7 +4,7 @@ const program = require("commander");
 const chalk = require("chalk");
 const { Processor } = require("./processor");
 
-program.version("0.12.1");
+program.version("0.13.0");
 
 program
   .name("mdtodoc")
@@ -25,7 +25,7 @@ program
     "default"
   )
   .option("-w, --watch", "watch input files and compile on change")
-  .action(function(path, cmd) {
+  .action(function (path, cmd) {
     const opts = {
       dest: cmd.dest,
       join: cmd.join,
@@ -39,7 +39,7 @@ program
       watch: cmd.watch,
     };
     const proc = new Processor(opts);
-    proc.process(path).catch(err => {
+    proc.process(path).catch((err) => {
       console.error(chalk.redBright(err));
       process.exit(1);
     });
