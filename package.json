@@ -1,6 +1,6 @@
 {
   "name": "markdown-to-document",
-  "version": "0.13.0",
+  "version": "0.14.0",
   "description": "A Markdown CLI to easily generate HTML documents from Markdown files",
   "keywords": [
     "markdown",
@@ -36,18 +36,18 @@
   },
   "dependencies": {
     "bluebird": "^3.7.2",
-    "chalk": "^4.0.0",
+    "chalk": "^4.1.0",
     "cheerio": "^1.0.0-rc.3",
-    "chokidar": "^3.4.0",
+    "chokidar": "^3.4.1",
     "clipboard": "^2.0.6",
     "commander": "^5.1.0",
     "glob": "^7.1.6",
-    "highlight.js": "^10.0.3",
+    "highlight.js": "^10.1.1",
     "html-minifier": "^4.0.0",
     "markdown-it": "^11.0.0",
     "markdown-it-abbr": "^1.0.4",
     "markdown-it-anchor": "^5.3.0",
-    "markdown-it-container": "^2.0.0",
+    "markdown-it-container": "^3.0.0",
     "markdown-it-deflist": "^2.0.3",
     "markdown-it-emoji": "^1.4.0",
     "markdown-it-footnote": "^3.0.2",
@@ -57,19 +57,19 @@
     "markdown-it-sup": "^1.0.0",
     "markdown-it-toc-done-right": "^4.1.0",
     "node-fetch": "^2.6.0",
-    "web-resource-inliner": "^4.3.4"
+    "web-resource-inliner": "^5.0.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "eslint": "^7.1.0",
+    "eslint": "^7.5.0",
     "github-markdown-css": "^4.0.0",
     "gulp": "^4.0.2",
     "gulp-clean-css": "^4.3.0",
     "gulp-rename": "^2.0.0",
     "gulp-replace": "^1.0.0",
-    "mocha": "^7.2.0",
-    "mocha-junit-reporter": "^1.23.3",
-    "nyc": "^15.0.1",
+    "mocha": "^8.0.1",
+    "mocha-junit-reporter": "^2.0.0",
+    "nyc": "^15.1.0",
     "prettier": "^2.0.5"
   },
   "engines": {

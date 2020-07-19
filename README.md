@@ -21,7 +21,7 @@ A Markdown CLI to easily generate HTML documents from Markdown files.
 Install the CLI globally using NPM ([Node.js](https://nodejs.org/) >= 12):
 
 ```shell
-npm i markdown-to-document -g --only=prod
+npm install markdown-to-document -g --only=prod
 ```
 
 > **Linux users:** `EACCES` permissions errors when installing packages globally?<br>
@@ -80,7 +80,7 @@ very useful to export a multi-files documentation into a single HTML file.
 
 #### Layout (`--layout`)
 
-A layout is a HTML template used as a base for the output HTML file, e.g.:
+A layout is an HTML template used as a base for the output HTML file, e.g.:
 
 ```html
 <!DOCTYPE html>
@@ -143,9 +143,9 @@ The `--embed-mode` option allows to inline externally referenced resources
 
 3 modes are available:
 
-- `light`: inline light scripts (< 16KB), stylesheets and light images
-  (< 16KB)
-- `default`: inline light scripts (< 16KB), stylesheets and all images
+- `light`: inline light scripts (< 16 KB), stylesheets and light images
+  (< 16 KB)
+- `default`: inline light scripts (< 16 KB), stylesheets and all images
   (**default**)
 - `full`: inline everything
 
@@ -205,6 +205,26 @@ mdtodoc doc.md -l "./assets/layouts/page.html" -t "github" -s "https://raw.githu
 
 Read [options documentation](#options) for more information on how to use
 `--layout`, `--theme` and `--highlight-style` options.
+
+**Export a Markdown documentation in a GitLab CI pipeline**
+
+In a GitLab repository with Markdown files inside the `docs/` folder,
+the following job can be defined (in `.gitlab-ci.yml`) to export all the
+documentation as a single HTML file:
+
+```yaml
+export-doc:
+  stage: doc
+  image: node:lts
+  before_script:
+    - npm i markdown-to-document -g --only=prod
+  script:
+    - mdtodoc "docs/**/*.md" --join -l "page" -t "github" -s "atom-one-light" -n -c
+    - mv docs/MERGED.html ./docs.html
+  artifacts:
+    paths:
+      - docs.html
+```
 
 ## Resources
 
@@ -281,6 +301,7 @@ Open [package.json](package.json) to see the full list of dependencies.
 - Lint code with ESLint: `npm run lint`
 - Build assets with Gulp: `npm run build:assets`
 - Run tests: `npm run test[:coverage]`
+- Upgrade dependencies: `npx npm-check-updates -u`
 
 ## License
 
