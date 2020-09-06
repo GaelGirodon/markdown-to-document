@@ -71,7 +71,7 @@ before running the compilation (→ `MERGED.html`) :
 - _Front matter_: remove YAML (`---`), TOML (`+++`) or JSON (`;;;`) front matter
   from source files
 - _Titles_: refactor titles level (`#` syntax only) to reflect path depth
-- _Paths_: refactor relative paths (`[<...>](./<...>`) to reflect the directory
+- _Paths_: refactor relative paths (`[<...>](./<...>)`) to reflect the directory
   structure
 - _Table of contents_: remove table of contents tokens from child pages
 
