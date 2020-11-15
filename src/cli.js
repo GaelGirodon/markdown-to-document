@@ -4,7 +4,7 @@ const program = require("commander");
 const chalk = require("chalk");
 const { Processor } = require("./processor");
 
-program.version("0.14.0");
+program.version("0.15.0");
 
 program
   .name("mdtodoc")
