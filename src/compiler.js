@@ -60,14 +60,8 @@ function compiler(codeCopy) {
     .use(require("markdown-it-mark")) // Marked (<mark>) tag
     .use(require("markdown-it-sub")) // Subscript (<sub>) tag
     .use(require("markdown-it-sup")) // Superscript (<sup>) tag
-    .use(
-      require("markdown-it-anchor"), // Header anchors (permalinks)
-      { level: 2, permalink: false, permalinkBefore: false, permalinkSymbol: "§" }
-    )
-    .use(
-      require("markdown-it-toc-done-right"), // Table of contents
-      { level: [2, 3] }
-    );
+    .use(require("markdown-it-anchor"), { level: 2 }) // Header anchors (permalinks)
+    .use(require("markdown-it-toc-done-right"), { level: [2, 3] }); // Table of contents
 
   return md;
 }

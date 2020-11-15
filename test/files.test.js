@@ -59,8 +59,8 @@ describe("files", () => {
 
   describe("writeAllText", () => {
     it("should write a content to a text file", async () => {
-      await files.writeAllText(buildPath("TEST.md"));
-      await fs.unlinkAsync(buildPath("TEST.md"));
+      await files.writeAllText(buildPath("TEST.txt"), "test");
+      await fs.unlinkAsync(buildPath("TEST.txt"));
     });
   });
 });

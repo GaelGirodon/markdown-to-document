@@ -18,7 +18,7 @@ A Markdown CLI to easily generate HTML documents from Markdown files.
 
 ## Install
 
-Install the CLI globally using NPM ([Node.js](https://nodejs.org/) >= 12):
+Install the CLI globally using NPM ([Node.js](https://nodejs.org/) >= 14):
 
 ```shell
 npm install markdown-to-document -g --only=prod
@@ -71,7 +71,7 @@ before running the compilation (→ `MERGED.html`) :
 - _Front matter_: remove YAML (`---`), TOML (`+++`) or JSON (`;;;`) front matter
   from source files
 - _Titles_: refactor titles level (`#` syntax only) to reflect path depth
-- _Paths_: refactor relative paths (`[<...>](./<...>`) to reflect the directory
+- _Paths_: refactor relative paths (`[<...>](./<...>)`) to reflect the directory
   structure
 - _Table of contents_: remove table of contents tokens from child pages
 

@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.15.0 - 2020-11-15
+
+- Update dependencies
+- Update the required version of Node.js to 14.x LTS
+
 ## 0.14.0 - 2020-07-19
 
 - Update dependencies
