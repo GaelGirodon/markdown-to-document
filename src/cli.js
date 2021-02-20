@@ -4,10 +4,9 @@ const program = require("commander");
 const chalk = require("chalk");
 const { Processor } = require("./processor");
 
-program.version("0.15.0");
-
 program
   .name("mdtodoc")
+  .version("0.15.0")
   .arguments("<path...>")
   .description("Compile Markdown files into HTML documents")
   .option("-d, --dest [value]", "destination path (default: next to .md files)")
@@ -25,20 +24,8 @@ program
     "default"
   )
   .option("-w, --watch", "watch input files and compile on change")
-  .action(function (path, cmd) {
-    const opts = {
-      dest: cmd.dest,
-      join: cmd.join,
-      layout: cmd.layout,
-      theme: cmd.theme,
-      highlightStyle: cmd.highlightStyle,
-      numberedHeadings: cmd.numberedHeadings,
-      codeCopy: cmd.codeCopy,
-      mermaid: cmd.mermaid,
-      embedMode: cmd.embedMode,
-      watch: cmd.watch,
-    };
-    const proc = new Processor(opts);
+  .action(function (path, options) {
+    const proc = new Processor(options);
     proc.process(path).catch((err) => {
       console.error(chalk.redBright(err));
       process.exit(1);

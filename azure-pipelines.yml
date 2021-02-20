@@ -5,52 +5,42 @@
 trigger:
   - develop
 
-variables:
-  # Agent VM image name
-  vmImageName: 'ubuntu-latest'
+pool:
+  vmImage: 'ubuntu-latest'
 
-stages:
-  - stage: Build
-    displayName: Build stage
-    jobs:
-      - job: Build
-        displayName: Build job
-        pool:
-          vmImage: $(vmImageName)
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '14.x'
+    displayName: 'Install Node.js'
 
-        steps:
-          - task: NodeTool@0
-            inputs:
-              versionSpec: '14.x'
-            displayName: 'Install Node.js'
+  - script: npm install
+    displayName: 'Install dependencies'
 
-          - script: npm install
-            displayName: 'Install dependencies'
+  - script: npm run build:assets
+    displayName: 'Build assets'
 
-          - script: npm run build:assets
-            displayName: 'Build assets'
+  - script: npm run lint
+    displayName: 'Lint'
 
-          - script: npm run lint
-            displayName: 'Lint'
+  - script: npm run format:check
+    displayName: 'Check format'
 
-          - script: npm run format:check
-            displayName: 'Check format'
+  - script: npm run test:ci
+    displayName: 'Test'
 
-          - script: npm run test:ci
-            displayName: 'Test'
+  - task: PublishTestResults@2
+    displayName: 'Publish test results'
+    condition: succeededOrFailed()
+    inputs:
+      testRunner: JUnit
+      testResultsFiles: '**/test-results.xml'
 
-          - task: PublishTestResults@2
-            displayName: 'Publish test results'
-            condition: succeededOrFailed()
-            inputs:
-              testRunner: JUnit
-              testResultsFiles: '**/test-results.xml'
+  - task: PublishCodeCoverageResults@1
+    displayName: 'Publish code coverage results'
+    inputs:
+      codeCoverageTool: Cobertura
+      summaryFileLocation: '**/*coverage.xml'
 
-          - task: PublishCodeCoverageResults@1
-            displayName: 'Publish code coverage results'
-            inputs:
-              codeCoverageTool: Cobertura
-              summaryFileLocation: '**/*coverage.xml'
-
-          - powershell: scripts/Test-ReadmeExamples.ps1
-            displayName: 'Test usage examples from README.md'
+  - powershell: scripts/Test-ReadmeExamples.ps1
+    displayName: 'Test usage examples from README.md'
