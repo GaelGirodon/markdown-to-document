@@ -26,9 +26,10 @@ function compiler(codeCopy) {
         : "";
     if (lang && hljs.getLanguage(lang)) {
       try {
+        const hljsOpts = { language: lang, ignoreIllegals: true };
         return PRE_BLOCK.replace(/{{ pre_class }}/g, "code-block hljs")
           .replace(/{{ code_class }}/g, `language-${lang} ${lang}`)
-          .replace(/{{ code }}/g, hljs.highlight(lang, str, true).value)
+          .replace(/{{ code }}/g, hljs.highlight(str, hljsOpts).value)
           .replace(/{{ copy_block }}/g, copyBlock);
       } catch (e) {
         console.debug(e);
