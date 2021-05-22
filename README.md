@@ -239,7 +239,7 @@ writing these documents easier, e.g.:
 - [Markdown All in One](https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one)
   (Visual Studio Code)
 - [Markdown-Writer](https://atom.io/packages/markdown-writer) (Atom)
-- [Markdown​Editing](https://packagecontrol.io/packages/MarkdownEditing) (Sublime Text)
+- [MarkdownEditing](https://packagecontrol.io/packages/MarkdownEditing) (Sublime Text)
 
 #### Formatting
 
