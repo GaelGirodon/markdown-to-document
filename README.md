@@ -21,7 +21,7 @@ A Markdown CLI to easily generate HTML documents from Markdown files.
 Install the CLI globally using NPM ([Node.js](https://nodejs.org/) >= 14):
 
 ```shell
-npm install markdown-to-document -g --only=prod
+npm install markdown-to-document -g
 ```
 
 > **Linux users:** `EACCES` permissions errors when installing packages globally?<br>
@@ -105,9 +105,8 @@ The `--layout` option can receive the name of a [preset](./assets/layouts/)
 
 A theme is a CSS stylesheet included in the HTML layout.
 
-The `--theme` option can receive the name of a [preset](./assets/themes/)
-(e.g. `github`) or the path to a custom theme file (`path/to/my-theme.css`
-or a HTTP URL).
+The `--theme` option can receive the name of a preset (e.g. `github`)
+or the path to a custom theme file (`path/to/my-theme.css` or a HTTP URL).
 
 #### Highlight style (`--highlight-style`)
 
