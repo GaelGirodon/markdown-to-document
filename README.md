@@ -61,8 +61,6 @@ The destination path can be used to change where output HTML files are written.
 
 #### Join (`--join`)
 
-> :construction: Experimental feature :construction:
-
 The `--join` option concatenates all Markdown source files in one (`MERGED.md`)
 before running the compilation (→ `MERGED.html`) :
 
