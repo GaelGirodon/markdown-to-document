@@ -120,7 +120,7 @@ describe("Processor", () => {
       // Theme
       assert.include(html, "<style>body .octicon");
       // Highlight style
-      assert.include(html, "<style>.hljs");
+      assert.include(html, "<style>pre code.hljs");
     });
     it("should fail if one of the resources doesn't exist", async () => {
       const proc = new Processor({
