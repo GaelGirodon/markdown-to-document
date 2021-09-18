@@ -40,13 +40,13 @@
     "cheerio": "^1.0.0-rc.10",
     "chokidar": "^3.5.2",
     "clipboard": "^2.0.8",
-    "commander": "^8.1.0",
+    "commander": "^8.2.0",
     "glob": "^7.1.7",
     "highlight.js": "^11.2.0",
     "html-minifier": "^4.0.0",
     "markdown-it": "^12.2.0",
     "markdown-it-abbr": "^1.0.4",
-    "markdown-it-anchor": "^8.3.0",
+    "markdown-it-anchor": "^8.3.1",
     "markdown-it-container": "^3.0.0",
     "markdown-it-deflist": "^2.1.0",
     "markdown-it-emoji": "^2.0.0",
@@ -70,7 +70,7 @@
     "mocha": "^9.1.1",
     "mocha-junit-reporter": "^2.0.0",
     "nyc": "^15.1.0",
-    "prettier": "^2.3.2"
+    "prettier": "^2.4.1"
   },
   "engines": {
     "node": ">=14.0.0"
