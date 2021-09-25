@@ -296,7 +296,7 @@ Open [package.json](package.json) to see the full list of dependencies.
   - Unlink: `npm unlink`
 - Format code with Prettier: `npm run format[:check]`
 - Lint code with ESLint: `npm run lint`
-- Build assets with Gulp: `npm run build:assets`
+- Build assets: `npm run build:assets`
 - Run tests: `npm run test[:coverage]`
 - Upgrade dependencies: `npx npm-check-updates -u`
 

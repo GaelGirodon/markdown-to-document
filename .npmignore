@@ -10,7 +10,6 @@ test
 .prettierignore
 .prettierrc
 azure-pipelines.yml
-gulpfile.js
 jsconfig.json
 
 # .gitignore
