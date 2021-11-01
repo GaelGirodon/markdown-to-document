@@ -1,6 +1,6 @@
 const paths = require("path");
-const Promise = require("bluebird");
-const fs = Promise.promisifyAll(require("fs"));
+const fs = require("fs");
+const fsp = require("fs/promises");
 
 /**
  * Tests that the file specified by path exists.
@@ -9,7 +9,7 @@ const fs = Promise.promisifyAll(require("fs"));
  */
 async function exists(path) {
   try {
-    await fs.accessAsync(path, fs.constants.F_OK);
+    await fsp.access(path, fs.constants.F_OK);
     return true;
   } catch (err) {
     return false;
@@ -22,7 +22,7 @@ async function exists(path) {
  * @return {Promise<boolean>} true if the file is a directory
  */
 async function isDirectory(path) {
-  return (await exists(path)) && (await fs.statAsync(path)).isDirectory();
+  return (await exists(path)) && (await fsp.stat(path)).isDirectory();
 }
 
 /**
@@ -32,7 +32,7 @@ async function isDirectory(path) {
  */
 async function isReadable(path) {
   try {
-    await fs.accessAsync(path, fs.constants.F_OK | fs.constants.R_OK);
+    await fsp.access(path, fs.constants.F_OK | fs.constants.R_OK);
     return true;
   } catch (err) {
     return false;
@@ -69,7 +69,7 @@ function localToUrl(path, base) {
  * @return {Promise<string>} A string containing all the text in the file.
  */
 function readAllText(path) {
-  return fs.readFileAsync(path, "utf8");
+  return fsp.readFile(path, "utf8");
 }
 
 /**
@@ -80,7 +80,7 @@ function readAllText(path) {
  * @return {Promise}
  */
 function writeAllText(path, contents) {
-  return fs.writeFileAsync(path, contents, "utf8");
+  return fsp.writeFile(path, contents, "utf8");
 }
 
 module.exports = {

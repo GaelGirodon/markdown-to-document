@@ -35,18 +35,17 @@
     "test:ci": "nyc --reporter=cobertura --all --include \"{assets,src}/**/*.js\" mocha --reporter mocha-junit-reporter --timeout 30000 || exit 0"
   },
   "dependencies": {
-    "bluebird": "^3.7.2",
-    "chalk": "^4.1.2",
+    "axios": "^0.24.0",
     "cheerio": "^1.0.0-rc.10",
     "chokidar": "^3.5.2",
     "clipboard": "^2.0.8",
-    "commander": "^8.2.0",
+    "commander": "^8.3.0",
     "glob": "^7.2.0",
-    "highlight.js": "^11.2.0",
+    "highlight.js": "^11.3.1",
     "html-minifier": "^4.0.0",
     "markdown-it": "^12.2.0",
     "markdown-it-abbr": "^1.0.4",
-    "markdown-it-anchor": "^8.3.1",
+    "markdown-it-anchor": "^8.4.1",
     "markdown-it-container": "^3.0.0",
     "markdown-it-deflist": "^2.1.0",
     "markdown-it-emoji": "^2.0.0",
@@ -56,20 +55,19 @@
     "markdown-it-sub": "^1.0.0",
     "markdown-it-sup": "^1.0.0",
     "markdown-it-toc-done-right": "^4.2.0",
-    "node-fetch": "^2.6.5",
     "web-resource-inliner": "^5.0.0"
   },
   "devDependencies": {
     "chai": "^4.3.4",
-    "clean-css": "^5.2.1",
-    "eslint": "^8.0.0",
+    "clean-css": "^5.2.2",
+    "eslint": "^8.1.0",
     "github-markdown-css": "^4.0.0",
-    "mocha": "^9.1.2",
+    "mocha": "^9.1.3",
     "mocha-junit-reporter": "^2.0.2",
     "nyc": "^15.1.0",
     "prettier": "^2.4.1"
   },
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=16.0.0"
   }
 }

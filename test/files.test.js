@@ -1,6 +1,5 @@
 const assert = require("chai").assert;
-const Promise = require("bluebird");
-const fs = Promise.promisifyAll(require("fs"));
+const fsp = require("fs/promises");
 const files = require("../src/files");
 const { buildPath } = require("./util");
 
@@ -60,7 +59,7 @@ describe("files", () => {
   describe("writeAllText", () => {
     it("should write a content to a text file", async () => {
       await files.writeAllText(buildPath("TEST.txt"), "test");
-      await fs.unlinkAsync(buildPath("TEST.txt"));
+      await fsp.unlink(buildPath("TEST.txt"));
     });
   });
 });

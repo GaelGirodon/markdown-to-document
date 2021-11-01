@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 const program = require("commander");
-const chalk = require("chalk");
 const { Processor } = require("./processor");
 
 program
@@ -27,7 +26,7 @@ program
   .action(function (path, options) {
     const proc = new Processor(options);
     proc.process(path).catch((err) => {
-      console.error(chalk.redBright(err));
+      console.error(err);
       process.exit(1);
     });
   });
