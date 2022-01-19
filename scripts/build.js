@@ -12,7 +12,7 @@ const CleanCSS = require("clean-css");
  * the github-markdown-css npm package.
  */
 
-const src = path.join(__dirname, "../node_modules/github-markdown-css/github-markdown.css");
+const src = path.join(__dirname, "../node_modules/github-markdown-css/github-markdown-light.css");
 const dst = path.join(__dirname, "../assets/themes/github.min.css");
 const css = fs
   .readFileSync(src, "utf8")
