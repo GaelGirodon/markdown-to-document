@@ -18,7 +18,7 @@ A Markdown CLI to easily generate HTML documents from Markdown files.
 
 ## Install
 
-Install the CLI globally using NPM ([Node.js](https://nodejs.org/) >= 14):
+Install the CLI globally using NPM ([Node.js](https://nodejs.org/) >= 16):
 
 ```shell
 npm install markdown-to-document -g

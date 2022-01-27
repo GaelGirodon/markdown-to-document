@@ -1,10 +1,9 @@
-const Promise = require("bluebird");
 const path = require("path");
-const glob = Promise.promisify(require("glob"));
+const util = require("util");
+const glob = util.promisify(require("glob"));
 const watcher = require("chokidar");
-const chalk = require("chalk");
 const cheerio = require("cheerio");
-const inline = Promise.promisify(require("web-resource-inliner").html);
+const inline = util.promisify(require("web-resource-inliner").html);
 const minify = require("html-minifier").minify;
 
 const files = require("./files");
@@ -59,7 +58,7 @@ class Processor {
     // Compile source files
     if (this.watch) {
       for (const file of sources) {
-        console.log(`${chalk.gray("[watch]")} ${file}`);
+        console.log(`[watch] ${file}`);
         watcher
           .watch(file, { awaitWriteFinish: { stabilityThreshold: 500 } })
           .on("change", async (path) => {

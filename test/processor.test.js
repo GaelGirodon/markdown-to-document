@@ -1,5 +1,4 @@
-const Promise = require("bluebird");
-const fs = Promise.promisifyAll(require("fs"));
+const fsp = require("fs/promises");
 const path = require("path");
 const assert = require("chai").assert;
 
@@ -20,7 +19,7 @@ describe("Processor", () => {
     ].map((p) => buildPath(p));
     for (const p of paths) {
       if (await files.exists(p)) {
-        await fs.unlinkAsync(p);
+        await fsp.unlink(p);
       }
     }
   });
@@ -118,7 +117,7 @@ describe("Processor", () => {
       assert.include(html, "<html");
       assert.include(html, "<body>");
       // Theme
-      assert.include(html, "<style>body .octicon");
+      assert.include(html, "<style>body{-ms");
       // Highlight style
       assert.include(html, "<style>pre code.hljs");
     });

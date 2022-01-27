@@ -1,5 +1,4 @@
-const Promise = require("bluebird");
-const fs = Promise.promisifyAll(require("fs"));
+const fsp = require("fs/promises");
 const util = require("util");
 const exec = util.promisify(require("child_process").exec);
 const assert = require("chai").assert;
@@ -53,7 +52,7 @@ describe("CLI", () => {
       const { stdout } = await exec(`node ${cli} ${src}`);
       assert.include(stdout.toString(), "README.html");
       assert.isTrue(await files.exists(dst));
-      await fs.unlinkAsync(dst);
+      await fsp.unlink(dst);
     });
     it("should handle errors", async () => {
       const src = buildPath("LICENSE");
