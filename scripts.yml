@@ -9,6 +9,7 @@ update:
   script:
     - npx npm-check-updates -u
     - npm install
+    - npm audit fix
     - npm update
     - npm run format:check
     - npm run lint

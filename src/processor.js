@@ -39,8 +39,9 @@ class Processor {
     }
     let sources = [];
     for (const s of src) {
-      // Expand paths with glob syntax
-      sources.push(...(glob.hasMagic(s) ? await glob(s) : [s]));
+      // Expand (normalized) paths with glob syntax
+      const np = s.replace(/\\/g, path.posix.sep);
+      sources.push(...(glob.hasMagic(np) ? await glob(np) : [np]));
     }
     // Remove duplicates
     sources = sources
