@@ -16,8 +16,9 @@ const src = path.join(__dirname, "../node_modules/github-markdown-css/github-mar
 const dst = path.join(__dirname, "../assets/themes/github.min.css");
 const css = fs
   .readFileSync(src, "utf8")
-  .replace(/\.markdown-body/g, "body")
-  .replace(/(list-style-type: lower-.*;)/g, "/* $1 */")
-  .replace("{\n  padding: 16px;\n", "{\n  padding: 16px !important;\n");
+  .replace(/\.markdown-body/g, "body") // Apply styles to the whole document
+  .replace(/(list-style-type: lower-.*;)/g, "/* $1 */") // Reset list-style-type to default
+  .replace(/(\{\s*padding: 16px)(;\n)/, "$1 !important$2") // Force padding in <pre> blocks
+  .replace(/body code br[^{]*\{\s*display: none;?\s*\}/, ""); // Mermaid needs <br> to be displayed
 fs.mkdirSync(path.dirname(dst), { recursive: true });
 fs.writeFileSync(dst, new CleanCSS().minify(css).styles);
