@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.22.0 - 2022-04-27
+
+- Fix conflict between GitHub theme and Mermaid
+- Update dependencies
+
 ## 0.21.0 - 2022-03-19
 
 - Update dependencies

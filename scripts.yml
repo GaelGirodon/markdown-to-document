@@ -1,0 +1,43 @@
+# scripts.yml
+
+shell: powershell
+variables:
+  VERSION_FILE: src/cli.js
+
+update:
+  step_by_step: true
+  script:
+    - npx npm-check-updates -u
+    - npm install
+    - npm audit fix
+    - npm update
+    - npm run format:check
+    - npm run lint
+    - npm run build:assets
+    - npm test
+
+release:
+  step_by_step: true
+  script:
+    - git switch develop
+    - $v = (Get-Version package.json).Split(".")
+    - $v[1] = "$([int]$v[1] + 1)"; $version = "$($v -join ".")"
+    - git flow release start "$version"
+    - Set-Version -Path package.json -Version "$version"
+    - Set-Version -Path $env:VERSION_FILE -Version "$version"
+    - npm install
+    - node .\src\cli.js --version
+    - echo "Update the changelog..."
+    - git add package*.json CHANGELOG.md $env:VERSION_FILE
+    - git commit -m "Bump the version number"
+    - git flow release finish "$version"
+    - echo "Push all  -> 'git push --all origin'`nPush tags -> 'git push --tags'"
+
+publish:
+  step_by_step: true
+  script:
+    - git switch master
+    - npm run build:assets
+    - npm login
+    - npm publish
+    - npm logout
