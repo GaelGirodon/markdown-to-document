@@ -39,7 +39,7 @@ class Processor {
     }
     let sources = [];
     for (const s of src) {
-      // Normalize and trim paths
+      // Normalize and trim path
       const np = s.replace(/\\/g, path.posix.sep).replace(/^['"]+|['"]+$/g, "");
       // Expand with glob syntax
       sources.push(...(glob.hasMagic(np) ? await glob(np) : [np]));
