@@ -1,6 +1,6 @@
 {
   "name": "markdown-to-document",
-  "version": "0.22.0",
+  "version": "0.23.0",
   "description": "A Markdown CLI to easily generate HTML documents from Markdown files",
   "keywords": [
     "markdown",
@@ -35,20 +35,20 @@
     "test:ci": "nyc --reporter=cobertura --all --include \"{assets,src}/**/*.js\" mocha --reporter mocha-junit-reporter --timeout 30000 || exit 0"
   },
   "dependencies": {
-    "axios": "^0.26.1",
-    "cheerio": "^1.0.0-rc.10",
+    "axios": "^0.27.2",
+    "cheerio": "^1.0.0-rc.12",
     "chokidar": "^3.5.3",
-    "clipboard": "^2.0.10",
-    "commander": "^9.2.0",
-    "glob": "^8.0.1",
-    "highlight.js": "^11.5.1",
+    "clipboard": "^2.0.11",
+    "commander": "^9.4.0",
+    "glob": "^8.0.3",
+    "highlight.js": "^11.6.0",
     "html-minifier": "^4.0.0",
-    "markdown-it": "^12.3.2",
+    "markdown-it": "^13.0.1",
     "markdown-it-abbr": "^1.0.4",
-    "markdown-it-anchor": "^8.6.2",
+    "markdown-it-anchor": "^8.6.4",
     "markdown-it-container": "^3.0.0",
     "markdown-it-deflist": "^2.1.0",
-    "markdown-it-emoji": "^2.0.0",
+    "markdown-it-emoji": "^2.0.2",
     "markdown-it-footnote": "^3.0.3",
     "markdown-it-ins": "^3.0.1",
     "markdown-it-mark": "^3.0.1",
@@ -59,13 +59,13 @@
   },
   "devDependencies": {
     "chai": "^4.3.6",
-    "clean-css": "^5.3.0",
-    "eslint": "^8.14.0",
+    "clean-css": "^5.3.1",
+    "eslint": "^8.20.0",
     "github-markdown-css": "^5.1.0",
-    "mocha": "^9.2.2",
+    "mocha": "^10.0.0",
     "mocha-junit-reporter": "^2.0.2",
     "nyc": "^15.1.0",
-    "prettier": "^2.6.2"
+    "prettier": "^2.7.1"
   },
   "engines": {
     "node": ">=16.0.0"
