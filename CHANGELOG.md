@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.23.0 - 2022-07-29
+
+- Improve handling of source file paths
+- Update dependencies
+
 ## 0.22.0 - 2022-04-27
 
 - Fix conflict between GitHub theme and Mermaid
