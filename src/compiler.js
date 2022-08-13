@@ -1,6 +1,17 @@
-const hljs = require("highlight.js");
-const markdownIt = require("markdown-it");
-const { randomId } = require("./util");
+import MarkdownIt from "markdown-it";
+import abbr from "markdown-it-abbr";
+import container from "markdown-it-container";
+import defList from "markdown-it-deflist";
+import emoji from "markdown-it-emoji";
+import footnote from "markdown-it-footnote";
+import ins from "markdown-it-ins";
+import mark from "markdown-it-mark";
+import sub from "markdown-it-sub";
+import sup from "markdown-it-sup";
+import anchor from "markdown-it-anchor";
+import tocDoneRight from "markdown-it-toc-done-right";
+
+import { randomId } from "./util.js";
 
 /** <pre> code block for highlighting function */
 const PRE_BLOCK =
@@ -11,20 +22,23 @@ const COPY_BLOCK = '<textarea id="{{ id }}" rows="1" cols="2">{{ code }}</textar
 
 /**
  * Construct a Markdown compiler using Markdown.it.
- * @param {boolean} codeCopy Enable the "Copy to clipboard" button in code blocks
+ * @param {{codeCopy: boolean, highlightStyle: boolean}} opts Compiler options
  * @return The initialized Markdown.it compiler
  */
-function compiler(codeCopy) {
+export async function compiler(opts) {
+  // Import Highlight.js only if necessary
+  const hljs = opts.highlightStyle ? (await import("highlight.js")).default : null;
+
   /**
    * Syntax highlighting function.
    */
   function highlight(str, lang) {
     const escapedCode = md.utils.escapeHtml(str);
     const copyBlock =
-      codeCopy && lang !== "mermaid"
+      opts.codeCopy && lang !== "mermaid"
         ? COPY_BLOCK.replace(/{{ id }}/g, randomId()).replace(/{{ code }}/g, escapedCode.trim())
         : "";
-    if (lang && hljs.getLanguage(lang)) {
+    if (lang && hljs?.getLanguage(lang)) {
       try {
         const hljsOpts = { language: lang, ignoreIllegals: true };
         return PRE_BLOCK.replace(/{{ pre_class }}/g, "code-block hljs")
@@ -43,7 +57,7 @@ function compiler(codeCopy) {
   }
 
   /** Markdown.it instance */
-  let md = markdownIt({
+  let md = MarkdownIt({
     html: true,
     linkify: true,
     typographer: true,
@@ -52,21 +66,17 @@ function compiler(codeCopy) {
 
   // Plugins
   md = md
-    .use(require("markdown-it-abbr")) // Abbreviation (<abbr>) tag
-    .use(require("markdown-it-container"), "warning") // Custom block containers
-    .use(require("markdown-it-deflist")) // Definition list (<dl>) tag
-    .use(require("markdown-it-emoji")) // Emoji syntax
-    .use(require("markdown-it-footnote")) // Footnotes
-    .use(require("markdown-it-ins")) // Inserted (<ins>) tag
-    .use(require("markdown-it-mark")) // Marked (<mark>) tag
-    .use(require("markdown-it-sub")) // Subscript (<sub>) tag
-    .use(require("markdown-it-sup")) // Superscript (<sup>) tag
-    .use(require("markdown-it-anchor"), { level: 2 }) // Header anchors (permalinks)
-    .use(require("markdown-it-toc-done-right"), { level: [2, 3] }); // Table of contents
+    .use(abbr) // Abbreviation (<abbr>) tag
+    .use(container, "warning") // Custom block containers
+    .use(defList) // Definition list (<dl>) tag
+    .use(emoji) // Emoji syntax
+    .use(footnote) // Footnotes
+    .use(ins) // Inserted (<ins>) tag
+    .use(mark) // Marked (<mark>) tag
+    .use(sub) // Subscript (<sub>) tag
+    .use(sup) // Superscript (<sup>) tag
+    .use(anchor, { level: 2 }) // Header anchors (permalinks)
+    .use(tocDoneRight, { level: [2, 3] }); // Table of contents
 
   return md;
 }
-
-module.exports = {
-  compiler,
-};

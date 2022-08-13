@@ -21,6 +21,7 @@
   "bin": {
     "mdtodoc": "./src/cli.js"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "https://github.com/GaelGirodon/markdown-to-document.git"
@@ -29,20 +30,18 @@
     "build:assets": "node scripts/build.js",
     "format": "prettier --write \"**/*.{js,json,css}\"",
     "format:check": "prettier --check \"**/*.{js,json,css}\"",
-    "lint": "eslint \"**/*.js\"",
+    "lint": "eslint \"**/*.js\" --ignore-path \".prettierignore\"",
     "test": "mocha --timeout 30000",
-    "test:coverage": "nyc --reporter=html --reporter=text --all --include \"{assets,src}/**/*.js\" mocha --timeout 30000",
-    "test:ci": "nyc --reporter=cobertura --all --include \"{assets,src}/**/*.js\" mocha --reporter mocha-junit-reporter --timeout 30000 || exit 0"
+    "test:coverage": "c8 --reporter=html --reporter=text --all --include \"{assets,src}/**/*.js\" --exclude \"**/*.min.js\" mocha --timeout 30000",
+    "test:ci": "c8 --reporter=cobertura --all --include \"{assets,src}/**/*.js\" --exclude \"**/*.min.js\" mocha --reporter mocha-junit-reporter --timeout 30000 || exit 0"
   },
   "dependencies": {
-    "axios": "^0.27.2",
     "cheerio": "^1.0.0-rc.12",
     "chokidar": "^3.5.3",
     "clipboard": "^2.0.11",
     "commander": "^9.4.0",
     "glob": "^8.0.3",
     "highlight.js": "^11.6.0",
-    "html-minifier": "^4.0.0",
     "markdown-it": "^13.0.1",
     "markdown-it-abbr": "^1.0.4",
     "markdown-it-anchor": "^8.6.4",
@@ -55,17 +54,19 @@
     "markdown-it-sub": "^1.0.0",
     "markdown-it-sup": "^1.0.0",
     "markdown-it-toc-done-right": "^4.2.0",
-    "web-resource-inliner": "^5.0.0"
+    "node-fetch": "^3.2.10",
+    "web-resource-inliner": "^6.0.1"
   },
   "devDependencies": {
+    "c8": "^7.12.0",
     "chai": "^4.3.6",
     "clean-css": "^5.3.1",
-    "eslint": "^8.20.0",
+    "eslint": "^8.21.0",
     "github-markdown-css": "^5.1.0",
     "mocha": "^10.0.0",
     "mocha-junit-reporter": "^2.0.2",
-    "nyc": "^15.1.0",
-    "prettier": "^2.7.1"
+    "prettier": "^2.7.1",
+    "uglify-js": "^3.16.3"
   },
   "engines": {
     "node": ">=16.0.0"

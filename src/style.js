@@ -1,12 +1,13 @@
-const paths = require("path");
-const files = require("./files");
-const { fetchText } = require("./net");
+import paths from "path";
+
+import * as files from "./files.js";
+import { fetchText } from "./net.js";
 
 /** Path to node_modules directory */
-const NODE_MODULES_PATH = paths.join(__dirname, "..", "node_modules");
+const NODE_MODULES_PATH = paths.join(files.ROOT_DIR, "node_modules");
 
 /** Path to assets directory */
-const ASSETS_PATH = paths.join(__dirname, "..", "assets");
+const ASSETS_PATH = paths.join(files.ROOT_DIR, "assets");
 
 /** Path to layouts directory */
 const LAYOUTS_PATH = paths.join(ASSETS_PATH, "layouts");
@@ -21,30 +22,30 @@ const HLJS_STYLES_PATH = paths.join(NODE_MODULES_PATH, "highlight.js", "styles")
 const EXT_PATH = paths.join(ASSETS_PATH, "ext");
 
 /** Paths to JavaScript libraries */
-const LIBRARIES = {
+export const LIBRARIES = {
   clipboard: paths.join(NODE_MODULES_PATH, "clipboard", "dist", "clipboard.min.js"),
-  mermaid: "https://cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js",
+  mermaid: "https://unpkg.com/mermaid@9/dist/mermaid.min.js",
 };
 
 /** Path to extensions files */
 const EXTENSIONS = {
   "numbered-headings": {
-    css: paths.join(EXT_PATH, "numbered-headings.css"),
+    css: paths.join(EXT_PATH, "numbered-headings.min.css"),
   },
   "code-copy": {
-    css: paths.join(EXT_PATH, "code-copy.css"),
-    js: paths.join(EXT_PATH, "code-copy.js"),
+    css: paths.join(EXT_PATH, "code-copy.min.css"),
+    js: paths.join(EXT_PATH, "code-copy.min.js"),
   },
   mermaid: {
-    css: paths.join(EXT_PATH, "mermaid.css"),
-    js: paths.join(EXT_PATH, "mermaid.js"),
+    css: paths.join(EXT_PATH, "mermaid.min.css"),
+    js: paths.join(EXT_PATH, "mermaid.min.js"),
   },
 };
 
 /**
  * A Markdown compiler style.
  */
-class Style {
+export class Style {
   /**
    * Construct a style from a layout, a theme, a highlight style
    * and other options (numbered headings, code copy).
@@ -188,7 +189,3 @@ class Style {
     return path;
   }
 }
-
-module.exports = {
-  Style,
-};

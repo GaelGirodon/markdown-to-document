@@ -1,19 +1,21 @@
-const path = require("path");
-const util = require("util");
-const glob = util.promisify(require("glob"));
-const watcher = require("chokidar");
-const cheerio = require("cheerio");
-const inline = util.promisify(require("web-resource-inliner").html);
-const minify = require("html-minifier").minify;
+import path from "path";
+import util from "util";
+import Glob from "glob";
+import watcher from "chokidar";
+import * as cheerio from "cheerio";
+import webResourceInliner from "web-resource-inliner";
 
-const files = require("./files");
-const { compiler } = require("./compiler");
-const { Style } = require("./style");
+import * as files from "./files.js";
+import { compiler } from "./compiler.js";
+import { Style } from "./style.js";
+
+const glob = util.promisify(Glob);
+const inline = util.promisify(webResourceInliner.html);
 
 /**
  * Markdown processor.
  */
-class Processor {
+export class Processor {
   /**
    * Construct a Markdown processor.
    * @param {*} opts Processor options
@@ -25,7 +27,7 @@ class Processor {
     this.watch = opts.watch; // Watch Markdown files
     this.embedMode = opts.embedMode || "default"; // Embed external resources
     this.style = new Style(opts);
-    this.compiler = compiler(opts.codeCopy);
+    this.compiler = compiler(opts);
   }
 
   /**
@@ -57,6 +59,8 @@ class Processor {
     }
     // Initialize style
     await this.style.init();
+    // Await compiler initialization
+    this.compiler = await this.compiler;
     // Compile source files
     if (this.watch) {
       for (const file of sources) {
@@ -112,15 +116,14 @@ class Processor {
       Object.assign(options, { images: true, svgs: true, scripts: true });
     }
     output = await inline(options);
+    // Remove useless line breaks within script and style tags
+    output = output
+      .replace(/(<(?:style|script)[^>]*>)\s+/g, "$1")
+      .replace(/\s+(<\/(?:style|script)>)/g, "$1");
+    // Clean up some comments
+    output = output.replace(/\/\*((?!\*\/).)*\*\/\s*/gs, "");
     // Apply .code-block CSS class to all <pre> tags without class
     output = output.replace(/<pre>/g, '<pre class="code-block">');
-    // Minify
-    output = minify(output, {
-      minifyCSS: true,
-      minifyJS: true,
-      removeComments: true,
-      ignoreCustomComments: [/^\s*!!!/], // Keep comments starting with "!!!"
-    });
     // Save output file
     const outputFileName = path.basename(src).replace(/\.md$/, ".html");
     const outputFile = path.join(dest || path.dirname(src), outputFileName);
@@ -174,7 +177,3 @@ class Processor {
     return dest;
   }
 }
-
-module.exports = {
-  Processor,
-};

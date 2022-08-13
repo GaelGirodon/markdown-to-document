@@ -13,6 +13,6 @@ assets/**/*.min.*
 /*.html
 MERGED.*
 /*.tgz
-.nyc_output
 coverage
 test-results.xml
+/.*/

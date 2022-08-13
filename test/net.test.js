@@ -1,5 +1,5 @@
-const assert = require("chai").assert;
-const { fetchText } = require("../src/net");
+import { assert } from "chai";
+import { fetchText } from "../src/net.js";
 
 describe("fetchText", () => {
   it("should return a text from the web", async () => {

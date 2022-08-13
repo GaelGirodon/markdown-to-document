@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-const program = require("commander");
-const { Processor } = require("./processor");
+import { Option, program } from "commander";
+import { Processor } from "./processor.js";
 
 program
   .name("mdtodoc")
@@ -16,11 +16,10 @@ program
   .option("-n, --numbered-headings", "enable numbered headings")
   .option("-c, --code-copy", "enable copy code button")
   .option("-m, --mermaid", "enable mermaid")
-  .option(
-    "-e, --embed-mode [value]",
-    "embed external resources: light, default or full",
-    /^(light|default|full)$/,
-    "default"
+  .addOption(
+    new Option("-e, --embed-mode [value]", "embed external resources")
+      .default("default")
+      .choices(["light", "default", "full"])
   )
   .option("-w, --watch", "watch input files and compile on change")
   .action(function (path, options) {

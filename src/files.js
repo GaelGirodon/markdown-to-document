@@ -1,13 +1,19 @@
-const paths = require("path");
-const fs = require("fs");
-const fsp = require("fs/promises");
+import fs from "fs";
+import fsp from "fs/promises";
+import { dirname, relative } from "path";
+import { fileURLToPath } from "url";
+
+/**
+ * Path to the root directory of the tool
+ */
+export const ROOT_DIR = dirname(dirname(fileURLToPath(import.meta.url)));
 
 /**
  * Tests that the file specified by path exists.
  * @param {string} path A path to a file or directory
  * @return {Promise<boolean>} true if the file exists
  */
-async function exists(path) {
+export async function exists(path) {
   try {
     await fsp.access(path, fs.constants.F_OK);
     return true;
@@ -21,7 +27,7 @@ async function exists(path) {
  * @param {string} path A path to a file or directory
  * @return {Promise<boolean>} true if the file is a directory
  */
-async function isDirectory(path) {
+export async function isDirectory(path) {
   return (await exists(path)) && (await fsp.stat(path)).isDirectory();
 }
 
@@ -30,7 +36,7 @@ async function isDirectory(path) {
  * @param {string} path A path to a file or directory
  * @return {Promise<boolean>} true if the file exists and is readable
  */
-async function isReadable(path) {
+export async function isReadable(path) {
   try {
     await fsp.access(path, fs.constants.F_OK | fs.constants.R_OK);
     return true;
@@ -45,7 +51,7 @@ async function isReadable(path) {
  * @param {string} path A path to a file or directory
  * @return {boolean} true if the file is a remote file
  */
-function isRemote(path) {
+export function isRemote(path) {
   return /^https?:\/\/|^\/\//.test(path);
 }
 
@@ -57,9 +63,9 @@ function isRemote(path) {
  * @param {string} base Web root path (the output URL will be relative to this)
  * @return {string} The URL
  */
-function localToUrl(path, base) {
+export function localToUrl(path, base) {
   if (isRemote(path)) return path;
-  return paths.relative(base, path).replace(/\\/g, "/");
+  return relative(base, path).replace(/\\/g, "/");
 }
 
 /**
@@ -68,7 +74,7 @@ function localToUrl(path, base) {
  * @param {string} path The path to the file to read
  * @return {Promise<string>} A string containing all the text in the file.
  */
-function readAllText(path) {
+export function readAllText(path) {
   return fsp.readFile(path, "utf8");
 }
 
@@ -79,16 +85,6 @@ function readAllText(path) {
  * @param {string} contents The string to write to the file.
  * @return {Promise}
  */
-function writeAllText(path, contents) {
+export function writeAllText(path, contents) {
   return fsp.writeFile(path, contents, "utf8");
 }
-
-module.exports = {
-  exists,
-  isDirectory,
-  isReadable,
-  isRemote,
-  localToUrl,
-  readAllText,
-  writeAllText,
-};

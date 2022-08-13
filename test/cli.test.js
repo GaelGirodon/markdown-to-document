@@ -1,11 +1,12 @@
-const fsp = require("fs/promises");
-const util = require("util");
-const exec = util.promisify(require("child_process").exec);
-const assert = require("chai").assert;
+import fsp from "fs/promises";
+import util from "util";
+import childProcess from "child_process";
+import { assert } from "chai";
 
-const files = require("../src/files");
-const { buildPath } = require("./util");
+import * as files from "../src/files.js";
+import { buildPath } from "./util.js";
 
+const exec = util.promisify(childProcess.exec);
 const cli = buildPath("src/cli.js");
 
 describe("CLI", () => {

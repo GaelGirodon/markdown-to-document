@@ -272,8 +272,6 @@ Additional features also use the following packages:
 - [highlight.js](https://highlightjs.org/) - Javascript syntax highlighter
 - [web-resource-inliner](https://github.com/jrit/web-resource-inliner) - Brings
   externally referenced resources, such as js, css and images, into a single file
-- [html-minifier](https://github.com/kangax/html-minifier) - Javascript-based
-  HTML compressor/minifier
 - [clipboard.js](https://clipboardjs.com/) - A modern approach to copy text to clipboard
 - [cheerio](https://cheerio.js.org/) - Fast, flexible, and lean implementation
   of core jQuery designed specifically for the server

@@ -41,3 +41,4 @@ publish:
     - npm login
     - npm publish
     - npm logout
+    - git switch develop

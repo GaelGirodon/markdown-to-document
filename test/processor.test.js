@@ -1,10 +1,11 @@
-const fsp = require("fs/promises");
-const path = require("path");
-const assert = require("chai").assert;
+import fsp from "fs/promises";
+import path from "path";
+import { assert } from "chai";
 
-const files = require("../src/files");
-const { Processor } = require("../src/processor");
-const { buildPath } = require("./util");
+import * as files from "../src/files.js";
+import { Processor } from "../src/processor.js";
+import { LIBRARIES } from "../src/style.js";
+import { buildPath } from "./util.js";
 
 const github = "https://raw.githubusercontent.com";
 
@@ -183,7 +184,7 @@ describe("Processor", () => {
       // Page should not include CSS external link
       assert.notInclude(html, 'link rel="stylesheet" href="');
       // Page should include Mermaid from CDN
-      assert.include(html, 'script src="https://cdn');
+      assert.include(html, `script src="${LIBRARIES.mermaid}`);
       // Page should include inlined images
       assert.include(html, 'src="data:image');
     });
@@ -205,7 +206,7 @@ describe("Processor", () => {
       // Page should not include CSS external link
       assert.notInclude(html, 'link rel="stylesheet" href="');
       // Page should include Mermaid from CDN
-      assert.include(html, 'script src="https://cdn');
+      assert.include(html, `script src="${LIBRARIES.mermaid}`);
       // Page should only include inlined images
       assert.include(html, 'src="data:image');
     });
