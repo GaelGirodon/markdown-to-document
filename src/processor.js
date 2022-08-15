@@ -8,6 +8,7 @@ import webResourceInliner from "web-resource-inliner";
 import * as files from "./files.js";
 import { compiler } from "./compiler.js";
 import { Style } from "./style.js";
+import { Extensions } from "./extension.js";
 
 const glob = util.promisify(Glob);
 const inline = util.promisify(webResourceInliner.html);
@@ -28,6 +29,7 @@ export class Processor {
     this.embedMode = opts.embedMode || "default"; // Embed external resources
     this.style = new Style(opts);
     this.compiler = compiler(opts);
+    this.extensions = new Extensions(opts.extension);
   }
 
   /**
@@ -59,6 +61,8 @@ export class Processor {
     }
     // Initialize style
     await this.style.init();
+    // Initialize extensions
+    await this.extensions.init();
     // Await compiler initialization
     this.compiler = await this.compiler;
     // Compile source files
@@ -101,13 +105,18 @@ export class Processor {
     const title = cheerio.load(body)("h1").first().text();
     // Use style
     const base = path.dirname(src);
-    let output = this.style.template
-      .replace(/{{ styles }}/g, await this.style.styles(base))
-      .replace(/{{ scripts }}/g, await this.style.scripts(base))
-      .replace(/{{ title }}/g, title || path.basename(src))
-      .replace(/{{ body }}/g, body);
+    let data = {
+      title: title || path.basename(src),
+      styles: await this.style.styles(base),
+      scripts: await this.style.scripts(base),
+      body,
+    };
+    // Render output HTML
+    data = await this.extensions.exec("preRender", data);
+    let html = this.style.template(data);
     // Inline resources
-    let options = { fileContent: output, relativeTo: base };
+    ({ html } = await this.extensions.exec("preInline", { html }));
+    let options = { fileContent: html, relativeTo: base };
     if (this.embedMode === "light") {
       Object.assign(options, { images: 16, svgs: 16, scripts: 16 });
     } else if (this.embedMode === "default") {
@@ -115,19 +124,21 @@ export class Processor {
     } else if (this.embedMode === "full") {
       Object.assign(options, { images: true, svgs: true, scripts: true });
     }
-    output = await inline(options);
+    html = await inline(options);
     // Remove useless line breaks within script and style tags
-    output = output
+    html = html
       .replace(/(<(?:style|script)[^>]*>)\s+/g, "$1")
       .replace(/\s+(<\/(?:style|script)>)/g, "$1");
     // Clean up some comments
-    output = output.replace(/\/\*((?!\*\/).)*\*\/\s*/gs, "");
+    html = html.replace(/\/\*((?!\*\/).)*\*\/\s*/gs, "");
     // Apply .code-block CSS class to all <pre> tags without class
-    output = output.replace(/<pre>/g, '<pre class="code-block">');
+    html = html.replace(/<pre>/g, '<pre class="code-block">');
     // Save output file
     const outputFileName = path.basename(src).replace(/\.md$/, ".html");
-    const outputFile = path.join(dest || path.dirname(src), outputFileName);
-    await files.writeAllText(outputFile, output);
+    let outputFile = path.join(dest || path.dirname(src), outputFileName);
+    const preWriteData = { html, path: outputFile };
+    ({ html, path: outputFile } = await this.extensions.exec("preWrite", preWriteData));
+    await files.writeAllText(outputFile, html);
     console.log(`${src} -> ${outputFile}`);
     return outputFile;
   }

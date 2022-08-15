@@ -52,6 +52,7 @@ Read [usage examples](#examples) to learn how to use the CLI.
 | `-c, --code-copy`               | Enable copy code button                       |
 | `-m, --mermaid`                 | Enable mermaid                                |
 | `-e, --embed-mode [value]`      | Embed external resources (default: `default`) |
+| `-x, --extension [value...]`    | Extension scripts                             |
 | `-w, --watch`                   | Watch input files and compile on change       |
 | `-h, --help`                    | Output usage information                      |
 
@@ -146,6 +147,39 @@ The `--embed-mode` option allows to inline externally referenced resources
   (**default**)
 - `full`: inline everything
 
+#### Extensions (`--extension`)
+
+The `--extension` option allows to provide paths to extension scripts to
+further customize document generation.
+
+An extension is a JavaScript file using ES modules syntax with up to three
+exported functions corresponding to available hooks, taking an object in
+parameter, doing some modifications on it and returning it.
+
+```js
+export function hookName({ arg1, arg2, ... }) {
+  // Modify then return arguments
+  return { arg1, arg2, ... }
+}
+```
+
+3 hooks (and their arguments) are available:
+
+- **`preRender`**: called after Markdown compilation and before template/layout
+  rendering
+  - `title` (`string`): HTML document title
+  - `styles` (`string[]`): CSS stylesheet URLs
+  - `scripts` (`string[]`): JS scripts URLs
+  - `body` (`string`): HTML document body
+- **`preInline`**: called after rendering and before inlining
+  - `html` (`string`): full HTML document
+- **`preWrite`**: called after inlining and before writing to the output file
+  - `html` (`string`): full HTML document
+  - `path` (`string`): output file path
+
+All [dependencies](./package.json) can be imported to help customizing data
+before returning it, especially _cheerio_ that can be useful to manipulate HTML.
+
 ### Examples
 
 **Compile a single Markdown file (`doc.md`) into HTML (`doc.html`)**
@@ -175,7 +209,7 @@ mdtodoc doc.md --layout "page" --theme "github" --highlight-style "atom-one-ligh
 The compiled Markdown is now included into the predefined layout `page`
 and some CSS styling is added directly into the HTML file.
 
-**Enable additional extensions**
+**Enable additional features**
 
 ```shell
 mdtodoc doc.md -l "page" -t "github" -s "atom-one-light" --numbered-headings --code-copy --mermaid
@@ -203,6 +237,14 @@ mdtodoc doc.md -l "./assets/layouts/page.html" -t "github" -s "https://raw.githu
 Read [options documentation](#options) for more information on how to use
 `--layout`, `--theme` and `--highlight-style` options.
 
+**Use an extension to do more customization**
+
+```shell
+mdtodoc doc.md -l "page" --extension "./test/data/extension/uppercase_title.js"
+```
+
+Title in the output HTML document (`<title>[...]</title>`) is now uppercase.
+
 **Export a Markdown documentation in a GitLab CI pipeline**
 
 In a GitLab repository with Markdown files inside the `docs/` folder,
@@ -214,7 +256,7 @@ export-doc:
   stage: doc
   image: node:lts
   before_script:
-    - npm i markdown-to-document -g --only=prod
+    - npm i markdown-to-document -g
   script:
     - mdtodoc "docs/**/*.md" --join -l "page" -t "github" -s "atom-one-light" -n -c
     - mv docs/MERGED.html ./docs.html

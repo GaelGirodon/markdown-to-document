@@ -27,14 +27,14 @@ fs.mkdirSync(path.dirname(dst), { recursive: true });
 fs.writeFileSync(dst, new CleanCSS().minify(css).styles);
 
 /*
- * Minify extensions CSS & JS files
+ * Minify additional features CSS & JS files
  */
 
-const extFiles = fs
-  .readdirSync(path.join(ROOT_DIR, "assets/ext"), { encoding: "utf8" })
+const featureFiles = fs
+  .readdirSync(path.join(ROOT_DIR, "assets/features"), { encoding: "utf8" })
   .filter((f) => /^[^.]+\.(css|js)$/.test(f))
-  .map((f) => path.join(ROOT_DIR, "assets/ext", f));
-for (const f of extFiles) {
+  .map((f) => path.join(ROOT_DIR, "assets/features", f));
+for (const f of featureFiles) {
   const content = fs.readFileSync(f, { encoding: "utf8" });
   fs.writeFileSync(
     f.replace(/\.(\w+)$/, ".min.$1"),

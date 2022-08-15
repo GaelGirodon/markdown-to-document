@@ -15,8 +15,8 @@ describe("Processor", () => {
       "README.html",
       "CHANGELOG.html",
       "test/README.html",
-      path.join("test", "data", "join", "MERGED.md"),
-      path.join("test", "data", "join", "MERGED.html"),
+      "test/data/join/MERGED.md",
+      "test/data/join/MERGED.html",
     ].map((p) => buildPath(p));
     for (const p of paths) {
       if (await files.exists(p)) {
@@ -293,6 +293,21 @@ describe("Processor", () => {
         throws = true;
       }
       assert.isTrue(throws);
+    });
+  });
+
+  describe('mdtodoc doc.md -l "page" --extension "ext.js"', () => {
+    it("should compile a Markdown file and apply extension", async () => {
+      const proc = new Processor({
+        layout: "page",
+        extension: [buildPath("test/data/extension/valid.js")],
+      });
+      const src = buildPath("README.md");
+      const dst = buildPath("README.html");
+      await proc.process([src]);
+      assert.isTrue(await files.exists(dst));
+      const html = await files.readAllText(dst);
+      assert.include(html, " + preRender + preInline + preWrite</title>");
     });
   });
 

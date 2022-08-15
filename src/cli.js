@@ -21,6 +21,7 @@ program
       .default("default")
       .choices(["light", "default", "full"])
   )
+  .option("-x, --extension [value...]", "extension scripts")
   .option("-w, --watch", "watch input files and compile on change")
   .action(function (path, options) {
     const proc = new Processor(options);

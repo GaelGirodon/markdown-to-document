@@ -48,10 +48,10 @@ describe("CLI", () => {
 
   describe("mdtodoc doc.md", () => {
     it("should compile a Markdown file", async () => {
-      const src = buildPath("README.md");
-      const dst = buildPath("README.html");
+      const src = buildPath("CHANGELOG.md");
+      const dst = buildPath("CHANGELOG.html");
       const { stdout } = await exec(`node ${cli} ${src}`);
-      assert.include(stdout.toString(), "README.html");
+      assert.include(stdout.toString(), "CHANGELOG.html");
       assert.isTrue(await files.exists(dst));
       await fsp.unlink(dst);
     });
@@ -71,7 +71,7 @@ describe("CLI", () => {
 
   describe("mdtodoc doc.md --watch", () => {
     it("should watch a Markdown file", async () => {
-      const src = buildPath("README.md");
+      const src = buildPath("CHANGELOG.md");
       try {
         await exec(`node ${cli} ${src} --watch`, { timeout: 5000 });
         assert.fail();
