@@ -307,7 +307,7 @@ describe("Processor", () => {
       await proc.process([src]);
       assert.isTrue(await files.exists(dst));
       const html = await files.readAllText(dst);
-      assert.include(html, " + preRender + preInline + preWrite</title>");
+      assert.include(html, " + preCompile + preRender + preInline + preWrite</title>");
     });
   });
 

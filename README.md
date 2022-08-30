@@ -152,8 +152,8 @@ The `--embed-mode` option allows to inline externally referenced resources
 The `--extension` option allows to provide paths to extension scripts to
 further customize document generation.
 
-An extension is a JavaScript file using ES modules syntax with up to three
-exported functions corresponding to available hooks, taking an object in
+An extension is a JavaScript file using ECMAScript modules format with up to
+three exported functions corresponding to available hooks, taking an object in
 parameter, doing some modifications on it and returning it.
 
 ```js
@@ -165,6 +165,8 @@ export function hookName({ arg1, arg2, ... }) {
 
 3 hooks (and their arguments) are available:
 
+- **`preCompile`**: called after source file loading and before Markdown compilation
+  - `md` (`string`): Markdown document
 - **`preRender`**: called after Markdown compilation and before template/layout
   rendering
   - `title` (`string`): HTML document title
@@ -176,9 +178,6 @@ export function hookName({ arg1, arg2, ... }) {
 - **`preWrite`**: called after inlining and before writing to the output file
   - `html` (`string`): full HTML document
   - `path` (`string`): output file path
-
-All [dependencies](./package.json) can be imported to help customizing data
-before returning it, especially _cheerio_ that can be useful to manipulate HTML.
 
 ### Examples
 

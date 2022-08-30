@@ -21,62 +21,78 @@ const PRE_BLOCK =
 const COPY_BLOCK = '<textarea id="{{ id }}" rows="1" cols="2">{{ code }}</textarea>';
 
 /**
- * Construct a Markdown compiler using Markdown.it.
- * @param {{codeCopy: boolean, highlightStyle: boolean}} opts Compiler options
- * @return The initialized Markdown.it compiler
+ * A Markdown compiler (using Markdown.it).
  */
-export async function compiler(opts) {
-  // Import Highlight.js only if necessary
-  const hljs = opts.highlightStyle ? (await import("highlight.js")).default : null;
-
+export class Compiler {
   /**
-   * Syntax highlighting function.
+   * Construct a Markdown compiler.
+   * @param {{codeCopy: boolean, highlightStyle: boolean}} opts Compiler options
    */
-  function highlight(str, lang) {
-    const escapedCode = md.utils.escapeHtml(str);
-    const copyBlock =
-      opts.codeCopy && lang !== "mermaid"
-        ? COPY_BLOCK.replace(/{{ id }}/g, randomId()).replace(/{{ code }}/g, escapedCode.trim())
-        : "";
-    if (lang && hljs?.getLanguage(lang)) {
-      try {
-        const hljsOpts = { language: lang, ignoreIllegals: true };
-        return PRE_BLOCK.replace(/{{ pre_class }}/g, "code-block hljs")
-          .replace(/{{ code_class }}/g, `language-${lang} ${lang}`)
-          .replace(/{{ code }}/g, hljs.highlight(str, hljsOpts).value)
-          .replace(/{{ copy_block }}/g, copyBlock);
-      } catch (e) {
-        console.debug(e);
-      }
-    }
-    const preClass = lang === "mermaid" ? "mermaid-block" : "code-block";
-    return PRE_BLOCK.replace(/{{ pre_class }}/g, preClass)
-      .replace(/{{ code_class }}/g, `language-${lang} ${lang}`)
-      .replace(/{{ code }}/g, escapedCode)
-      .replace(/{{ copy_block }}/g, copyBlock);
+  constructor(opts) {
+    this.codeCopy = opts.codeCopy;
+    this.highlightStyle = opts.highlightStyle;
   }
 
-  /** Markdown.it instance */
-  let md = MarkdownIt({
-    html: true,
-    linkify: true,
-    typographer: true,
-    highlight,
-  });
+  /**
+   * Prepare the compiler.
+   * @return {Promise<Compiler>} this
+   */
+  async init() {
+    // Import Highlight.js only if necessary
+    const hljs = this.highlightStyle ? (await import("highlight.js")).default : null;
 
-  // Plugins
-  md = md
-    .use(abbr) // Abbreviation (<abbr>) tag
-    .use(container, "warning") // Custom block containers
-    .use(defList) // Definition list (<dl>) tag
-    .use(emoji) // Emoji syntax
-    .use(footnote) // Footnotes
-    .use(ins) // Inserted (<ins>) tag
-    .use(mark) // Marked (<mark>) tag
-    .use(sub) // Subscript (<sub>) tag
-    .use(sup) // Superscript (<sup>) tag
-    .use(anchor, { level: 2 }) // Header anchors (permalinks)
-    .use(tocDoneRight, { level: [2, 3] }); // Table of contents
+    // Syntax highlighting function
+    const highlight = (str, lang) => {
+      const escapedCode = this.md.utils.escapeHtml(str);
+      const copyBlock =
+        this.codeCopy && lang !== "mermaid"
+          ? COPY_BLOCK.replace(/{{ id }}/g, randomId()).replace(/{{ code }}/g, escapedCode.trim())
+          : "";
+      if (lang && hljs?.getLanguage(lang)) {
+        try {
+          const hljsOpts = { language: lang, ignoreIllegals: true };
+          return PRE_BLOCK.replace(/{{ pre_class }}/g, "code-block hljs")
+            .replace(/{{ code_class }}/g, `language-${lang} ${lang}`)
+            .replace(/{{ code }}/g, hljs.highlight(str, hljsOpts).value)
+            .replace(/{{ copy_block }}/g, copyBlock);
+        } catch (e) {
+          console.debug(e);
+        }
+      }
+      const preClass = lang === "mermaid" ? "mermaid-block" : "code-block";
+      return PRE_BLOCK.replace(/{{ pre_class }}/g, preClass)
+        .replace(/{{ code_class }}/g, `language-${lang} ${lang}`)
+        .replace(/{{ code }}/g, escapedCode)
+        .replace(/{{ copy_block }}/g, copyBlock);
+    };
 
-  return md;
+    // Markdown.it instance
+    this.md = MarkdownIt({
+      html: true,
+      linkify: true,
+      typographer: true,
+      highlight,
+    })
+      // Plugins
+      .use(abbr) // Abbreviation (<abbr>) tag
+      .use(container, "warning") // Custom block containers
+      .use(defList) // Definition list (<dl>) tag
+      .use(emoji) // Emoji syntax
+      .use(footnote) // Footnotes
+      .use(ins) // Inserted (<ins>) tag
+      .use(mark) // Marked (<mark>) tag
+      .use(sub) // Subscript (<sub>) tag
+      .use(sup) // Superscript (<sup>) tag
+      .use(anchor, { level: 2 }) // Header anchors (permalinks)
+      .use(tocDoneRight, { level: [2, 3] }); // Table of contents
+  }
+
+  /**
+   * Compile Markdown into HTML.
+   * @param src Markdown document
+   * @return HTML document
+   */
+  compile(src) {
+    return this.md.render(src);
+  }
 }

@@ -6,7 +6,7 @@ import * as cheerio from "cheerio";
 import webResourceInliner from "web-resource-inliner";
 
 import * as files from "./files.js";
-import { compiler } from "./compiler.js";
+import { Compiler } from "./compiler.js";
 import { Style } from "./style.js";
 import { Extensions } from "./extension.js";
 
@@ -28,7 +28,7 @@ export class Processor {
     this.watch = opts.watch; // Watch Markdown files
     this.embedMode = opts.embedMode || "default"; // Embed external resources
     this.style = new Style(opts);
-    this.compiler = compiler(opts);
+    this.compiler = new Compiler(opts);
     this.extensions = new Extensions(opts.extension);
   }
 
@@ -63,8 +63,8 @@ export class Processor {
     await this.style.init();
     // Initialize extensions
     await this.extensions.init();
-    // Await compiler initialization
-    this.compiler = await this.compiler;
+    // Initialize compiler
+    await this.compiler.init();
     // Compile source files
     if (this.watch) {
       for (const file of sources) {
@@ -100,8 +100,9 @@ export class Processor {
       throw new Error(`Invalid source file '${src}': file not found or not readable.`);
     }
     // Load and compile Markdown file
-    const md = await files.readAllText(src);
-    const body = this.compiler.render(md);
+    let md = await files.readAllText(src);
+    ({ md } = await this.extensions.exec("preCompile", { md }));
+    const body = this.compiler.compile(md);
     const title = cheerio.load(body)("h1").first().text();
     // Use style
     const base = path.dirname(src);
