@@ -159,7 +159,7 @@ parameter, doing some modifications on it and returning it.
 ```js
 export function hookName({ arg1, arg2, ... }) {
   // Modify then return arguments
-  return { arg1, arg2, ... }
+  return { arg1, arg2, ... };
 }
 ```
 

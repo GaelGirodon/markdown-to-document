@@ -26,7 +26,7 @@ release:
     - Set-Version -Path package.json -Version "$version"
     - Set-Version -Path $env:VERSION_FILE -Version "$version"
     - npm install
-    - node .\src\cli.js --version
+    - node ./src/cli.js --version
     - echo "Update the changelog..."
     - git add package*.json CHANGELOG.md $env:VERSION_FILE
     - git commit -m "Bump the version number"
