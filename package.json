@@ -17,6 +17,11 @@
   "bugs": "https://github.com/GaelGirodon/markdown-to-document/issues",
   "license": "GPL-3.0-or-later",
   "author": "Gael Girodon <contact@gaelgirodon.fr>",
+  "files": [
+    "assets/**/*.min.*",
+    "assets/**/*.html",
+    "src/**/*.js"
+  ],
   "main": "./src/cli.js",
   "bin": {
     "mdtodoc": "./src/cli.js"

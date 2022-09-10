@@ -38,6 +38,8 @@ publish:
   script:
     - git switch master
     - npm run build:assets
+    - npm pack
+    - rm *.tgz
     - npm login
     - npm publish
     - npm logout
