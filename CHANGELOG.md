@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.24.0 - 2022-09-10
+
+- Add support for extension scripts
+- Migrate templating to EJS
+- Improve performance and CLI
+- Migrate to ES Modules
+- Migrate from axios to node-fetch
+- Migrate from nyc to c8
+- Update dependencies
+
 ## 0.23.0 - 2022-07-29
 
 - Improve handling of source file paths
