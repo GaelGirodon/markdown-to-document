@@ -1,7 +1,8 @@
-const assert = require("chai").assert;
-const fsp = require("fs/promises");
-const files = require("../src/files");
-const { buildPath } = require("./util");
+import { assert } from "chai";
+import fsp from "fs/promises";
+
+import * as files from "../src/files.js";
+import { buildPath } from "./util.js";
 
 describe("files", () => {
   describe("exists", () => {

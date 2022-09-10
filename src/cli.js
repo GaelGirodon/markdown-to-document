@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-const program = require("commander");
-const { Processor } = require("./processor");
+import { Option, program } from "commander";
+import { Processor } from "./processor.js";
 
 program
   .name("mdtodoc")
-  .version("0.23.0")
+  .version("0.24.0")
   .arguments("<path...>")
   .description("Compile Markdown files into HTML documents")
   .option("-d, --dest [value]", "destination path (default: next to .md files)")
@@ -16,12 +16,12 @@ program
   .option("-n, --numbered-headings", "enable numbered headings")
   .option("-c, --code-copy", "enable copy code button")
   .option("-m, --mermaid", "enable mermaid")
-  .option(
-    "-e, --embed-mode [value]",
-    "embed external resources: light, default or full",
-    /^(light|default|full)$/,
-    "default"
+  .addOption(
+    new Option("-e, --embed-mode [value]", "embed external resources")
+      .default("default")
+      .choices(["light", "default", "full"])
   )
+  .option("-x, --extension [value...]", "extension scripts")
   .option("-w, --watch", "watch input files and compile on change")
   .action(function (path, options) {
     const proc = new Processor(options);

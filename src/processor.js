@@ -1,19 +1,22 @@
-const path = require("path");
-const util = require("util");
-const glob = util.promisify(require("glob"));
-const watcher = require("chokidar");
-const cheerio = require("cheerio");
-const inline = util.promisify(require("web-resource-inliner").html);
-const minify = require("html-minifier").minify;
+import path from "path";
+import util from "util";
+import Glob from "glob";
+import watcher from "chokidar";
+import * as cheerio from "cheerio";
+import webResourceInliner from "web-resource-inliner";
 
-const files = require("./files");
-const { compiler } = require("./compiler");
-const { Style } = require("./style");
+import * as files from "./files.js";
+import { Compiler } from "./compiler.js";
+import { Style } from "./style.js";
+import { Extensions } from "./extension.js";
+
+const glob = util.promisify(Glob);
+const inline = util.promisify(webResourceInliner.html);
 
 /**
  * Markdown processor.
  */
-class Processor {
+export class Processor {
   /**
    * Construct a Markdown processor.
    * @param {*} opts Processor options
@@ -25,7 +28,8 @@ class Processor {
     this.watch = opts.watch; // Watch Markdown files
     this.embedMode = opts.embedMode || "default"; // Embed external resources
     this.style = new Style(opts);
-    this.compiler = compiler(opts.codeCopy);
+    this.compiler = new Compiler(opts);
+    this.extensions = new Extensions(opts.extension);
   }
 
   /**
@@ -57,6 +61,10 @@ class Processor {
     }
     // Initialize style
     await this.style.init();
+    // Initialize extensions
+    await this.extensions.init();
+    // Initialize compiler
+    await this.compiler.init();
     // Compile source files
     if (this.watch) {
       for (const file of sources) {
@@ -92,18 +100,24 @@ class Processor {
       throw new Error(`Invalid source file '${src}': file not found or not readable.`);
     }
     // Load and compile Markdown file
-    const md = await files.readAllText(src);
-    const body = this.compiler.render(md);
+    let md = await files.readAllText(src);
+    ({ md } = await this.extensions.exec("preCompile", { md }));
+    const body = this.compiler.compile(md);
     const title = cheerio.load(body)("h1").first().text();
     // Use style
     const base = path.dirname(src);
-    let output = this.style.template
-      .replace(/{{ styles }}/g, await this.style.styles(base))
-      .replace(/{{ scripts }}/g, await this.style.scripts(base))
-      .replace(/{{ title }}/g, title || path.basename(src))
-      .replace(/{{ body }}/g, body);
+    let data = {
+      title: title || path.basename(src),
+      styles: await this.style.styles(base),
+      scripts: await this.style.scripts(base),
+      body,
+    };
+    // Render output HTML
+    data = await this.extensions.exec("preRender", data);
+    let html = this.style.template(data);
     // Inline resources
-    let options = { fileContent: output, relativeTo: base };
+    ({ html } = await this.extensions.exec("preInline", { html }));
+    let options = { fileContent: html, relativeTo: base };
     if (this.embedMode === "light") {
       Object.assign(options, { images: 16, svgs: 16, scripts: 16 });
     } else if (this.embedMode === "default") {
@@ -111,20 +125,21 @@ class Processor {
     } else if (this.embedMode === "full") {
       Object.assign(options, { images: true, svgs: true, scripts: true });
     }
-    output = await inline(options);
+    html = await inline(options);
+    // Remove useless line breaks within script and style tags
+    html = html
+      .replace(/(<(?:style|script)[^>]*>)\s+/g, "$1")
+      .replace(/\s+(<\/(?:style|script)>)/g, "$1");
+    // Clean up some comments
+    html = html.replace(/\/\*((?!\*\/).)*\*\/\s*/gs, "");
     // Apply .code-block CSS class to all <pre> tags without class
-    output = output.replace(/<pre>/g, '<pre class="code-block">');
-    // Minify
-    output = minify(output, {
-      minifyCSS: true,
-      minifyJS: true,
-      removeComments: true,
-      ignoreCustomComments: [/^\s*!!!/], // Keep comments starting with "!!!"
-    });
+    html = html.replace(/<pre>/g, '<pre class="code-block">');
     // Save output file
     const outputFileName = path.basename(src).replace(/\.md$/, ".html");
-    const outputFile = path.join(dest || path.dirname(src), outputFileName);
-    await files.writeAllText(outputFile, output);
+    let outputFile = path.join(dest || path.dirname(src), outputFileName);
+    const preWriteData = { html, path: outputFile };
+    ({ html, path: outputFile } = await this.extensions.exec("preWrite", preWriteData));
+    await files.writeAllText(outputFile, html);
     console.log(`${src} -> ${outputFile}`);
     return outputFile;
   }
@@ -174,7 +189,3 @@ class Processor {
     return dest;
   }
 }
-
-module.exports = {
-  Processor,
-};

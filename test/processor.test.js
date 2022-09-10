@@ -1,10 +1,11 @@
-const fsp = require("fs/promises");
-const path = require("path");
-const assert = require("chai").assert;
+import fsp from "fs/promises";
+import path from "path";
+import { assert } from "chai";
 
-const files = require("../src/files");
-const { Processor } = require("../src/processor");
-const { buildPath } = require("./util");
+import * as files from "../src/files.js";
+import { Processor } from "../src/processor.js";
+import { LIBRARIES } from "../src/style.js";
+import { buildPath } from "./util.js";
 
 const github = "https://raw.githubusercontent.com";
 
@@ -14,8 +15,8 @@ describe("Processor", () => {
       "README.html",
       "CHANGELOG.html",
       "test/README.html",
-      path.join("test", "data", "join", "MERGED.md"),
-      path.join("test", "data", "join", "MERGED.html"),
+      "test/data/join/MERGED.md",
+      "test/data/join/MERGED.html",
     ].map((p) => buildPath(p));
     for (const p of paths) {
       if (await files.exists(p)) {
@@ -183,7 +184,7 @@ describe("Processor", () => {
       // Page should not include CSS external link
       assert.notInclude(html, 'link rel="stylesheet" href="');
       // Page should include Mermaid from CDN
-      assert.include(html, 'script src="https://cdn');
+      assert.include(html, `script src="${LIBRARIES.mermaid}`);
       // Page should include inlined images
       assert.include(html, 'src="data:image');
     });
@@ -205,7 +206,7 @@ describe("Processor", () => {
       // Page should not include CSS external link
       assert.notInclude(html, 'link rel="stylesheet" href="');
       // Page should include Mermaid from CDN
-      assert.include(html, 'script src="https://cdn');
+      assert.include(html, `script src="${LIBRARIES.mermaid}`);
       // Page should only include inlined images
       assert.include(html, 'src="data:image');
     });
@@ -292,6 +293,21 @@ describe("Processor", () => {
         throws = true;
       }
       assert.isTrue(throws);
+    });
+  });
+
+  describe('mdtodoc doc.md -l "page" --extension "ext.js"', () => {
+    it("should compile a Markdown file and apply extension", async () => {
+      const proc = new Processor({
+        layout: "page",
+        extension: [buildPath("test/data/extension/valid.js")],
+      });
+      const src = buildPath("README.md");
+      const dst = buildPath("README.html");
+      await proc.process([src]);
+      assert.isTrue(await files.exists(dst));
+      const html = await files.readAllText(dst);
+      assert.include(html, " + preCompile + preRender + preInline + preWrite</title>");
     });
   });
 

@@ -1,5 +1,5 @@
-const assert = require("chai").assert;
-const { randomId } = require("../src/util");
+import { assert } from "chai";
+import { randomId } from "../src/util.js";
 
 describe("randomId", () => {
   it("should return a random id", async () => {

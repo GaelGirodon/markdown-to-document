@@ -1,11 +1,12 @@
-const fsp = require("fs/promises");
-const util = require("util");
-const exec = util.promisify(require("child_process").exec);
-const assert = require("chai").assert;
+import fsp from "fs/promises";
+import util from "util";
+import childProcess from "child_process";
+import { assert } from "chai";
 
-const files = require("../src/files");
-const { buildPath } = require("./util");
+import * as files from "../src/files.js";
+import { buildPath } from "./util.js";
 
+const exec = util.promisify(childProcess.exec);
 const cli = buildPath("src/cli.js");
 
 describe("CLI", () => {
@@ -47,10 +48,10 @@ describe("CLI", () => {
 
   describe("mdtodoc doc.md", () => {
     it("should compile a Markdown file", async () => {
-      const src = buildPath("README.md");
-      const dst = buildPath("README.html");
+      const src = buildPath("CHANGELOG.md");
+      const dst = buildPath("CHANGELOG.html");
       const { stdout } = await exec(`node ${cli} ${src}`);
-      assert.include(stdout.toString(), "README.html");
+      assert.include(stdout.toString(), "CHANGELOG.html");
       assert.isTrue(await files.exists(dst));
       await fsp.unlink(dst);
     });
@@ -70,7 +71,7 @@ describe("CLI", () => {
 
   describe("mdtodoc doc.md --watch", () => {
     it("should watch a Markdown file", async () => {
-      const src = buildPath("README.md");
+      const src = buildPath("CHANGELOG.md");
       try {
         await exec(`node ${cli} ${src} --watch`, { timeout: 5000 });
         assert.fail();

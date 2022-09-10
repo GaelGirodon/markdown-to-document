@@ -1,12 +1,14 @@
-const paths = require("path");
-const files = require("./files");
-const { fetchText } = require("./net");
+import paths from "path";
+import ejs from "ejs";
+
+import * as files from "./files.js";
+import { fetchText } from "./net.js";
 
 /** Path to node_modules directory */
-const NODE_MODULES_PATH = paths.join(__dirname, "..", "node_modules");
+const NODE_MODULES_PATH = paths.join(files.ROOT_DIR, "node_modules");
 
 /** Path to assets directory */
-const ASSETS_PATH = paths.join(__dirname, "..", "assets");
+const ASSETS_PATH = paths.join(files.ROOT_DIR, "assets");
 
 /** Path to layouts directory */
 const LAYOUTS_PATH = paths.join(ASSETS_PATH, "layouts");
@@ -17,34 +19,34 @@ const THEMES_PATH = paths.join(ASSETS_PATH, "themes");
 /** Path to Highlight.js styles directory */
 const HLJS_STYLES_PATH = paths.join(NODE_MODULES_PATH, "highlight.js", "styles");
 
-/** Path to additional extensions */
-const EXT_PATH = paths.join(ASSETS_PATH, "ext");
+/** Path to additional features */
+const FEATURES_PATH = paths.join(ASSETS_PATH, "features");
 
 /** Paths to JavaScript libraries */
-const LIBRARIES = {
+export const LIBRARIES = {
   clipboard: paths.join(NODE_MODULES_PATH, "clipboard", "dist", "clipboard.min.js"),
-  mermaid: "https://cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js",
+  mermaid: "https://unpkg.com/mermaid@9/dist/mermaid.min.js",
 };
 
-/** Path to extensions files */
-const EXTENSIONS = {
+/** Path to additional feature files */
+const FEATURES = {
   "numbered-headings": {
-    css: paths.join(EXT_PATH, "numbered-headings.css"),
+    css: paths.join(FEATURES_PATH, "numbered-headings.min.css"),
   },
   "code-copy": {
-    css: paths.join(EXT_PATH, "code-copy.css"),
-    js: paths.join(EXT_PATH, "code-copy.js"),
+    css: paths.join(FEATURES_PATH, "code-copy.min.css"),
+    js: paths.join(FEATURES_PATH, "code-copy.min.js"),
   },
   mermaid: {
-    css: paths.join(EXT_PATH, "mermaid.css"),
-    js: paths.join(EXT_PATH, "mermaid.js"),
+    css: paths.join(FEATURES_PATH, "mermaid.min.css"),
+    js: paths.join(FEATURES_PATH, "mermaid.min.js"),
   },
 };
 
 /**
  * A Markdown compiler style.
  */
-class Style {
+export class Style {
   /**
    * Construct a style from a layout, a theme, a highlight style
    * and other options (numbered headings, code copy).
@@ -69,48 +71,45 @@ class Style {
    */
   async init() {
     // Template
-    this.template = await this.loadLayout(this.layout);
+    let layout = await this.loadLayout(this.layout);
+    this.template = ejs.compile(this.legacyTemplateToEJS(layout));
 
-    // Styles: theme, highlight style and extensions
+    // Styles: theme, highlight style and additional features
     if (this.theme) this.stylePaths.push(await this.loadTheme(this.theme));
     if (this.highlightStyle)
       this.stylePaths.push(await this.loadHighlightStyle(this.highlightStyle));
-    if (this.numberedHeadings) this.stylePaths.push(EXTENSIONS["numbered-headings"].css);
-    if (this.codeCopy) this.stylePaths.push(EXTENSIONS["code-copy"].css);
-    if (this.mermaid) this.stylePaths.push(EXTENSIONS["mermaid"].css);
+    if (this.numberedHeadings) this.stylePaths.push(FEATURES["numbered-headings"].css);
+    if (this.codeCopy) this.stylePaths.push(FEATURES["code-copy"].css);
+    if (this.mermaid) this.stylePaths.push(FEATURES["mermaid"].css);
 
     // Scripts
     if (this.codeCopy) {
       this.scriptsPaths.push(LIBRARIES["clipboard"]);
-      this.scriptsPaths.push(EXTENSIONS["code-copy"].js);
+      this.scriptsPaths.push(FEATURES["code-copy"].js);
     }
     if (this.mermaid) {
       this.scriptsPaths.push(LIBRARIES["mermaid"]);
-      this.scriptsPaths.push(EXTENSIONS["mermaid"].js);
+      this.scriptsPaths.push(FEATURES["mermaid"].js);
     }
     return this;
   }
 
   /**
-   * Prepare and return styles tags (theme, highlight style and extensions).
+   * Return styles URLs (theme, highlight style and additional features).
    * @param {string} base Transform styles path to make them relative to this path.
-   * @return {Promise<string>} Styles tags
+   * @return {Promise<string[]>} Styles URLs
    */
   async styles(base) {
-    return this.stylePaths
-      .map((s) => `<link rel="stylesheet" href="${files.localToUrl(s, base)}">`)
-      .join("\n");
+    return this.stylePaths.map((s) => files.localToUrl(s, base));
   }
 
   /**
-   * Prepare and return scripts tags.
+   * Return scripts URLs.
    * @param {string} base Transform scripts path to make them relative to this path.
-   * @return {Promise<string>} Scripts tags
+   * @return {Promise<string[]>} Scripts URLs
    */
   async scripts(base) {
-    return this.scriptsPaths
-      .map((s) => `<script src="${files.localToUrl(s, base)}"></script>`)
-      .join("\n");
+    return this.scriptsPaths.map((s) => files.localToUrl(s, base));
   }
 
   /**
@@ -187,8 +186,24 @@ class Style {
     }
     return path;
   }
-}
 
-module.exports = {
-  Style,
-};
+  /**
+   * Convert a template using the legacy basic syntax to EJS for backward compatibility.
+   * @param template Template that can use the legacy basic template syntax
+   * @returns {string} EJS template
+   */
+  legacyTemplateToEJS(template) {
+    return template.includes("{{")
+      ? template
+          .replace(
+            /\{\{ *styles *}}/g,
+            `<% for (const s of styles) { -%>\n<link rel="stylesheet" href="<%= s %>">\n<% } -%>`
+          )
+          .replace(
+            /\{\{ *scripts *}}/g,
+            `<% for (const s of scripts) { -%>\n<script src="<%= s %>"></script>\n<% } -%>`
+          )
+          .replace(/\{\{ *([\w.-]+) *}}/g, "<%- $1 -%>")
+      : template;
+  }
+}

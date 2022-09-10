@@ -3,18 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{{ title }}</title>
-{{ styles }}
-<style>
-body {
-max-width: 1024px;
-padding: 32px;
-margin: 0 auto;
-}
-</style>
+<title><%= title %></title>
+<% for (const s of styles) { -%>
+<link rel="stylesheet" href="<%= s %>">
+<% } -%>
+<style>body{max-width:1024px;padding:32px;margin:0 auto}</style>
 </head>
 <body>
-{{ body }}
+<%- body -%>
 </body>
-{{ scripts }}
+<% for (const s of scripts) { -%>
+<script src="<%= s %>"></script>
+<% } -%>
 </html>

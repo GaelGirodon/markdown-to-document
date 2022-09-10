@@ -2,10 +2,6 @@
  * Generate a random id.
  * @return {string} A random id
  */
-function randomId() {
-  return `_${Math.random().toString(36).substr(2, 9)}`;
+export function randomId() {
+  return `_${Math.random().toString(36).substring(2, 11)}`;
 }
-
-module.exports = {
-  randomId,
-};
