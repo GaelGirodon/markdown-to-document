@@ -115,6 +115,8 @@ export class Processor {
     // Render output HTML
     data = await this.extensions.exec("preRender", data);
     let html = this.style.template(data);
+    // Apply .code-block CSS class to all <pre> tags without class
+    html = html.replace(/<pre>/g, '<pre class="code-block">');
     // Inline resources
     ({ html } = await this.extensions.exec("preInline", { html }));
     let options = { fileContent: html, relativeTo: base };
@@ -130,10 +132,6 @@ export class Processor {
     html = html
       .replace(/(<(?:style|script)[^>]*>)\s+/g, "$1")
       .replace(/\s+(<\/(?:style|script)>)/g, "$1");
-    // Clean up some comments
-    html = html.replace(/\/\*((?!\*\/).)*\*\/\s*/gs, "");
-    // Apply .code-block CSS class to all <pre> tags without class
-    html = html.replace(/<pre>/g, '<pre class="code-block">');
     // Save output file
     const outputFileName = path.basename(src).replace(/\.md$/, ".html");
     let outputFile = path.join(dest || path.dirname(src), outputFileName);
