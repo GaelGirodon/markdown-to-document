@@ -1,5 +1,6 @@
 import { assert } from "chai";
 import fsp from "fs/promises";
+import { resolve } from "path";
 
 import * as files from "../src/files.js";
 import { buildPath } from "./util.js";
@@ -47,6 +48,12 @@ describe("files", () => {
   describe("localToUrl", () => {
     it("should transform a local absolute path to an URL", () => {
       assert.equal(files.localToUrl("/path/assets/file.ext", "/path/"), "assets/file.ext");
+    });
+  });
+
+  describe("resolveModuleDirectory", () => {
+    it("should resolve the path to the directory of a module", () => {
+      assert.equal(files.resolveModuleDirectory("glob"), resolve("node_modules", "glob"));
     });
   });
 
