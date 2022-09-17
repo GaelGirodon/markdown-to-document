@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.25.0 - 2022-09-17
+
+- Improve HTML rendering
+- Improve publishing
+- Update dependencies
+
 ## 0.24.0 - 2022-09-10
 
 - Add support for extension scripts
