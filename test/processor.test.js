@@ -157,7 +157,7 @@ describe("Processor", () => {
       assert.include(html, "<style>h1");
       // Code copy
       assert.include(html, "<textarea id=");
-      assert.include(html, "<script>!"); // clipboard.js
+      assert.include(html, "<script>/*!"); // clipboard.js
       assert.include(html, 'document.querySelectorAll("pre.code-block")'); // code-copy.js
       // Mermaid
       assert.include(html, "<style>.mermaid");

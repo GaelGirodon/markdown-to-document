@@ -13,6 +13,7 @@ assets/**/*.min.*
 /*.html
 MERGED.*
 /*.tgz
+package
 coverage
 test-results.xml
 /.*/

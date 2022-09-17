@@ -1,6 +1,6 @@
 {
   "name": "markdown-to-document",
-  "version": "0.24.0",
+  "version": "0.25.0",
   "description": "A Markdown CLI to easily generate HTML documents from Markdown files",
   "keywords": [
     "markdown",
@@ -17,6 +17,11 @@
   "bugs": "https://github.com/GaelGirodon/markdown-to-document/issues",
   "license": "GPL-3.0-or-later",
   "author": "Gael Girodon <contact@gaelgirodon.fr>",
+  "files": [
+    "assets/**/*.min.*",
+    "assets/**/*.html",
+    "src/**/*.js"
+  ],
   "main": "./src/cli.js",
   "bin": {
     "mdtodoc": "./src/cli.js"
@@ -45,7 +50,7 @@
     "highlight.js": "^11.6.0",
     "markdown-it": "^13.0.1",
     "markdown-it-abbr": "^1.0.4",
-    "markdown-it-anchor": "^8.6.4",
+    "markdown-it-anchor": "^8.6.5",
     "markdown-it-container": "^3.0.0",
     "markdown-it-deflist": "^2.1.0",
     "markdown-it-emoji": "^2.0.2",
@@ -62,7 +67,7 @@
     "c8": "^7.12.0",
     "chai": "^4.3.6",
     "clean-css": "^5.3.1",
-    "eslint": "^8.23.0",
+    "eslint": "^8.23.1",
     "github-markdown-css": "^5.1.0",
     "mocha": "^10.0.0",
     "mocha-junit-reporter": "^2.0.2",
