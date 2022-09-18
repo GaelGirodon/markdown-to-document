@@ -73,7 +73,7 @@ describe("CLI", () => {
     it("should watch a Markdown file", async () => {
       const src = buildPath("CHANGELOG.md");
       try {
-        await exec(`node ${cli} ${src} --watch`, { timeout: 5000 });
+        await exec(`node ${cli} ${src} --watch`, { timeout: 3000 });
         assert.fail();
       } catch (e) {
         assert.include(e.stdout.toString(), "[watch]");

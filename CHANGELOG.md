@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.26.0 - 2022-09-18
+
+- Improve assets path resolution
+- Rollback HTTP client migration
+- Update dependencies
+
 ## 0.25.0 - 2022-09-17
 
 - Improve HTML rendering

@@ -18,7 +18,7 @@ import { ROOT_DIR } from "../src/files.js";
 const src = path.join(ROOT_DIR, "node_modules/github-markdown-css/github-markdown-light.css");
 const dst = path.join(ROOT_DIR, "assets/themes/github.min.css");
 const css = fs
-  .readFileSync(src, "utf8")
+  .readFileSync(src, { encoding: "utf8" })
   .replace(/\.markdown-body/g, "body") // Apply styles to the whole document
   .replace(/(list-style-type: lower-.*;)/g, "/* $1 */") // Reset list-style-type to default
   .replace(/(\{\s*padding: 16px)(;\n)/, "$1 !important$2") // Force padding in <pre> blocks

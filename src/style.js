@@ -4,9 +4,6 @@ import ejs from "ejs";
 import * as files from "./files.js";
 import { fetchText } from "./net.js";
 
-/** Path to node_modules directory */
-const NODE_MODULES_PATH = paths.join(files.ROOT_DIR, "node_modules");
-
 /** Path to assets directory */
 const ASSETS_PATH = paths.join(files.ROOT_DIR, "assets");
 
@@ -17,14 +14,14 @@ const LAYOUTS_PATH = paths.join(ASSETS_PATH, "layouts");
 const THEMES_PATH = paths.join(ASSETS_PATH, "themes");
 
 /** Path to Highlight.js styles directory */
-const HLJS_STYLES_PATH = paths.join(NODE_MODULES_PATH, "highlight.js", "styles");
+const HLJS_STYLES_PATH = paths.join(files.resolveModuleDirectory("highlight.js"), "styles");
 
 /** Path to additional features */
 const FEATURES_PATH = paths.join(ASSETS_PATH, "features");
 
 /** Paths to JavaScript libraries */
 export const LIBRARIES = {
-  clipboard: paths.join(NODE_MODULES_PATH, "clipboard", "dist", "clipboard.min.js"),
+  clipboard: paths.join(files.resolveModuleDirectory("clipboard"), "dist", "clipboard.min.js"),
   mermaid: "https://unpkg.com/mermaid@9/dist/mermaid.min.js",
 };
 
@@ -141,13 +138,8 @@ export class Style {
    * @return {Promise<string>} The valid theme file path
    */
   async loadTheme(theme) {
-    // Predefined theme (.css)
-    let themePath = paths.join(THEMES_PATH, theme + ".css");
-    if (/^[\w-]+$/.test(theme) && (await files.isReadable(themePath))) {
-      return themePath;
-    } // else
-    // Predefined generated theme (.min.css)
-    themePath = paths.join(THEMES_PATH, theme + ".min.css");
+    // Predefined theme
+    const themePath = paths.join(THEMES_PATH, theme + ".min.css");
     if (/^[\w-]+$/.test(theme) && (await files.isReadable(themePath))) {
       return themePath;
     } // else

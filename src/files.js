@@ -1,10 +1,12 @@
 import fs from "fs";
 import fsp from "fs/promises";
+import { createRequire } from "module";
 import { dirname, relative } from "path";
 import { fileURLToPath } from "url";
 
 /**
  * Path to the root directory of the tool
+ * @type {string}
  */
 export const ROOT_DIR = dirname(dirname(fileURLToPath(import.meta.url)));
 
@@ -56,7 +58,7 @@ export function isRemote(path) {
 }
 
 /**
- * Transform a local absolute path to an URL (ignores remote paths).
+ * Transform a local absolute path to a URL (ignores remote paths).
  * @example
  * localToUrl("C:\\path\\assets\\file.ext", "C:\\path\\") -> "assets/file.ext"
  * @param {string} path A path to a file
@@ -66,6 +68,15 @@ export function isRemote(path) {
 export function localToUrl(path, base) {
   if (isRemote(path)) return path;
   return relative(base, path).replace(/\\/g, "/");
+}
+
+/**
+ * Resolve the path to the directory of a module.
+ * @param {string} module The module name
+ * @return {string} The module directory path
+ */
+export function resolveModuleDirectory(module) {
+  return dirname(createRequire(import.meta.url).resolve(`${module}/package.json`));
 }
 
 /**
