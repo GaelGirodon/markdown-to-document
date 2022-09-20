@@ -17,7 +17,7 @@ export async function fetchText(url, failIfEmpty) {
     throw new Error(`an error occurred fetching content (${res.status} ${res.statusText})`);
   }
   if (failIfEmpty && !res.data) {
-    throw new Error(`content is empty`);
+    throw new Error("content is empty");
   }
   return res.data;
 }

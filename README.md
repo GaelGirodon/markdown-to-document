@@ -163,7 +163,7 @@ export function hookName({ arg1, arg2, ... }) {
 }
 ```
 
-3 hooks (and their arguments) are available:
+These hooks (and their arguments) are available:
 
 - **`preCompile`**: called after source file loading and before Markdown compilation
   - `md` (`string`): Markdown document
