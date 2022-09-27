@@ -138,6 +138,22 @@ describe("Processor", () => {
     });
   });
 
+  describe('mdtodoc doc.md -l "page" -t "github" --highlight-style "base16/solarized-dark"', () => {
+    it("should use a highlight style from the base16 folder", async () => {
+      const proc = new Processor({
+        layout: "page",
+        theme: "github",
+        highlightStyle: "base16/solarized-dark",
+      });
+      const src = buildDataPath("README.md");
+      const dst = buildDataPath("README.html");
+      await proc.process([src]);
+      assert.isTrue(await files.exists(dst));
+      const html = await files.readAllText(dst);
+      assert.include(html, "background:#002b36");
+    });
+  });
+
   describe('mdtodoc doc.md -l "page" -t "github" -s "atom-one-light" --numbered-headings --code-copy --mermaid', () => {
     it("should enable additional extensions", async () => {
       const proc = new Processor({
