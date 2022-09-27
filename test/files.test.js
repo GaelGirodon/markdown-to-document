@@ -3,33 +3,33 @@ import fsp from "fs/promises";
 import { resolve } from "path";
 
 import * as files from "../src/files.js";
-import { buildPath } from "./util.js";
+import { buildDataPath } from "./util.js";
 
 describe("files", () => {
   describe("exists", () => {
     it("should return true if the file exists", async () => {
-      assert.isTrue(await files.exists(buildPath("README.md")));
+      assert.isTrue(await files.exists(buildDataPath("README.md")));
     });
     it("should return false if the file doesn't exist", async () => {
-      assert.isFalse(await files.exists(buildPath("UNKNOWN.md")));
+      assert.isFalse(await files.exists(buildDataPath("UNKNOWN.md")));
     });
   });
 
   describe("isDirectory", () => {
     it("should return true if the path is a directory", async () => {
-      assert.isTrue(await files.isDirectory(buildPath("src")));
+      assert.isTrue(await files.isDirectory(buildDataPath("join")));
     });
     it("should return false if the path is not a directory", async () => {
-      assert.isFalse(await files.isDirectory(buildPath("README.md")));
+      assert.isFalse(await files.isDirectory(buildDataPath("README.md")));
     });
   });
 
   describe("isReadable", () => {
     it("should return true if the file is readable", async () => {
-      assert.isTrue(await files.isReadable(buildPath("README.md")));
+      assert.isTrue(await files.isReadable(buildDataPath("README.md")));
     });
     it("should return false if the file is not readable", async () => {
-      assert.isFalse(await files.isReadable(buildPath("UNKNOWN.md")));
+      assert.isFalse(await files.isReadable(buildDataPath("UNKNOWN.md")));
     });
   });
 
@@ -59,15 +59,15 @@ describe("files", () => {
 
   describe("readAllText", () => {
     it("should read the content of a text file", async () => {
-      const content = await files.readAllText(buildPath("README.md"));
+      const content = await files.readAllText(buildDataPath("README.md"));
       assert.isNotEmpty(content);
     });
   });
 
   describe("writeAllText", () => {
     it("should write a content to a text file", async () => {
-      await files.writeAllText(buildPath("TEST.txt"), "test");
-      await fsp.unlink(buildPath("TEST.txt"));
+      await files.writeAllText(buildDataPath("TEST.txt"), "test");
+      await fsp.unlink(buildDataPath("TEST.txt"));
     });
   });
 });

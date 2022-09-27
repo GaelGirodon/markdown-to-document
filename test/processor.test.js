@@ -1,11 +1,10 @@
 import fsp from "fs/promises";
-import path from "path";
 import { assert } from "chai";
 
 import * as files from "../src/files.js";
 import { Processor } from "../src/processor.js";
 import { LIBRARIES } from "../src/style.js";
-import { buildPath } from "./util.js";
+import { buildDataPath, buildPath } from "./util.js";
 
 const github = "https://raw.githubusercontent.com";
 
@@ -15,6 +14,7 @@ describe("Processor", () => {
       "README.html",
       "CHANGELOG.html",
       "test/README.html",
+      "test/data/README.html",
       "test/data/join/MERGED.md",
       "test/data/join/MERGED.html",
     ].map((p) => buildPath(p));
@@ -28,8 +28,8 @@ describe("Processor", () => {
   describe("mdtodoc doc.md", () => {
     it("should compile a single Markdown file into raw HTML", async () => {
       const proc = new Processor();
-      const src = buildPath("README.md");
-      const dst = buildPath("README.html");
+      const src = buildDataPath("README.md");
+      const dst = buildDataPath("README.html");
       await proc.process([src]);
       assert.isTrue(await files.exists(dst));
       const html = await files.readAllText(dst);
@@ -83,15 +83,15 @@ describe("Processor", () => {
 
   describe("mdtodoc doc.md --dest <dest>", () => {
     it("should output the HTML file to a custom directory", async () => {
-      const proc = new Processor({ dest: buildPath("test") });
-      const src = buildPath("README.md");
-      const dst = buildPath("test/README.html");
+      const proc = new Processor({ dest: buildDataPath("..") });
+      const src = buildDataPath("README.md");
+      const dst = buildDataPath("../README.html");
       await proc.process([src]);
       assert.isTrue(await files.exists(dst));
     });
     it("should fail if the destination is invalid", async () => {
-      const proc = new Processor({ dest: buildPath("unknown") });
-      const src = buildPath("README.md");
+      const proc = new Processor({ dest: buildDataPath("unknown") });
+      const src = buildDataPath("README.md");
       let throws = false;
       try {
         await proc.process([src]);
@@ -109,8 +109,8 @@ describe("Processor", () => {
         theme: "github",
         highlightStyle: "atom-one-light",
       });
-      const src = buildPath("README.md");
-      const dst = buildPath("README.html");
+      const src = buildDataPath("README.md");
+      const dst = buildDataPath("README.html");
       await proc.process([src]);
       assert.isTrue(await files.exists(dst));
       const html = await files.readAllText(dst);
@@ -130,7 +130,7 @@ describe("Processor", () => {
       });
       let throws = false;
       try {
-        await proc.process([buildPath("README.md")]);
+        await proc.process([buildDataPath("README.md")]);
       } catch (ex) {
         throws = true;
       }
@@ -148,8 +148,8 @@ describe("Processor", () => {
         codeCopy: true,
         mermaid: true,
       });
-      const src = buildPath("README.md");
-      const dst = buildPath("README.html");
+      const src = buildDataPath("README.md");
+      const dst = buildDataPath("README.html");
       await proc.process([src]);
       assert.isTrue(await files.exists(dst));
       const html = await files.readAllText(dst);
@@ -176,8 +176,8 @@ describe("Processor", () => {
         mermaid: true,
         embedMode: "light",
       });
-      const src = buildPath("README.md");
-      const dst = buildPath("README.html");
+      const src = buildDataPath("README.md");
+      const dst = buildDataPath("README.html");
       await proc.process([src]);
       assert.isTrue(await files.exists(dst));
       const html = await files.readAllText(dst);
@@ -198,8 +198,8 @@ describe("Processor", () => {
         mermaid: true,
         embedMode: "default",
       });
-      const src = buildPath("README.md");
-      const dst = buildPath("README.html");
+      const src = buildDataPath("README.md");
+      const dst = buildDataPath("README.html");
       await proc.process([src]);
       assert.isTrue(await files.exists(dst));
       const html = await files.readAllText(dst);
@@ -220,8 +220,8 @@ describe("Processor", () => {
         mermaid: true,
         embedMode: "full",
       });
-      const src = buildPath("README.md");
-      const dst = buildPath("README.html");
+      const src = buildDataPath("README.md");
+      const dst = buildDataPath("README.html");
       await proc.process([src]);
       assert.isTrue(await files.exists(dst));
       const html = await files.readAllText(dst);
@@ -241,8 +241,8 @@ describe("Processor", () => {
         codeCopy: true,
         embedMode: "full",
       });
-      const src = buildPath("README.md");
-      const dst = buildPath("README.html");
+      const src = buildDataPath("README.md");
+      const dst = buildDataPath("README.html");
       await proc.process([src]);
       assert.isTrue(await files.exists(dst));
     });
@@ -255,8 +255,8 @@ describe("Processor", () => {
         codeCopy: true,
         embedMode: "full",
       });
-      const src = buildPath("README.md");
-      const dst = buildPath("README.html");
+      const src = buildDataPath("README.md");
+      const dst = buildDataPath("README.html");
       await proc.process([src]);
       assert.isTrue(await files.exists(dst));
     });
@@ -271,7 +271,7 @@ describe("Processor", () => {
       });
       let throws = false;
       try {
-        await proc.process([buildPath("README.md")]);
+        await proc.process([buildDataPath("README.md")]);
       } catch (ex) {
         throws = true;
       }
@@ -288,7 +288,7 @@ describe("Processor", () => {
       });
       let throws = false;
       try {
-        await proc.process([buildPath("README.md")]);
+        await proc.process([buildDataPath("README.md")]);
       } catch (ex) {
         throws = true;
       }
@@ -300,10 +300,10 @@ describe("Processor", () => {
     it("should compile a Markdown file and apply extension", async () => {
       const proc = new Processor({
         layout: "page",
-        extension: [buildPath("test/data/extension/valid.js")],
+        extension: [buildDataPath("extension/valid.js")],
       });
-      const src = buildPath("README.md");
-      const dst = buildPath("README.html");
+      const src = buildDataPath("README.md");
+      const dst = buildDataPath("README.html");
       await proc.process([src]);
       assert.isTrue(await files.exists(dst));
       const html = await files.readAllText(dst);
@@ -314,9 +314,9 @@ describe("Processor", () => {
   describe("mdtodoc **/*.md --join", () => {
     it("should join and compile files", async () => {
       const proc = new Processor({ join: true });
-      const src = buildPath(path.join("test", "data", "join"));
-      const dstMd = buildPath(path.join("test", "data", "join", "MERGED.md"));
-      const dst = buildPath(path.join("test", "data", "join", "MERGED.html"));
+      const src = buildDataPath("join");
+      const dstMd = buildDataPath("join/MERGED.md");
+      const dst = buildDataPath("join/MERGED.html");
       await proc.process([`${src}/README.md`, `${src}/a.md`, `${src}/*/**/*.md`]);
       assert.isTrue(await files.exists(dstMd));
       assert.isTrue(await files.exists(dst));
