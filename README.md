@@ -114,8 +114,8 @@ to add a style to code blocks.
 
 The `--highlight-style` option can receive the name of a
 [Hightlight.js style](https://github.com/highlightjs/highlight.js/tree/master/src/styles)
-(file name without extension, e.g. `solarized-dark`) or the path to a custom
-style file (a local path or a HTTP URL).
+(file name without extension, e.g. `monokai`) or the path to a custom style
+file (a local path or a HTTP URL).
 
 #### Additional features
 
@@ -163,7 +163,7 @@ export function hookName({ arg1, arg2, ... }) {
 }
 ```
 
-3 hooks (and their arguments) are available:
+These hooks (and their arguments) are available:
 
 - **`preCompile`**: called after source file loading and before Markdown compilation
   - `md` (`string`): Markdown document

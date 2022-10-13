@@ -44,3 +44,11 @@ publish:
     - npm publish
     - npm logout
     - git switch develop
+
+profile:
+  script:
+    - New-Item -Type Directory .clinic/data -Force
+    - Get-Content README.md | Select-String -NotMatch -Pattern "shields.io" | Set-Content .clinic/data/doc-1.md -Encoding utf8
+    - 2..50 | ForEach-Object { Copy-Item .clinic/data/doc-1.md .clinic/data/doc-$_.md }
+    - npx clinic flame -- node src/cli.js .clinic/data/doc-*.md -l page -t github -s atom-one-light -n -c -x test/data/extension/uppercase_title.js
+    - Start-Process (Get-Item .clinic/*.html | Sort-Object -Property LastWriteTime -Descending | Select-Object -Last 1)

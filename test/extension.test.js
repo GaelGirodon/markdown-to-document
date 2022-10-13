@@ -1,18 +1,18 @@
 import { assert } from "chai";
 import { Extensions } from "../src/extension.js";
-import { buildPath } from "./util.js";
+import { buildDataPath, buildPath } from "./util.js";
 
 describe("Extensions", () => {
   describe("init", () => {
     it("should succeed on valid extension", async () => {
-      const ext = new Extensions([buildPath("test/data/extension/valid.js")]);
+      const ext = new Extensions([buildDataPath("extension/valid.js")]);
       await ext.init().then(
         () => {},
         (e) => assert.fail(e)
       );
     });
     it("should throw on file not found or not readable", async () => {
-      const ext = new Extensions([buildPath("notfound.js")]);
+      const ext = new Extensions([buildDataPath("notfound.js")]);
       await ext.init().then(
         () => assert.fail("Expected an error"),
         () => {}
@@ -30,7 +30,7 @@ describe("Extensions", () => {
   describe("exec", async () => {
     let ext;
     before(async () => {
-      ext = new Extensions([buildPath("test/data/extension/invalid.js")]);
+      ext = new Extensions([buildDataPath("extension/invalid.js")]);
       await ext.init();
     });
 

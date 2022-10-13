@@ -8,11 +8,22 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+variables:
+  npm_config_cache: "$(Pipeline.Workspace)/.npm"
+
 steps:
   - task: NodeTool@0
+    displayName: 'Install Node.js'
     inputs:
       versionSpec: '16.x'
-    displayName: 'Install Node.js'
+
+  - task: Cache@2
+    displayName: 'Cache npm'
+    inputs:
+      key: 'npm | "$(Agent.OS)" | package-lock.json'
+      restoreKeys: |
+        npm | "$(Agent.OS)"
+      path: $(npm_config_cache)
 
   - script: npm ci
     displayName: 'Install dependencies'
