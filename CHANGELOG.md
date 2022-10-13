@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.27.0 - 2022-10-13
+
+- Improve highlight styles support
+- Optimize tests and CI
+- Update dependencies
+
 ## 0.26.0 - 2022-09-18
 
 - Improve assets path resolution
