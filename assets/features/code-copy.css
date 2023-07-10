@@ -19,7 +19,9 @@
     cursor: pointer;
     padding: 3px 8px;
     opacity: 0;
-    transition: right 0.15s ease, opacity 0.15s ease;
+    transition:
+        right 0.15s ease,
+        opacity 0.15s ease;
 }
 .code-container:hover .btn-copy {
     right: 14px;
