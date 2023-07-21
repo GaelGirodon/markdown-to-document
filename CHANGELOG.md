@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.28.0 - 2023-07-21
+
+- Update dependencies
+- Update required Node.js version to 18
+
 ## 0.27.0 - 2022-10-13
 
 - Improve highlight styles support
