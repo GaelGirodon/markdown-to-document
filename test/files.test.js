@@ -53,7 +53,7 @@ describe("files", () => {
 
   describe("resolveModuleDirectory", () => {
     it("should resolve the path to the directory of a module", () => {
-      assert.equal(files.resolveModuleDirectory("glob"), resolve("node_modules", "glob"));
+      assert.equal(files.resolveModuleDirectory("clipboard"), resolve("node_modules", "clipboard"));
     });
   });
 

@@ -1,6 +1,6 @@
 import path from "path";
 import util from "util";
-import Glob from "glob";
+import * as glob from "glob";
 import watcher from "chokidar";
 import * as cheerio from "cheerio";
 import webResourceInliner from "web-resource-inliner";
@@ -10,7 +10,6 @@ import { Compiler } from "./compiler.js";
 import { Style } from "./style.js";
 import { Extensions } from "./extension.js";
 
-const glob = util.promisify(Glob);
 const inline = util.promisify(webResourceInliner.html);
 
 /**
@@ -46,7 +45,7 @@ export class Processor {
       // Normalize and trim path
       const np = s.replace(/\\/g, path.posix.sep).replace(/^['"]+|['"]+$/g, "");
       // Expand with glob syntax
-      sources.push(...(glob.hasMagic(np) ? await glob(np) : [np]));
+      sources.push(...(glob.hasMagic(np) ? (await glob.glob(np)).sort() : [np]));
     }
     // Remove duplicates
     sources = sources
