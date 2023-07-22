@@ -1,11 +1,11 @@
 # Markdown To Document
 
-[![npm version](https://img.shields.io/npm/v/markdown-to-document?color=informational&style=flat-square)](https://www.npmjs.com/package/markdown-to-document)
-[![npm license](https://img.shields.io/npm/l/markdown-to-document?color=informational&style=flat-square)](https://raw.githubusercontent.com/GaelGirodon/markdown-to-document/master/LICENSE)
+[![version](https://img.shields.io/npm/v/markdown-to-document?color=informational&style=flat-square)](https://www.npmjs.com/package/markdown-to-document)
+[![license](https://img.shields.io/npm/l/markdown-to-document?color=informational&style=flat-square)](https://raw.githubusercontent.com/GaelGirodon/markdown-to-document/master/LICENSE)
 [![node](https://img.shields.io/node/v/markdown-to-document?style=flat-square)](https://nodejs.org/download/)
-[![build](https://img.shields.io/azure-devops/build/gaelgirodon/markdown-to-document/9?style=flat-square)](https://gaelgirodon.visualstudio.com/markdown-to-document)
-[![tests](https://img.shields.io/azure-devops/tests/gaelgirodon/markdown-to-document/9?style=flat-square)](https://gaelgirodon.visualstudio.com/markdown-to-document)
-[![coverage](https://img.shields.io/azure-devops/coverage/gaelgirodon/markdown-to-document/9?style=flat-square)](https://gaelgirodon.visualstudio.com/markdown-to-document)
+[![build](https://img.shields.io/github/actions/workflow/status/GaelGirodon/markdown-to-document/main.yml?branch=develop&style=flat-square)](https://github.com/GaelGirodon/markdown-to-document/actions/workflows/main.yml)
+[![tests](https://img.shields.io/endpoint?style=flat-square&url=https%3A%2F%2Fgist.githubusercontent.com%2FGaelGirodon%2Ffbde4d59b7dd3c4f2cc9c4fea3497ae1%2Fraw%2Fmarkdown-to-document-junit-tests.json)](https://github.com/GaelGirodon/markdown-to-document/actions/workflows/main.yml)
+[![coverage](https://img.shields.io/endpoint?style=flat-square&url=https%3A%2F%2Fgist.githubusercontent.com%2FGaelGirodon%2Ffbde4d59b7dd3c4f2cc9c4fea3497ae1%2Fraw%2Fmarkdown-to-document-cobertura-coverage.json)](https://github.com/GaelGirodon/markdown-to-document/actions/workflows/main.yml)
 
 A Markdown CLI to easily generate HTML documents from Markdown files.
 
