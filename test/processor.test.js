@@ -1,5 +1,5 @@
-import fsp from "fs/promises";
 import { assert } from "chai";
+import fs from "node:fs/promises";
 
 import * as files from "../src/files.js";
 import { Processor } from "../src/processor.js";
@@ -20,7 +20,7 @@ describe("Processor", () => {
     ].map((p) => buildPath(p));
     for (const p of paths) {
       if (await files.exists(p)) {
-        await fsp.unlink(p);
+        await fs.unlink(p);
       }
     }
   });

@@ -1,5 +1,6 @@
 import MarkdownIt from "markdown-it";
 import abbr from "markdown-it-abbr";
+import anchor from "markdown-it-anchor";
 import container from "markdown-it-container";
 import defList from "markdown-it-deflist";
 import emoji from "markdown-it-emoji";
@@ -8,7 +9,6 @@ import ins from "markdown-it-ins";
 import mark from "markdown-it-mark";
 import sub from "markdown-it-sub";
 import sup from "markdown-it-sup";
-import anchor from "markdown-it-anchor";
 import tocDoneRight from "markdown-it-toc-done-right";
 
 import { randomId } from "./util.js";

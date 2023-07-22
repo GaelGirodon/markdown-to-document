@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { Option, program } from "commander";
+
 import { Processor } from "./processor.js";
 
 program

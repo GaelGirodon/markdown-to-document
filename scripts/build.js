@@ -3,9 +3,9 @@
  * Build assets
  */
 
-import fs from "fs";
-import path from "path";
 import CleanCSS from "clean-css";
+import fs from "node:fs";
+import path from "node:path";
 import UglifyJS from "uglify-js";
 
 import { ROOT_DIR } from "../src/files.js";

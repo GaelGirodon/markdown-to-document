@@ -1,6 +1,6 @@
 import { assert } from "chai";
-import fsp from "fs/promises";
-import { resolve } from "path";
+import fs from "node:fs/promises";
+import { resolve } from "node:path";
 
 import * as files from "../src/files.js";
 import { buildDataPath } from "./util.js";
@@ -67,7 +67,7 @@ describe("files", () => {
   describe("writeAllText", () => {
     it("should write a content to a text file", async () => {
       await files.writeAllText(buildDataPath("TEST.txt"), "test");
-      await fsp.unlink(buildDataPath("TEST.txt"));
+      await fs.unlink(buildDataPath("TEST.txt"));
     });
   });
 });

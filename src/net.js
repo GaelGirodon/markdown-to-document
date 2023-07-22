@@ -1,4 +1,4 @@
-import axios from "axios";
+import http from "got";
 
 /**
  * Fetch text from an HTTP URL.
@@ -7,17 +7,14 @@ import axios from "axios";
  * @returns {Promise<string>} Fetched text.
  */
 export async function fetchText(url, failIfEmpty) {
-  let res;
+  let data;
   try {
-    res = await axios.get(url, { responseType: "text" });
+    data = await http.get(url).text();
   } catch (e) {
     throw new Error(`an error occurred fetching content (${e})`);
   }
-  if (res.status >= 300) {
-    throw new Error(`an error occurred fetching content (${res.status} ${res.statusText})`);
-  }
-  if (failIfEmpty && !res.data) {
+  if (failIfEmpty && !data) {
     throw new Error("content is empty");
   }
-  return res.data;
+  return data;
 }

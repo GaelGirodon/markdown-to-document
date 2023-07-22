@@ -1,4 +1,5 @@
 import { assert } from "chai";
+
 import { randomId } from "../src/util.js";
 
 describe("randomId", () => {

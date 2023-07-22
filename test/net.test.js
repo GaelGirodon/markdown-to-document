@@ -1,4 +1,5 @@
 import { assert } from "chai";
+
 import { fetchText } from "../src/net.js";
 
 describe("fetchText", () => {

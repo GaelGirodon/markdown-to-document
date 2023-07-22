@@ -1,14 +1,14 @@
-import path from "path";
-import util from "util";
-import * as glob from "glob";
-import watcher from "chokidar";
 import * as cheerio from "cheerio";
+import watcher from "chokidar";
+import glob from "fast-glob";
+import path from "node:path";
+import util from "node:util";
 import webResourceInliner from "web-resource-inliner";
 
-import * as files from "./files.js";
 import { Compiler } from "./compiler.js";
-import { Style } from "./style.js";
 import { Extensions } from "./extension.js";
+import * as files from "./files.js";
+import { Style } from "./style.js";
 
 const inline = util.promisify(webResourceInliner.html);
 
@@ -45,7 +45,7 @@ export class Processor {
       // Normalize and trim path
       const np = s.replace(/\\/g, path.posix.sep).replace(/^['"]+|['"]+$/g, "");
       // Expand with glob syntax
-      sources.push(...(glob.hasMagic(np) ? (await glob.glob(np)).sort() : [np]));
+      sources.push(...(glob.isDynamicPattern(np) ? (await glob(np)).sort() : [np]));
     }
     // Remove duplicates
     sources = sources

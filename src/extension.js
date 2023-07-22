@@ -1,5 +1,6 @@
-import path from "path";
-import { pathToFileURL } from "url";
+import path from "node:path";
+import { pathToFileURL } from "node:url";
+
 import * as files from "./files.js";
 
 /**

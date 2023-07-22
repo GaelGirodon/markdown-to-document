@@ -1,5 +1,5 @@
-import paths from "path";
 import ejs from "ejs";
+import paths from "node:path";
 
 import * as files from "./files.js";
 import { fetchText } from "./net.js";
@@ -22,7 +22,7 @@ const FEATURES_PATH = paths.join(ASSETS_PATH, "features");
 /** Paths to JavaScript libraries */
 export const LIBRARIES = {
   clipboard: paths.join(files.resolveModuleDirectory("clipboard"), "dist", "clipboard.min.js"),
-  mermaid: "https://unpkg.com/mermaid@9/dist/mermaid.min.js",
+  mermaid: "https://unpkg.com/mermaid@10/dist/mermaid.min.js",
 };
 
 /** Path to additional feature files */
