@@ -4,9 +4,9 @@
  * Global test hooks
  */
 
-import http from "got";
 import fs from "node:fs/promises";
 
+import { request } from "../src/net.js";
 import { buildDataPath, buildPath } from "./util.js";
 
 /*
@@ -22,7 +22,7 @@ before(async () => {
   });
   await fs.mkdir(buildDataPath("img"), { recursive: true });
   for (let url of Object.keys(images)) {
-    const data = await http.get(url).buffer();
+    const data = (await request(url)).body;
     await fs.writeFile(buildDataPath(images[url]), data);
   }
   await fs.writeFile(buildDataPath("README.md"), output, { encoding: "utf8" });

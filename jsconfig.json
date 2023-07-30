@@ -3,7 +3,7 @@
     "target": "esnext",
     "module": "esnext",
     "strict": true,
-    "moduleResolution": "nodenext"
+    "moduleResolution": "node"
   },
   "exclude": ["node_modules"]
 }

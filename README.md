@@ -314,8 +314,6 @@ Additional features also use the following packages:
 - [web-resource-inliner](https://github.com/jrit/web-resource-inliner) - Brings
   externally referenced resources, such as js, css and images, into a single file
 - [clipboard.js](https://clipboardjs.com/) - A modern approach to copy text to clipboard
-- [cheerio](https://cheerio.js.org/) - Fast, flexible, and lean implementation
-  of core jQuery designed specifically for the server
 - [chokidar](https://github.com/paulmillr/chokidar) - A neat wrapper around
   node.js fs.watch / fs.watchFile / FSEvents
 - [mermaid](https://mermaid-js.github.io/mermaid/) - Generation of diagram and

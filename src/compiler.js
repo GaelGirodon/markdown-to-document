@@ -89,8 +89,8 @@ export class Compiler {
 
   /**
    * Compile Markdown into HTML.
-   * @param src Markdown document
-   * @return HTML document
+   * @param {string} src Markdown document
+   * @return {string} HTML document
    */
   compile(src) {
     return this.md.render(src);

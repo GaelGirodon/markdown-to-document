@@ -1,4 +1,3 @@
-import * as cheerio from "cheerio";
 import watcher from "chokidar";
 import glob from "fast-glob";
 import path from "node:path";
@@ -9,6 +8,7 @@ import { Compiler } from "./compiler.js";
 import { Extensions } from "./extension.js";
 import * as files from "./files.js";
 import { Style } from "./style.js";
+import { getHtmlTagText } from "./util.js";
 
 const inline = util.promisify(webResourceInliner.html);
 
@@ -102,7 +102,7 @@ export class Processor {
     let md = await files.readAllText(src);
     ({ md } = await this.extensions.exec("preCompile", { md }));
     const body = this.compiler.compile(md);
-    const title = cheerio.load(body)("h1").first().text();
+    const title = getHtmlTagText(body, "h1");
     // Use style
     const base = path.dirname(src);
     let data = {

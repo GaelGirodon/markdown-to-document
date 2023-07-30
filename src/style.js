@@ -2,7 +2,7 @@ import ejs from "ejs";
 import paths from "node:path";
 
 import * as files from "./files.js";
-import { fetchText } from "./net.js";
+import { request } from "./net.js";
 
 /** Path to assets directory */
 const ASSETS_PATH = paths.join(files.ROOT_DIR, "assets");
@@ -118,7 +118,7 @@ export class Style {
     // URL
     if (files.isRemote(layout)) {
       try {
-        return await fetchText(layout, true);
+        return (await request(layout, true)).body.toString("utf8");
       } catch (e) {
         throw new Error(`Invalid layout '${layout}': ${e.message}.`);
       }
