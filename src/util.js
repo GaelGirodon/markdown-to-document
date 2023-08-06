@@ -16,10 +16,10 @@ export function randomId() {
  */
 export function getHtmlTagText(html, tag) {
   const startTagMatch = html?.match(new RegExp(`<${tag}[^>]*>`));
-  if (!(startTagMatch?.length > 0)) return null;
+  if (!startTagMatch || startTagMatch.index === undefined) return null;
   const offset = startTagMatch.index + startTagMatch[0].length;
   const endTagMatch = html.slice(offset).match(new RegExp(`</${tag}>`));
-  if (!(endTagMatch?.length > 0)) return null;
+  if (!endTagMatch?.input || endTagMatch.index === undefined) return null;
   return endTagMatch.input
     .slice(0, endTagMatch.index)
     .replace(/<[^>]+>/g, "") // Remove nested tags

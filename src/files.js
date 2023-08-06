@@ -93,7 +93,7 @@ export function readAllText(path) {
  * If the target file already exists, it is overwritten.
  * @param {string} path The path to the file to read
  * @param {string} contents The string to write to the file.
- * @return {Promise}
+ * @return {Promise<*>}
  */
 export function writeAllText(path, contents) {
   return fs.writeFile(path, contents, "utf8");

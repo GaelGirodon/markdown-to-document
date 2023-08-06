@@ -170,7 +170,7 @@ describe("Processor", () => {
       assert.isTrue(await files.exists(dst));
       const html = await files.readAllText(dst);
       // Numbered headings
-      assert.include(html, "<style>h1");
+      assert.include(html, "<style>body");
       // Code copy
       assert.include(html, "<textarea id=");
       assert.include(html, "<script>/*!"); // clipboard.js

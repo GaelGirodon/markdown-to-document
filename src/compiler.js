@@ -85,6 +85,8 @@ export class Compiler {
       .use(sup) // Superscript (<sup>) tag
       .use(anchor, { level: 2 }) // Header anchors (permalinks)
       .use(tocDoneRight, { level: [2, 3] }); // Table of contents
+
+    return this;
   }
 
   /**

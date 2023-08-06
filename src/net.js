@@ -6,8 +6,8 @@ import https from "node:https";
  * around Node.js http[s].request() to be used internally
  * until the Fetch API reaches a stable state.
  * @param {string} url HTTP(S) URL
- * @param {boolean} failIfEmpty Throw an error if the fetched content is empty.
- * @returns {Promise<{status:number,body:Buffer}>} Response with fetched content
+ * @param {boolean} [failIfEmpty] Throw an error if the fetched content is empty.
+ * @returns {Promise<{status?:number,body:Buffer}>} Response with fetched content
  */
 export async function request(url, failIfEmpty) {
   const u = new URL(url);

@@ -1,18 +1,32 @@
+/*
+ * Numbered Headings in Markdown via CSS
+ * https://gist.github.com/patik/89ee6092c72a9e39950445c01598517a
+ */
+
+body {
+    counter-reset: h1counter h2counter h3counter h4counter h5counter h6counter;
+}
+
 h1 {
     counter-reset: h2counter;
 }
+
 h2 {
     counter-reset: h3counter;
 }
+
 h3 {
     counter-reset: h4counter;
 }
+
 h4 {
     counter-reset: h5counter;
 }
+
 h5 {
     counter-reset: h6counter;
 }
+
 h6 {
 }
 

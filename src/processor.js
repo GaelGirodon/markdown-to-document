@@ -113,7 +113,7 @@ export class Processor {
     };
     // Render output HTML
     data = await this.extensions.exec("preRender", data);
-    let html = this.style.template(data);
+    let html = this.style.template?.(data) ?? "";
     // Apply .code-block CSS class to all <pre> tags without class
     html = html.replace(/<pre>/g, '<pre class="code-block">');
     // Inline resources
@@ -151,7 +151,7 @@ export class Processor {
     src = src.sort((a, b) => {
       if (a.includes(b.replace(/(README|index)\.md$/gi, ""))) return 1;
       if (b.includes(a.replace(/(README|index)\.md$/gi, ""))) return -1;
-      return a - b;
+      return a.localeCompare(b);
     });
     const base = path.dirname(src[0]); // Path to the base directory
     let output = ""; // Output content

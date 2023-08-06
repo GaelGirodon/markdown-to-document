@@ -181,7 +181,7 @@ export class Style {
 
   /**
    * Convert a template using the legacy basic syntax to EJS for backward compatibility.
-   * @param template Template that can use the legacy basic template syntax
+   * @param {string} template Template that may use the legacy basic syntax
    * @returns {string} EJS template
    */
   legacyTemplateToEJS(template) {
