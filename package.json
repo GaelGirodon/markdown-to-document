@@ -32,13 +32,14 @@
     "url": "https://github.com/GaelGirodon/markdown-to-document.git"
   },
   "scripts": {
-    "build:assets": "node scripts/build.js",
+    "build:assets": "node ./scripts/build.js",
     "format": "prettier --write \"**/*.{js,json,css}\"",
     "format:check": "prettier --check \"**/*.{js,json,css}\"",
     "lint": "eslint \"**/*.js\" --ignore-path \".prettierignore\"",
     "test": "mocha --timeout 30000",
     "test:coverage": "c8 --reporter=html --reporter=text --all --include \"{assets,src}/**/*.js\" --exclude \"**/*.min.js\" mocha --timeout 30000",
-    "test:ci": "c8 --reporter=cobertura --all --include \"{assets,src}/**/*.js\" --exclude \"**/*.min.js\" mocha --reporter mocha-junit-reporter --timeout 30000 || exit 0"
+    "test:ci": "c8 --reporter=cobertura --all --include \"{assets,src}/**/*.js\" --exclude \"**/*.min.js\" mocha --reporter mocha-junit-reporter --timeout 30000 || exit 0",
+    "test:readme": "node ./scripts/test-readme.js"
   },
   "dependencies": {
     "chokidar": "^3.5.3",

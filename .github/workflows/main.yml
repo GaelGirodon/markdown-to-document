@@ -39,5 +39,4 @@ jobs:
           token: ${{ secrets.GIST_TOKEN }}
 
       - name: Test usage examples from README.md
-        shell: pwsh
-        run: ./scripts/Test-ReadmeExamples.ps1
+        run: npm run test:readme

@@ -53,5 +53,5 @@ steps:
       codeCoverageTool: Cobertura
       summaryFileLocation: "**/*coverage.xml"
 
-  - powershell: scripts/Test-ReadmeExamples.ps1
+  - script: npm run test:readme
     displayName: Test usage examples from README.md
