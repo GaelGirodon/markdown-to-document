@@ -23,7 +23,6 @@ export function getHtmlTagText(html, tag) {
   return endTagMatch.input
     .slice(0, endTagMatch.index)
     .replace(/<[^>]+>/g, "") // Remove nested tags
-    .replace(/<\/[^>]+>/g, "")
     .replace(/\s{2,}/g, " ") // Collapse spaces
     .trim();
 }
