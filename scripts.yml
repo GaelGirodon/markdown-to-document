@@ -36,7 +36,7 @@ release:
 publish:
   step_by_step: true
   script:
-    - git switch master
+    - git switch main
     - npm run build:assets
     - npm pack
     - rm *.tgz

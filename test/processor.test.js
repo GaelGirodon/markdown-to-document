@@ -251,8 +251,8 @@ describe("Processor", () => {
     it("should use a custom layout (local file) and a custom theme and highlight style (URL)", async () => {
       const proc = new Processor({
         layout: buildPath("assets/layouts/page.html"),
-        theme: `${github}/highlightjs/highlight.js/master/src/styles/monokai.css`,
-        highlightStyle: `${github}/highlightjs/highlight.js/master/src/styles/monokai.css`,
+        theme: `${github}/highlightjs/highlight.js/main/src/styles/monokai.css`,
+        highlightStyle: `${github}/highlightjs/highlight.js/main/src/styles/monokai.css`,
         numberedHeadings: true,
         codeCopy: true,
         embedMode: "full",
@@ -264,9 +264,9 @@ describe("Processor", () => {
     });
     it("should use a custom layout, theme and highlight style (URL)", async () => {
       const proc = new Processor({
-        layout: `${github}/GaelGirodon/markdown-to-document/master/assets/layouts/page.html`,
-        theme: `${github}/highlightjs/highlight.js/master/src/styles/monokai.css`,
-        highlightStyle: `${github}/highlightjs/highlight.js/master/src/styles/monokai.css`,
+        layout: `${github}/GaelGirodon/markdown-to-document/develop/assets/layouts/page.html`,
+        theme: `${github}/highlightjs/highlight.js/main/src/styles/monokai.css`,
+        highlightStyle: `${github}/highlightjs/highlight.js/main/src/styles/monokai.css`,
         numberedHeadings: true,
         codeCopy: true,
         embedMode: "full",
@@ -279,8 +279,8 @@ describe("Processor", () => {
     it("should fail if the custom layout doesn't exist (local file)", async () => {
       const proc = new Processor({
         layout: buildPath("assets/layouts/unknown.html"),
-        theme: `${github}/highlightjs/highlight.js/master/src/styles/monokai.css`,
-        highlightStyle: `${github}/highlightjs/highlight.js/master/src/styles/monokai.css`,
+        theme: `${github}/highlightjs/highlight.js/main/src/styles/monokai.css`,
+        highlightStyle: `${github}/highlightjs/highlight.js/main/src/styles/monokai.css`,
         numberedHeadings: true,
         codeCopy: true,
         embedMode: "full",
@@ -295,9 +295,9 @@ describe("Processor", () => {
     });
     it("should fail if the custom layout doesn't exist (URL)", async () => {
       const proc = new Processor({
-        layout: `${github}/GaelGirodon/markdown-to-document/master/assets/layouts/unknown.html`,
-        theme: `${github}/highlightjs/highlight.js/master/src/styles/monokai.css`,
-        highlightStyle: `${github}/highlightjs/highlight.js/master/src/styles/monokai.css`,
+        layout: `${github}/GaelGirodon/markdown-to-document/develop/assets/layouts/unknown.html`,
+        theme: `${github}/highlightjs/highlight.js/main/src/styles/monokai.css`,
+        highlightStyle: `${github}/highlightjs/highlight.js/main/src/styles/monokai.css`,
         numberedHeadings: true,
         codeCopy: true,
         embedMode: "full",

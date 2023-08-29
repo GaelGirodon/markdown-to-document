@@ -7,7 +7,7 @@ describe("request", () => {
     try {
       const text = (
         await request(
-          "https://raw.githubusercontent.com/GaelGirodon/markdown-to-document/master/README.md"
+          "https://raw.githubusercontent.com/GaelGirodon/markdown-to-document/develop/README.md"
         )
       ).body.toString("utf8");
       assert.isString(text);
@@ -30,7 +30,7 @@ describe("request", () => {
     let error;
     try {
       await request(
-        "https://raw.githubusercontent.com/GaelGirodon/markdown-to-document/master/NOTFOUND.md"
+        "https://raw.githubusercontent.com/GaelGirodon/markdown-to-document/develop/NOTFOUND.md"
       );
     } catch (e) {
       error = e;

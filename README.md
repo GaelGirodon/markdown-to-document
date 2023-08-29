@@ -1,7 +1,7 @@
 # Markdown To Document
 
 [![version](https://img.shields.io/npm/v/markdown-to-document?color=informational&style=flat-square)](https://www.npmjs.com/package/markdown-to-document)
-[![license](https://img.shields.io/npm/l/markdown-to-document?color=informational&style=flat-square)](https://raw.githubusercontent.com/GaelGirodon/markdown-to-document/master/LICENSE)
+[![license](https://img.shields.io/npm/l/markdown-to-document?color=informational&style=flat-square)](https://raw.githubusercontent.com/GaelGirodon/markdown-to-document/main/LICENSE)
 [![node](https://img.shields.io/node/v/markdown-to-document?style=flat-square)](https://nodejs.org/download/)
 [![build](https://img.shields.io/github/actions/workflow/status/GaelGirodon/markdown-to-document/main.yml?branch=develop&style=flat-square)](https://github.com/GaelGirodon/markdown-to-document/actions/workflows/main.yml)
 [![tests](https://img.shields.io/endpoint?style=flat-square&url=https%3A%2F%2Fgist.githubusercontent.com%2FGaelGirodon%2Ffbde4d59b7dd3c4f2cc9c4fea3497ae1%2Fraw%2Fmarkdown-to-document-junit-tests.json)](https://github.com/GaelGirodon/markdown-to-document/actions/workflows/main.yml)
@@ -113,8 +113,8 @@ Highlight style enables syntax highlighting of code blocks by including the
 required script and style in the HTML layout.
 
 The `--highlight-style` option can receive the name of a
-[Hightlight.js style](https://github.com/highlightjs/highlight.js/tree/master/src/styles)
-(file name without extension, e.g. `monokai`), or the path to a custom style
+[Hightlight.js style](https://github.com/highlightjs/highlight.js/tree/main/src/styles)
+(file name without extension, e.g. `monokai`) or the path to a custom style
 file (a local path or an HTTP URL).
 
 #### Additional features
@@ -238,7 +238,7 @@ are now embedded into the output HTML file.
 **Use a custom layout (local file) and a custom highlight style (URL)**
 
 ```shell
-mdtodoc doc.md -l "./assets/layouts/page.html" -t "github" -s "https://raw.githubusercontent.com/highlightjs/highlight.js/master/src/styles/monokai.css" -n -c
+mdtodoc doc.md -l "./assets/layouts/page.html" -t "github" -s "https://raw.githubusercontent.com/highlightjs/highlight.js/main/src/styles/monokai.css" -n -c
 ```
 
 Read [options documentation](#options) for more information on how to use
