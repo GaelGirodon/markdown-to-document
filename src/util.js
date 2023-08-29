@@ -8,7 +8,7 @@ export function randomId() {
 
 /**
  * Get the text content of the first element matching the given tag
- * using a naive regex-base search which is very limited, but avoids
+ * using a naive regex-based search which is very limited, but avoids
  * importing a full HTML parser library only to do that.
  * @param {string} html The HTML document
  * @param {string} tag The HTML tag name

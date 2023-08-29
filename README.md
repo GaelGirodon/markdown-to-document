@@ -103,9 +103,8 @@ The `--layout` option can receive the name of a [preset](./assets/layouts/)
 
 A theme is a CSS stylesheet included in the HTML layout.
 
-The `--theme` option can receive the name of a [preset](./assets/themes/) (e.g.
-`github`) or the path to a custom theme file (`path/to/my-theme.css` or an HTTP
-URL).
+The `--theme` option can receive the name of a preset (e.g. `github`)
+or the path to a custom theme file (`path/to/my-theme.css` or an HTTP URL).
 
 #### Highlight style (`--highlight-style`)
 

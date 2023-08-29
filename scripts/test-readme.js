@@ -6,6 +6,7 @@
 import { spawnSync } from "node:child_process";
 import { readFileSync, readdirSync, unlinkSync } from "node:fs";
 import { chdir } from "node:process";
+
 import { ROOT_DIR } from "../src/files.js";
 
 // Change current working directory to project root

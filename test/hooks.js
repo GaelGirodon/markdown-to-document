@@ -22,8 +22,8 @@ before(async () => {
   });
   await fs.mkdir(buildDataPath("img"), { recursive: true });
   for (let url of Object.keys(images)) {
-    const data = (await request(url)).body;
-    await fs.writeFile(buildDataPath(images[url]), data);
+    const res = await request(url);
+    await fs.writeFile(buildDataPath(images[url]), res.body);
   }
   await fs.writeFile(buildDataPath("README.md"), output, { encoding: "utf8" });
 });
