@@ -1,7 +1,7 @@
 {
   "name": "markdown-to-document",
-  "version": "0.28.0",
-  "description": "A Markdown CLI to easily generate HTML documents from Markdown files",
+  "version": "0.29.0",
+  "description": "A command-line tool to easily generate HTML documents from Markdown files",
   "keywords": [
     "markdown",
     "document",
@@ -32,22 +32,21 @@
     "url": "https://github.com/GaelGirodon/markdown-to-document.git"
   },
   "scripts": {
-    "build:assets": "node scripts/build.js",
+    "build:assets": "node ./scripts/build.js",
     "format": "prettier --write \"**/*.{js,json,css}\"",
     "format:check": "prettier --check \"**/*.{js,json,css}\"",
     "lint": "eslint \"**/*.js\" --ignore-path \".prettierignore\"",
     "test": "mocha --timeout 30000",
     "test:coverage": "c8 --reporter=html --reporter=text --all --include \"{assets,src}/**/*.js\" --exclude \"**/*.min.js\" mocha --timeout 30000",
-    "test:ci": "c8 --reporter=cobertura --all --include \"{assets,src}/**/*.js\" --exclude \"**/*.min.js\" mocha --reporter mocha-junit-reporter --timeout 30000 || exit 0"
+    "test:ci": "c8 --reporter=cobertura --all --include \"{assets,src}/**/*.js\" --exclude \"**/*.min.js\" mocha --reporter mocha-junit-reporter --timeout 30000 || exit 0",
+    "test:readme": "node ./scripts/test-readme.js"
   },
   "dependencies": {
-    "axios": "^1.4.0",
-    "cheerio": "^1.0.0-rc.12",
     "chokidar": "^3.5.3",
     "clipboard": "^2.0.11",
     "commander": "^11.0.0",
-    "ejs": "^3.1.9",
-    "glob": "^10.3.3",
+    "ejs": "npm:neat-ejs@^3.1.9",
+    "fast-glob": "^3.3.1",
     "highlight.js": "^11.8.0",
     "markdown-it": "^13.0.1",
     "markdown-it-abbr": "^1.0.4",
@@ -64,14 +63,14 @@
     "web-resource-inliner": "^6.0.1"
   },
   "devDependencies": {
-    "c8": "^8.0.0",
-    "chai": "^4.3.7",
+    "c8": "^8.0.1",
+    "chai": "^4.3.8",
     "clean-css": "^5.3.2",
-    "eslint": "^8.45.0",
+    "eslint": "^8.48.0",
     "github-markdown-css": "^5.2.0",
     "mocha": "^10.2.0",
     "mocha-junit-reporter": "^2.2.1",
-    "prettier": "^3.0.0",
+    "prettier": "^3.0.2",
     "uglify-js": "^3.17.4"
   },
   "engines": {

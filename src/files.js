@@ -1,8 +1,7 @@
-import fs from "fs";
-import fsp from "fs/promises";
-import { createRequire } from "module";
-import { dirname, relative } from "path";
-import { fileURLToPath } from "url";
+import fs from "node:fs/promises";
+import { createRequire } from "node:module";
+import { dirname, relative } from "node:path";
+import { fileURLToPath } from "node:url";
 
 /**
  * Path to the root directory of the tool
@@ -17,7 +16,7 @@ export const ROOT_DIR = dirname(dirname(fileURLToPath(import.meta.url)));
  */
 export async function exists(path) {
   try {
-    await fsp.access(path, fs.constants.F_OK);
+    await fs.access(path, fs.constants.F_OK);
     return true;
   } catch (err) {
     return false;
@@ -30,7 +29,7 @@ export async function exists(path) {
  * @return {Promise<boolean>} true if the file is a directory
  */
 export async function isDirectory(path) {
-  return (await exists(path)) && (await fsp.stat(path)).isDirectory();
+  return (await exists(path)) && (await fs.stat(path)).isDirectory();
 }
 
 /**
@@ -40,7 +39,7 @@ export async function isDirectory(path) {
  */
 export async function isReadable(path) {
   try {
-    await fsp.access(path, fs.constants.F_OK | fs.constants.R_OK);
+    await fs.access(path, fs.constants.F_OK | fs.constants.R_OK);
     return true;
   } catch (err) {
     return false;
@@ -86,7 +85,7 @@ export function resolveModuleDirectory(module) {
  * @return {Promise<string>} A string containing all the text in the file.
  */
 export function readAllText(path) {
-  return fsp.readFile(path, "utf8");
+  return fs.readFile(path, "utf8");
 }
 
 /**
@@ -94,8 +93,8 @@ export function readAllText(path) {
  * If the target file already exists, it is overwritten.
  * @param {string} path The path to the file to read
  * @param {string} contents The string to write to the file.
- * @return {Promise}
+ * @return {Promise<*>}
  */
 export function writeAllText(path, contents) {
-  return fsp.writeFile(path, contents, "utf8");
+  return fs.writeFile(path, contents, "utf8");
 }

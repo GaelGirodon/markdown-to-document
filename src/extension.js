@@ -1,5 +1,6 @@
-import path from "path";
-import { pathToFileURL } from "url";
+import path from "node:path";
+import { pathToFileURL } from "node:url";
+
 import * as files from "./files.js";
 
 /**
@@ -8,7 +9,7 @@ import * as files from "./files.js";
 export class Extensions {
   /**
    * Construct the service from scripts paths.
-   * @param {Array} extensions Extension script paths
+   * @param {Array<*>} extensions Extension script paths
    */
   constructor(extensions) {
     this.extensionPaths = extensions || [];
@@ -25,7 +26,7 @@ export class Extensions {
         throw new Error(`Invalid extension '${script}': file not found or not readable.`);
       }
       try {
-        this.extensions.push(await import(pathToFileURL(path.resolve(script))));
+        this.extensions.push(await import(pathToFileURL(path.resolve(script)).toString()));
       } catch (e) {
         throw new Error(`Invalid extension '${script}': not a valid ES Module (${e}).`);
       }

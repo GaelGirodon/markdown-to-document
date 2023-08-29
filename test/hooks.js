@@ -4,8 +4,9 @@
  * Global test hooks
  */
 
-import axios from "axios";
-import fs from "fs/promises";
+import fs from "node:fs/promises";
+
+import { request } from "../src/net.js";
 import { buildDataPath, buildPath } from "./util.js";
 
 /*
@@ -21,8 +22,8 @@ before(async () => {
   });
   await fs.mkdir(buildDataPath("img"), { recursive: true });
   for (let url of Object.keys(images)) {
-    const res = await axios.get(url, { responseType: "blob" });
-    await fs.writeFile(buildDataPath(images[url]), res.data);
+    const res = await request(url);
+    await fs.writeFile(buildDataPath(images[url]), res.body);
   }
   await fs.writeFile(buildDataPath("README.md"), output, { encoding: "utf8" });
 });

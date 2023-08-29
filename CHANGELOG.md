@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.29.0 - 2023-08-29
+
+- Reduce package install size
+- Migrate from ejs to neat-ejs
+- Migrate from glob to fast-glob
+- Replace axios with Node HTTP client
+- Replace cheerio with an internal function
+- Improve code, tests and documentation
+- Migrate CI to GitHub Actions
+- Rename main branch
+- Update dependencies
+
 ## 0.28.0 - 2023-07-21
 
 - Update dependencies

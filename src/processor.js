@@ -1,14 +1,14 @@
-import path from "path";
-import util from "util";
-import * as glob from "glob";
 import watcher from "chokidar";
-import * as cheerio from "cheerio";
+import glob from "fast-glob";
+import path from "node:path";
+import util from "node:util";
 import webResourceInliner from "web-resource-inliner";
 
-import * as files from "./files.js";
 import { Compiler } from "./compiler.js";
-import { Style } from "./style.js";
 import { Extensions } from "./extension.js";
+import * as files from "./files.js";
+import { Style } from "./style.js";
+import { getHtmlTagText } from "./util.js";
 
 const inline = util.promisify(webResourceInliner.html);
 
@@ -45,7 +45,7 @@ export class Processor {
       // Normalize and trim path
       const np = s.replace(/\\/g, path.posix.sep).replace(/^['"]+|['"]+$/g, "");
       // Expand with glob syntax
-      sources.push(...(glob.hasMagic(np) ? (await glob.glob(np)).sort() : [np]));
+      sources.push(...(glob.isDynamicPattern(np) ? (await glob(np)).sort() : [np]));
     }
     // Remove duplicates
     sources = sources
@@ -102,7 +102,7 @@ export class Processor {
     let md = await files.readAllText(src);
     ({ md } = await this.extensions.exec("preCompile", { md }));
     const body = this.compiler.compile(md);
-    const title = cheerio.load(body)("h1").first().text();
+    const title = getHtmlTagText(body, "h1");
     // Use style
     const base = path.dirname(src);
     let data = {
@@ -113,7 +113,7 @@ export class Processor {
     };
     // Render output HTML
     data = await this.extensions.exec("preRender", data);
-    let html = this.style.template(data);
+    let html = this.style.template?.(data) ?? "";
     // Apply .code-block CSS class to all <pre> tags without class
     html = html.replace(/<pre>/g, '<pre class="code-block">');
     // Inline resources
@@ -151,7 +151,7 @@ export class Processor {
     src = src.sort((a, b) => {
       if (a.includes(b.replace(/(README|index)\.md$/gi, ""))) return 1;
       if (b.includes(a.replace(/(README|index)\.md$/gi, ""))) return -1;
-      return a - b;
+      return a.localeCompare(b);
     });
     const base = path.dirname(src[0]); // Path to the base directory
     let output = ""; // Output content

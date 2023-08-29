@@ -1,19 +1,19 @@
 # Markdown To Document
 
-[![npm version](https://img.shields.io/npm/v/markdown-to-document?color=informational&style=flat-square)](https://www.npmjs.com/package/markdown-to-document)
-[![npm license](https://img.shields.io/npm/l/markdown-to-document?color=informational&style=flat-square)](https://raw.githubusercontent.com/GaelGirodon/markdown-to-document/master/LICENSE)
+[![version](https://img.shields.io/npm/v/markdown-to-document?color=informational&style=flat-square)](https://www.npmjs.com/package/markdown-to-document)
+[![license](https://img.shields.io/npm/l/markdown-to-document?color=informational&style=flat-square)](https://raw.githubusercontent.com/GaelGirodon/markdown-to-document/main/LICENSE)
 [![node](https://img.shields.io/node/v/markdown-to-document?style=flat-square)](https://nodejs.org/download/)
-[![build](https://img.shields.io/azure-devops/build/gaelgirodon/markdown-to-document/9?style=flat-square)](https://gaelgirodon.visualstudio.com/markdown-to-document)
-[![tests](https://img.shields.io/azure-devops/tests/gaelgirodon/markdown-to-document/9?style=flat-square)](https://gaelgirodon.visualstudio.com/markdown-to-document)
-[![coverage](https://img.shields.io/azure-devops/coverage/gaelgirodon/markdown-to-document/9?style=flat-square)](https://gaelgirodon.visualstudio.com/markdown-to-document)
+[![build](https://img.shields.io/github/actions/workflow/status/GaelGirodon/markdown-to-document/main.yml?branch=develop&style=flat-square)](https://github.com/GaelGirodon/markdown-to-document/actions/workflows/main.yml)
+[![tests](https://img.shields.io/endpoint?style=flat-square&url=https%3A%2F%2Fgist.githubusercontent.com%2FGaelGirodon%2Ffbde4d59b7dd3c4f2cc9c4fea3497ae1%2Fraw%2Fmarkdown-to-document-junit-tests.json)](https://github.com/GaelGirodon/markdown-to-document/actions/workflows/main.yml)
+[![coverage](https://img.shields.io/endpoint?style=flat-square&url=https%3A%2F%2Fgist.githubusercontent.com%2FGaelGirodon%2Ffbde4d59b7dd3c4f2cc9c4fea3497ae1%2Fraw%2Fmarkdown-to-document-cobertura-coverage.json)](https://github.com/GaelGirodon/markdown-to-document/actions/workflows/main.yml)
 
-A Markdown CLI to easily generate HTML documents from Markdown files.
+A command-line tool to easily generate HTML documents from Markdown files.
 
 > The original purpose of this tool was to provide an alternative to using
 > Microsoft Word to write and send technical documents.
 >
-> **Use cases:** replace `docx` and `pdf` files by Markdown (storage in Git,
-> editing, ...) and HTML files (export, sending by email, ...), export a
+> **Use cases:** replace `docx` and `pdf` files with Markdown (storage in Git,
+> editing, ...) and HTML (export, sending by email, ...) files, export a
 > multi-files documentation into a single HTML file, etc.
 
 ## Install
@@ -63,15 +63,14 @@ The destination path can be used to change where output HTML files are written.
 #### Join (`--join`)
 
 The `--join` option concatenates all Markdown source files in one (`MERGED.md`)
-before running the compilation (→ `MERGED.html`) :
+before running the compilation (→ `MERGED.html`):
 
 - _Sorting_: `README.md` and `index.md` files first, other `.md` files and
   sub-directories next
 - _Front matter_: remove YAML (`---`), TOML (`+++`) or JSON (`;;;`) front matter
   from source files
-- _Titles_: refactor titles level (`#` syntax only) to reflect path depth
-- _Paths_: refactor relative paths (`[<...>](./<...>)`) to reflect the directory
-  structure
+- _Titles_: refactor titles level (`#` syntax only) according to path depth
+- _Paths_: refactor relative paths (`[<...>](./<...>)`)
 - _Table of contents_: remove table of contents tokens from child pages
 
 This feature, _experimental and not very configurable for the moment_, can be
@@ -105,17 +104,17 @@ The `--layout` option can receive the name of a [preset](./assets/layouts/)
 A theme is a CSS stylesheet included in the HTML layout.
 
 The `--theme` option can receive the name of a preset (e.g. `github`)
-or the path to a custom theme file (`path/to/my-theme.css` or a HTTP URL).
+or the path to a custom theme file (`path/to/my-theme.css` or an HTTP URL).
 
 #### Highlight style (`--highlight-style`)
 
-A highlight style is a CSS stylesheet included in the HTML layout
-to add a style to code blocks.
+Highlight style enables syntax highlighting of code blocks by including the
+required script and style in the HTML layout.
 
 The `--highlight-style` option can receive the name of a
-[Hightlight.js style](https://github.com/highlightjs/highlight.js/tree/master/src/styles)
+[Hightlight.js style](https://github.com/highlightjs/highlight.js/tree/main/src/styles)
 (file name without extension, e.g. `monokai`) or the path to a custom style
-file (a local path or a HTTP URL).
+file (a local path or an HTTP URL).
 
 #### Additional features
 
@@ -128,9 +127,16 @@ _Markdown To Document_ includes additional features:
 - **Mermaid** (`--mermaid`): add support for [mermaid](https://mermaid-js.github.io/mermaid/)
   diagrams using fenced code blocks (` ```mermaid `), e.g.:
 
+````markdown
 ```mermaid
-graph LR
-    Markdown -- mdtodoc --> HTML
+flowchart LR
+  Markdown --mdtodoc--> HTML
+```
+````
+
+```mermaid
+flowchart LR
+  Markdown --mdtodoc--> HTML
 ```
 
 #### Embed mode (`--embed-mode`)
@@ -154,7 +160,7 @@ further customize document generation.
 
 An extension is a JavaScript file using ECMAScript modules format with up to
 three exported functions corresponding to available hooks, taking an object in
-parameter, doing some modifications on it and returning it.
+parameter, doing some modifications on it, and returning it.
 
 ```js
 export function hookName({ arg1, arg2, ... }) {
@@ -165,7 +171,8 @@ export function hookName({ arg1, arg2, ... }) {
 
 These hooks (and their arguments) are available:
 
-- **`preCompile`**: called after source file loading and before Markdown compilation
+- **`preCompile`**: called after source file loading and before Markdown
+  compilation
   - `md` (`string`): Markdown document
 - **`preRender`**: called after Markdown compilation and before template/layout
   rendering
@@ -214,8 +221,8 @@ and some CSS styling is added directly into the HTML file.
 mdtodoc doc.md -l "page" -t "github" -s "atom-one-light" --numbered-headings --code-copy --mermaid
 ```
 
-HTML headings are now automatically numbered, a button <kbd>Copy</kbd>
-is added in each code block `<pre>` to copy the content and diagrams
+HTML headings are now automatically numbered, a <kbd>Copy</kbd> button
+is added in each `<pre>` code block to copy the content, and diagrams
 are generated from `mermaid` code blocks (` ```mermaid `).
 
 **Embed all externally referenced resources**
@@ -230,7 +237,7 @@ are now embedded into the output HTML file.
 **Use a custom layout (local file) and a custom highlight style (URL)**
 
 ```shell
-mdtodoc doc.md -l "./assets/layouts/page.html" -t "github" -s "https://raw.githubusercontent.com/highlightjs/highlight.js/master/src/styles/monokai.css" -n -c
+mdtodoc doc.md -l "./assets/layouts/page.html" -t "github" -s "https://raw.githubusercontent.com/highlightjs/highlight.js/main/src/styles/monokai.css" -n -c
 ```
 
 Read [options documentation](#options) for more information on how to use
@@ -276,7 +283,6 @@ writing these documents easier, e.g.:
 
 - [Markdown All in One](https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one)
   (Visual Studio Code)
-- [Markdown-Writer](https://atom.io/packages/markdown-writer) (Atom)
 - [MarkdownEditing](https://packagecontrol.io/packages/MarkdownEditing) (Sublime Text)
 
 #### Formatting
@@ -310,24 +316,18 @@ compiler and the following plugins to generate HTML code from Markdown:
 
 Additional features also use the following packages:
 
-- [highlight.js](https://highlightjs.org/) - Javascript syntax highlighter
+- [highlight.js](https://highlightjs.org/) - JavaScript syntax highlighter with
+  language auto-detection and zero dependencies
 - [web-resource-inliner](https://github.com/jrit/web-resource-inliner) - Brings
-  externally referenced resources, such as js, css and images, into a single file
-- [clipboard.js](https://clipboardjs.com/) - A modern approach to copy text to clipboard
-- [cheerio](https://cheerio.js.org/) - Fast, flexible, and lean implementation
-  of core jQuery designed specifically for the server
-- [chokidar](https://github.com/paulmillr/chokidar) - A neat wrapper around
-  node.js fs.watch / fs.watchFile / FSEvents
-- [mermaid](https://mermaid-js.github.io/mermaid/) - Generation of diagram and
-  flowchart from text in a similar manner as markdown
+  externally referenced resources, such as JS, CSS and images, into a single
+  file
+- [clipboard.js](https://clipboardjs.com/) - A modern approach to copy text to
+  clipboard
+- [chokidar](https://github.com/paulmillr/chokidar) - Minimal and efficient
+  cross-platform file watching library
+- [mermaid](https://mermaid.js.org/) - Generate diagrams from markdown-like text
 
-Open [package.json](package.json) to see the full list of dependencies.
-
-### Useful links
-
-- [A guide to creating a NodeJS command-line package](https://medium.com/netscape/a-guide-to-create-a-nodejs-command-line-package-c2166ad0452e)
-- [Building a Node JS interactive CLI](https://codeburst.io/building-a-node-js-interactive-cli-3cb80ed76c86)
-- [Numbered Headings in Markdown via CSS](https://gist.github.com/patik/89ee6092c72a9e39950445c01598517a)
+Open [package.json](./package.json) to see the full list of dependencies.
 
 ## Development
 

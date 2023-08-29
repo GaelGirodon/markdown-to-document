@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 
 import { Option, program } from "commander";
+
 import { Processor } from "./processor.js";
 
 program
   .name("mdtodoc")
-  .version("0.28.0")
+  .version("0.29.0")
   .arguments("<path...>")
   .description("Compile Markdown files into HTML documents")
   .option("-d, --dest [value]", "destination path (default: next to .md files)")

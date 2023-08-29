@@ -4,7 +4,8 @@
  * Test utilities
  */
 
-import { resolve } from "path";
+import { resolve } from "node:path";
+
 import { ROOT_DIR } from "../src/files.js";
 
 /**

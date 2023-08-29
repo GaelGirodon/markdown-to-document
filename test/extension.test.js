@@ -1,4 +1,5 @@
 import { assert } from "chai";
+
 import { Extensions } from "../src/extension.js";
 import { buildDataPath, buildPath } from "./util.js";
 

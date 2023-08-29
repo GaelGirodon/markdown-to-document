@@ -1,8 +1,8 @@
-import paths from "path";
 import ejs from "ejs";
+import paths from "node:path";
 
 import * as files from "./files.js";
-import { fetchText } from "./net.js";
+import { request } from "./net.js";
 
 /** Path to assets directory */
 const ASSETS_PATH = paths.join(files.ROOT_DIR, "assets");
@@ -22,7 +22,7 @@ const FEATURES_PATH = paths.join(ASSETS_PATH, "features");
 /** Paths to JavaScript libraries */
 export const LIBRARIES = {
   clipboard: paths.join(files.resolveModuleDirectory("clipboard"), "dist", "clipboard.min.js"),
-  mermaid: "https://unpkg.com/mermaid@9/dist/mermaid.min.js",
+  mermaid: "https://unpkg.com/mermaid@10/dist/mermaid.min.js",
 };
 
 /** Path to additional feature files */
@@ -118,7 +118,7 @@ export class Style {
     // URL
     if (files.isRemote(layout)) {
       try {
-        return await fetchText(layout, true);
+        return (await request(layout, true)).body.toString("utf8");
       } catch (e) {
         throw new Error(`Invalid layout '${layout}': ${e.message}.`);
       }
@@ -181,7 +181,7 @@ export class Style {
 
   /**
    * Convert a template using the legacy basic syntax to EJS for backward compatibility.
-   * @param template Template that can use the legacy basic template syntax
+   * @param {string} template Template that may use the legacy basic syntax
    * @returns {string} EJS template
    */
   legacyTemplateToEJS(template) {

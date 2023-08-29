@@ -1,7 +1,7 @@
-import fsp from "fs/promises";
-import util from "util";
-import childProcess from "child_process";
 import { assert } from "chai";
+import childProcess from "node:child_process";
+import fs from "node:fs/promises";
+import util from "node:util";
 
 import * as files from "../src/files.js";
 import { buildPath } from "./util.js";
@@ -53,7 +53,7 @@ describe("CLI", () => {
       const { stdout } = await exec(`node ${cli} ${src}`);
       assert.include(stdout.toString(), "CHANGELOG.html");
       assert.isTrue(await files.exists(dst));
-      await fsp.unlink(dst);
+      await fs.unlink(dst);
     });
     it("should handle errors", async () => {
       const src = buildPath("LICENSE");
