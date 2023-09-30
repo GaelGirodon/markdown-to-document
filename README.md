@@ -312,6 +312,7 @@ compiler and the following plugins to generate HTML code from Markdown:
 - `markdown-it-mark` - Marked (`<mark>`) tag support
 - `markdown-it-sub` - Subscript (`<sub>`) tag support
 - `markdown-it-sup` - Superscript (`<sup>`) tag support
+- `markdown-it-task-lists` - Task lists (`- [ ]` / `- [x]`) support
 - `markdown-it-toc-done-right` - Table of contents (`[[toc]]`) support
 
 Additional features also use the following packages:
