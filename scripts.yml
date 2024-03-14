@@ -6,8 +6,9 @@ variables:
 
 update:
   step_by_step: true
+  params: [ TARGET ]
   script:
-    - npx npm-check-updates -u
+    - npx npm-check-updates -u -t $env:TARGET
     - npm install
     - npm update
     - npm audit fix
