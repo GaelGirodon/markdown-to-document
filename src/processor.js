@@ -63,7 +63,10 @@ export class Processor {
     // Initialize extensions
     await this.extensions.init();
     // Initialize compiler
-    await this.compiler.init();
+    await this.compiler.init(
+      async (mdIt) => (await this.extensions.exec("postInit", { mdIt })).mdIt
+    );
+
     // Compile source files
     if (this.watch) {
       for (const file of sources) {

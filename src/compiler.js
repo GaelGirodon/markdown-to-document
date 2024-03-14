@@ -10,7 +10,7 @@ import mark from "markdown-it-mark";
 import sub from "markdown-it-sub";
 import sup from "markdown-it-sup";
 import taskLists from "markdown-it-task-lists";
-import tocDoneRight from "markdown-it-toc-done-right";
+import toc from "markdown-it-toc-done-right";
 
 import { randomId } from "./util.js";
 
@@ -36,9 +36,10 @@ export class Compiler {
 
   /**
    * Prepare the compiler.
+   * @param {(md: MarkdownIt) => Promise<MarkdownIt>} configure Compiler configuration extension
    * @return {Promise<Compiler>} this
    */
-  async init() {
+  async init(configure) {
     // Import Highlight.js only if necessary
     const hljs = this.highlightStyle ? (await import("highlight.js")).default : null;
 
@@ -86,7 +87,9 @@ export class Compiler {
       .use(sup) // Superscript (<sup>) tag
       .use(anchor, { level: 2 }) // Header anchors (permalinks)
       .use(taskLists) // Task lists
-      .use(tocDoneRight, { level: [2, 3] }); // Table of contents
+      .use(toc, { level: [2, 3] }); // Table of contents
+
+    this.md = await configure(this.md);
 
     return this;
   }

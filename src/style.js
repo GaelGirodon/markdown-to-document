@@ -154,7 +154,7 @@ export class Style {
    */
   async loadHighlightStyle(style) {
     // Predefined highlight style
-    let stylePath = paths.join(HLJS_STYLES_PATH, style + ".css");
+    let stylePath = paths.join(HLJS_STYLES_PATH, style + ".min.css");
     if (!/^(\w+\/)?[\w-]+$/.test(style) || !(await files.isReadable(stylePath))) {
       // Custom highlight style
       stylePath = await this.validate(style, style, "highlight style");
