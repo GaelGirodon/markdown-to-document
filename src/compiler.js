@@ -9,7 +9,8 @@ import ins from "markdown-it-ins";
 import mark from "markdown-it-mark";
 import sub from "markdown-it-sub";
 import sup from "markdown-it-sup";
-import tocDoneRight from "markdown-it-toc-done-right";
+import taskLists from "markdown-it-task-lists";
+import toc from "markdown-it-toc-done-right";
 
 import { randomId } from "./util.js";
 
@@ -84,7 +85,8 @@ export class Compiler {
       .use(sub) // Subscript (<sub>) tag
       .use(sup) // Superscript (<sup>) tag
       .use(anchor, { level: 2 }) // Header anchors (permalinks)
-      .use(tocDoneRight, { level: [2, 3] }); // Table of contents
+      .use(taskLists) // Task lists
+      .use(toc, { level: [2, 3] }); // Table of contents
 
     return this;
   }

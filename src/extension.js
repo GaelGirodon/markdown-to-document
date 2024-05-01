@@ -37,9 +37,10 @@ export class Extensions {
   /**
    * Execute extension functions associated to the given hook
    * on the input data.
-   * @param {string} hook Hook name
-   * @param {*} data Data to transform using extensions
-   * @returns {Promise<*>} Transformed data
+   * @param {("postInit"|"preCompile"|"preRender"|"preInline"|"preWrite")} hook Hook name
+   * @param {T} data Data to transform using extensions
+   * @returns {Promise<T>} Transformed data
+   * @template T Input/output data type
    */
   async exec(hook, data) {
     for (const ext of this.extensions) {

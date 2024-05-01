@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.30.0 - 2024-05-01
+
+- Add support for task lists
+- Add support for compiler configuration
+- Update dependencies
+- Update required Node.js version to 20
+
 ## 0.29.0 - 2023-08-29
 
 - Reduce package install size

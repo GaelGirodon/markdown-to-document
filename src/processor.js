@@ -64,6 +64,10 @@ export class Processor {
     await this.extensions.init();
     // Initialize compiler
     await this.compiler.init();
+    let data = { mdIt: this.compiler.md };
+    data = await this.extensions.exec("postInit", data);
+    this.compiler.md = data.mdIt;
+
     // Compile source files
     if (this.watch) {
       for (const file of sources) {

@@ -18,7 +18,7 @@ A command-line tool to easily generate HTML documents from Markdown files.
 
 ## Install
 
-Install the CLI globally using NPM ([Node.js](https://nodejs.org/) >= 18):
+Install the CLI globally using NPM ([Node.js](https://nodejs.org/) >= 20):
 
 ```shell
 npm install markdown-to-document -g
@@ -159,7 +159,7 @@ The `--extension` option allows to provide paths to extension scripts to
 further customize document generation.
 
 An extension is a JavaScript file using ECMAScript modules format with up to
-three exported functions corresponding to available hooks, taking an object in
+five exported functions corresponding to available hooks, taking an object in
 parameter, doing some modifications on it, and returning it.
 
 ```js
@@ -171,6 +171,10 @@ export function hookName({ arg1, arg2, ... }) {
 
 These hooks (and their arguments) are available:
 
+- **`postInit`**: called after compiler initialization and before source file
+  loading
+  - `mdIt` (`MarkdownIt`): Markdown.it instance, configure it further, or even
+    load additional plugins with the `.use(...)` method
 - **`preCompile`**: called after source file loading and before Markdown
   compilation
   - `md` (`string`): Markdown document
@@ -312,6 +316,7 @@ compiler and the following plugins to generate HTML code from Markdown:
 - `markdown-it-mark` - Marked (`<mark>`) tag support
 - `markdown-it-sub` - Subscript (`<sub>`) tag support
 - `markdown-it-sup` - Superscript (`<sup>`) tag support
+- `markdown-it-task-lists` - Task lists (`- [ ]` / `- [x]`) support
 - `markdown-it-toc-done-right` - Table of contents (`[[toc]]`) support
 
 Additional features also use the following packages:
