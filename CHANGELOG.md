@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## 0.30.0 - 2024-05-XX
+## 0.30.0 - 2024-05-01
 
 - Add support for task lists
 - Add support for compiler configuration
