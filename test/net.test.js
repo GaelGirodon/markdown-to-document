@@ -12,7 +12,7 @@ describe("request", () => {
       ).body.toString("utf8");
       assert.isString(text);
       assert.isNotEmpty(text);
-    } catch (e) {
+    } catch (err) {
       assert.fail("should not throw");
     }
   });
@@ -20,8 +20,8 @@ describe("request", () => {
     let error;
     try {
       await request("this!is-not*a°valid#URL");
-    } catch (e) {
-      error = e;
+    } catch (err) {
+      error = err;
     }
     assert.exists(error);
     assert.match(error.message, /^Invalid URL$/);
@@ -32,8 +32,8 @@ describe("request", () => {
       await request(
         "https://raw.githubusercontent.com/GaelGirodon/markdown-to-document/develop/NOTFOUND.md"
       );
-    } catch (e) {
-      error = e;
+    } catch (err) {
+      error = err;
     }
     assert.exists(error);
     assert.match(error.message, /^an error occurred fetching content \(status: 404\)$/);
@@ -47,7 +47,7 @@ describe("request", () => {
       ).body.toString("utf8");
       assert.isString(text);
       assert.isEmpty(text);
-    } catch (e) {
+    } catch (err) {
       assert.fail("should not throw");
     }
   });
@@ -58,8 +58,8 @@ describe("request", () => {
         "https://raw.githubusercontent.com/GaelGirodon/markdown-to-document/0.2.0/assets/themes/.gitkeep",
         true
       );
-    } catch (e) {
-      error = e;
+    } catch (err) {
+      error = err;
     }
     assert.exists(error);
     assert.match(error.message, /^content is empty$/);
