@@ -118,7 +118,7 @@ describe("Processor", () => {
       assert.include(html, "<html");
       assert.include(html, "<body>");
       // Theme
-      assert.include(html, "<style>body{-ms");
+      assert.include(html, "<style>body{color-scheme");
       // Highlight style
       assert.include(html, "<style>pre code.hljs");
     });
