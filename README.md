@@ -323,9 +323,8 @@ Additional features also use the following packages:
 
 - [highlight.js](https://highlightjs.org/) - JavaScript syntax highlighter with
   language auto-detection and zero dependencies
-- [web-resource-inliner](https://github.com/jrit/web-resource-inliner) - Brings
-  externally referenced resources, such as JS, CSS and images, into a single
-  file
+- [web-resource-inliner](https://github.com/jrit/web-resource-inliner) - Inlines
+  img, script and link tags into the same file
 - [clipboard.js](https://clipboardjs.com/) - A modern approach to copy text to
   clipboard
 - [chokidar](https://github.com/paulmillr/chokidar) - Minimal and efficient

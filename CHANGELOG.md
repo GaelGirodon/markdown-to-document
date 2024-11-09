@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.31.0 - 2024-11-XX
+
+- Update dependencies
+
 ## 0.30.0 - 2024-05-01
 
 - Add support for task lists
