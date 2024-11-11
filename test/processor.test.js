@@ -43,7 +43,7 @@ describe("Processor", () => {
       try {
         await proc.process([]);
         assert.fail();
-      } catch (ex) {
+      } catch (err) {
         // success
       }
     });
@@ -53,7 +53,7 @@ describe("Processor", () => {
       try {
         await proc.process([src]);
         assert.fail();
-      } catch (ex) {
+      } catch (err) {
         // success
       }
     });
@@ -64,7 +64,7 @@ describe("Processor", () => {
       try {
         await proc.process([src]);
         assert.fail();
-      } catch (ex) {
+      } catch (err) {
         // success
       }
       assert.isFalse(await files.exists(dst));
@@ -95,7 +95,7 @@ describe("Processor", () => {
       let throws = false;
       try {
         await proc.process([src]);
-      } catch (ex) {
+      } catch (err) {
         throws = true;
       }
       assert.isTrue(throws);
@@ -118,7 +118,7 @@ describe("Processor", () => {
       assert.include(html, "<html");
       assert.include(html, "<body>");
       // Theme
-      assert.include(html, "<style>body{-ms");
+      assert.include(html, "<style>body{color-scheme");
       // Highlight style
       assert.include(html, "<style>pre code.hljs");
     });
@@ -131,7 +131,7 @@ describe("Processor", () => {
       let throws = false;
       try {
         await proc.process([buildDataPath("README.md")]);
-      } catch (ex) {
+      } catch (err) {
         throws = true;
       }
       assert.isTrue(throws);
@@ -288,7 +288,7 @@ describe("Processor", () => {
       let throws = false;
       try {
         await proc.process([buildDataPath("README.md")]);
-      } catch (ex) {
+      } catch (err) {
         throws = true;
       }
       assert.isTrue(throws);
@@ -305,7 +305,7 @@ describe("Processor", () => {
       let throws = false;
       try {
         await proc.process([buildDataPath("README.md")]);
-      } catch (ex) {
+      } catch (err) {
         throws = true;
       }
       assert.isTrue(throws);
