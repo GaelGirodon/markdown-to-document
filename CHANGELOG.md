@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## 0.31.0 - 2024-11-XX
+## 0.31.0 - 2024-11-11
 
 - Update dependencies
 
