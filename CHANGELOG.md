@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.32.0 - 2025-12-02
+
+- Improve project scripts
+- Update dependencies
+- Update required Node.js version to 22
+
 ## 0.31.0 - 2024-11-11
 
 - Update dependencies
