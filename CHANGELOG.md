@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## 0.32.0 - 2025-12-XX
+## 0.32.0 - 2025-12-02
 
 - Improve project scripts
 - Update dependencies
