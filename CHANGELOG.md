@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ## 0.33.0 - 2026-02-XX
 
 - Fix numbered headings
+- Update dependencies
 
 ## 0.32.0 - 2025-12-02
 
