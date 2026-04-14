@@ -5,7 +5,7 @@ import * as files from "./files.js";
 import { request } from "./net.js";
 
 /** Path to assets directory */
-const ASSETS_PATH = paths.join(files.ROOT_DIR, "assets");
+const ASSETS_PATH = paths.join(import.meta.dirname, "../assets");
 
 /** Path to layouts directory */
 const LAYOUTS_PATH = paths.join(ASSETS_PATH, "layouts");

@@ -4,13 +4,12 @@
  */
 
 import { spawnSync } from "node:child_process";
-import { readFileSync, readdirSync, unlinkSync } from "node:fs";
+import { readdirSync, readFileSync, unlinkSync } from "node:fs";
+import { dirname } from "node:path";
 import { chdir } from "node:process";
 
-import { ROOT_DIR } from "../src/files.js";
-
 // Change current working directory to project root
-chdir(ROOT_DIR);
+chdir(dirname(import.meta.dirname));
 
 /**
  * Print and run a command.

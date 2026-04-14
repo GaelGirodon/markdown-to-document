@@ -1,13 +1,6 @@
 import fs from "node:fs/promises";
 import { createRequire } from "node:module";
 import { dirname, relative } from "node:path";
-import { fileURLToPath } from "node:url";
-
-/**
- * Path to the root directory of the tool
- * @type {string}
- */
-export const ROOT_DIR = dirname(dirname(fileURLToPath(import.meta.url)));
 
 /**
  * Tests that the file specified by path exists.
