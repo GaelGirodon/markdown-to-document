@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## 0.33.0 - 2026-04-XX
+## 0.33.0 - 2026-04-16
 
 - Fix numbered headings
 - Migrate from neat-ejs to ejs
