@@ -7,6 +7,7 @@ export default [
   {
     rules: {
       "no-unused-vars": ["error", { caughtErrors: "all", caughtErrorsIgnorePattern: "err" }],
+      "preserve-caught-error": "warn",
     },
   },
 ];

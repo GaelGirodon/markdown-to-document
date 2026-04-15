@@ -8,15 +8,14 @@ import fs from "node:fs";
 import path from "node:path";
 import UglifyJS from "uglify-js";
 
-import { ROOT_DIR } from "../src/files.js";
-
 /*
  * Build the `github` theme from the CSS provided by
  * the github-markdown-css npm package.
  */
 
-const src = path.join(ROOT_DIR, "node_modules/github-markdown-css/github-markdown-light.css");
-const dst = path.join(ROOT_DIR, "assets/themes/github.min.css");
+const root = path.join(import.meta.dirname, "..");
+const src = path.join(root, "node_modules/github-markdown-css/github-markdown-light.css");
+const dst = path.join(root, "assets/themes/github.min.css");
 const css = fs
   .readFileSync(src, { encoding: "utf8" })
   .replace(/\.markdown-body/g, "body") // Apply styles to the whole document
@@ -31,9 +30,9 @@ fs.writeFileSync(dst, new CleanCSS().minify(css).styles);
  */
 
 const featureFiles = fs
-  .readdirSync(path.join(ROOT_DIR, "assets/features"), { encoding: "utf8" })
+  .readdirSync(path.join(import.meta.dirname, "../assets/features"), { encoding: "utf8" })
   .filter((f) => /^[^.]+\.(css|js)$/.test(f))
-  .map((f) => path.join(ROOT_DIR, "assets/features", f));
+  .map((f) => path.join(import.meta.dirname, "../assets/features", f));
 for (const f of featureFiles) {
   const content = fs.readFileSync(f, { encoding: "utf8" });
   fs.writeFileSync(

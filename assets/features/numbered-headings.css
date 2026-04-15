@@ -8,23 +8,23 @@ body {
 }
 
 h1 {
-    counter-reset: h2counter;
+    counter-set: h2counter;
 }
 
 h2 {
-    counter-reset: h3counter;
+    counter-set: h3counter;
 }
 
 h3 {
-    counter-reset: h4counter;
+    counter-set: h4counter;
 }
 
 h4 {
-    counter-reset: h5counter;
+    counter-set: h5counter;
 }
 
 h5 {
-    counter-reset: h6counter;
+    counter-set: h6counter;
 }
 
 h6 {
