@@ -48,13 +48,13 @@
     "commander": "^15.0.0",
     "ejs": "^6.0.1",
     "fast-glob": "^3.3.3",
-    "highlight.js": "^11.11.1",
+    "highlight.js": "^11.12.0",
     "markdown-it": "^14.3.0",
     "markdown-it-abbr": "^2.0.0",
     "markdown-it-anchor": "^9.2.1",
     "markdown-it-container": "^4.0.0",
     "markdown-it-deflist": "^3.0.1",
-    "markdown-it-emoji": "^3.0.0",
+    "markdown-it-emoji": "^3.1.0",
     "markdown-it-footnote": "^4.0.0",
     "markdown-it-ins": "^4.0.0",
     "markdown-it-mark": "^4.0.0",
@@ -69,17 +69,17 @@
     "c8": "^12.0.0",
     "chai": "^6.2.2",
     "clean-css": "^5.3.3",
-    "eslint": "^10.7.0",
+    "eslint": "^10.8.1",
     "github-markdown-css": "^5.9.0",
-    "globals": "^17.7.0",
-    "mocha": "^11.7.6",
+    "globals": "^17.11.0",
+    "mocha": "^11.8.0",
     "mocha-junit-reporter": "^2.2.1",
     "prettier": "^3.9.6",
     "uglify-js": "^3.19.3"
   },
   "overrides": {
     "diff": "^8.0.4",
-    "serialize-javascript": "^7.0.5"
+    "serialize-javascript": "^7.0.7"
   },
   "engines": {
     "node": ">=22.0.0"
