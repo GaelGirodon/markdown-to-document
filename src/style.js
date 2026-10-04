@@ -120,7 +120,7 @@ export class Style {
       try {
         return (await request(layout, true)).body.toString("utf8");
       } catch (e) {
-        throw new Error(`Invalid layout '${layout}': ${e.message}.`);
+        throw new Error(`Invalid layout '${layout}': ${e.message}.`, { cause: e });
       }
     } // else: Local path
     // Predefined layout
