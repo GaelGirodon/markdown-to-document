@@ -22,10 +22,10 @@
     "assets/**/*.html",
     "src/**/*.js"
   ],
-  "main": "src/cli.js",
+  "main": "src/main.js",
   "bin": {
-    "markdown-to-document": "src/cli.js",
-    "mdtodoc": "src/cli.js"
+    "markdown-to-document": "src/main.js",
+    "mdtodoc": "src/main.js"
   },
   "type": "module",
   "repository": {
@@ -37,9 +37,8 @@
     "format": "prettier --write \"**/*.{js,json,css}\" --trailing-comma es5",
     "format:check": "prettier --check \"**/*.{js,json,css}\" --trailing-comma es5",
     "lint": "eslint \"**/*.js\"",
-    "test": "mocha --timeout 30000",
-    "test:coverage": "c8 --reporter=html --reporter=text --all --include \"{assets,src}/**/*.js\" --exclude \"**/*.min.js\" mocha --timeout 30000",
-    "test:ci": "c8 --reporter=cobertura --all --include \"{assets,src}/**/*.js\" --exclude \"**/*.min.js\" mocha --reporter mocha-junit-reporter --timeout 30000 || exit 0",
+    "test": "vitest --run",
+    "test:ci": "vitest --run --coverage",
     "test:readme": "node scripts/test-readme.js"
   },
   "dependencies": {
@@ -66,19 +65,16 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "c8": "^12.0.0",
-    "chai": "^6.3.0",
+    "@vitest/coverage-v8": "^5.1.0",
     "clean-css": "^5.3.3",
     "eslint": "^10.14.0",
     "github-markdown-css": "^5.9.0",
     "globals": "^17.14.0",
-    "mocha": "^12.0.3",
-    "mocha-junit-reporter": "^2.2.1",
     "prettier": "^3.9.10",
-    "uglify-js": "^3.19.3"
+    "uglify-js": "^3.19.3",
+    "vitest": "^5.1.0"
   },
   "overrides": {
-    "glob": "~14.0.3",
     "minimatch": "~11.0.4"
   },
   "engines": {

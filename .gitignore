@@ -16,4 +16,4 @@ package/
 *.tgz
 assets/**/*.min.*
 MERGED.*
-test-results.xml
+test-report.xml

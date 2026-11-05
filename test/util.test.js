@@ -1,4 +1,4 @@
-import { assert } from "chai";
+import { assert, describe, it } from "vitest";
 import { format as _ } from "node:util";
 
 import { getHtmlTagText, randomId } from "../src/util.js";
@@ -13,6 +13,7 @@ describe("getHtmlTagText", () => {
   for (const t of [
     { html: undefined, tag: undefined, text: null },
     { html: "<body><h1>title</h1></body>", tag: "h2", text: null },
+    { html: "<body><h1>title", tag: "h1", text: null },
     { html: "<body><h1>title</h1></body>", tag: "h1", text: "title" },
     { html: '<body><h1 class="title">title</h1></body>', tag: "h1", text: "title" },
     { html: "<body><h1>the <em>title</em></h1></body>", tag: "h1", text: "the title" },

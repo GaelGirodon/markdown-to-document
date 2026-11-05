@@ -11,7 +11,7 @@ new_version="${v[0]}.$((v[1] + 1)).${v[2]}"
 git switch -c "release/${new_version}"
 npm version --no-git-tag-version "$new_version"
 sed -i "s/$old_version/$new_version/g" $VERSION_FILE
-[[ $(node $VERSION_FILE --version) == "$new_version" ]] || (echo "Version mismatch"; exit 1)
+[[ $(node . --version) == "$new_version" ]] || (echo "Version mismatch"; exit 1)
 read -rp "Update the changelog..."
 git add package*.json CHANGELOG.md $VERSION_FILE
 read -rp "Commit? [Yn] " yn && [[ $yn != Y* ]] && exit 0

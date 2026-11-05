@@ -56,8 +56,8 @@ export class Compiler {
             .replace(/{{ code_class }}/g, `language-${lang} ${lang}`)
             .replace(/{{ code }}/g, hljs.highlight(str, hljsOpts).value)
             .replace(/{{ copy_block }}/g, copyBlock);
-        } catch (e) {
-          console.debug(e);
+        } catch (err) {
+          console.debug(err);
         }
       }
       const preClass = lang === "mermaid" ? "mermaid-block" : "code-block";
