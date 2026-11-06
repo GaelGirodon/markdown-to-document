@@ -3,17 +3,17 @@
 #
 
 # IDE
-.idea
+.idea/
+.vscode/
 *.iml
-.vscode
 
 # Project
-node_modules
+.clinic/
+coverage/
+node_modules/
+package/
+*.html
+*.tgz
 assets/**/*.min.*
-/*.html
 MERGED.*
-/*.tgz
-package
-coverage
-test-results.xml
-.clinic
+test-report.xml

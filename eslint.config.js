@@ -1,13 +1,18 @@
+import js from "@eslint/js";
 import globals from "globals";
-import pluginJs from "@eslint/js";
+import { defineConfig, includeIgnoreFile } from "eslint/config";
 
-export default [
-  { languageOptions: { globals: { ...globals.node, ...globals.browser, ...globals.mocha } } },
-  pluginJs.configs.recommended,
+export default defineConfig([
+  includeIgnoreFile(import.meta.dirname + "/.gitignore", { gitignoreResolution: true }),
+  {
+    files: ["**/*.js"],
+    plugins: { js },
+    extends: ["js/recommended"],
+    languageOptions: { globals: { ...globals.node } },
+  },
   {
     rules: {
       "no-unused-vars": ["error", { caughtErrors: "all", caughtErrorsIgnorePattern: "err" }],
-      "preserve-caught-error": "warn",
     },
   },
-];
+]);

@@ -1,4 +1,4 @@
-import { assert } from "chai";
+import { afterEach, assert, describe, it } from "vitest";
 import fs from "node:fs/promises";
 
 import * as files from "../src/files.js";

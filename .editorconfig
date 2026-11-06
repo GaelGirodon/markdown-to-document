@@ -2,12 +2,13 @@
 root = true
 
 [*]
-indent_style = space
-indent_size = 4
 charset = utf-8
 end_of_line = lf
-trim_trailing_whitespace = true
+indent_size = 4
+indent_style = space
 insert_final_newline = true
+max_line_length = 100
+trim_trailing_whitespace = true
 
-[*.{js,json,md,prettierrc,yml}]
+[*.{js,json,md,yml}]
 indent_size = 2

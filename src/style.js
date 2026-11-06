@@ -119,8 +119,8 @@ export class Style {
     if (files.isRemote(layout)) {
       try {
         return (await request(layout, true)).body.toString("utf8");
-      } catch (e) {
-        throw new Error(`Invalid layout '${layout}': ${e.message}.`);
+      } catch (err) {
+        throw new Error(`Invalid layout '${layout}': ${err.message}.`, { cause: err });
       }
     } // else: Local path
     // Predefined layout

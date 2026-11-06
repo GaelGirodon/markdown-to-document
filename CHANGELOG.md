@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.34.0 - 2026-11-06
+
+- Migrate tests to Vitest
+- Minor code and config improvements
+- Update dependencies
+
 ## 0.33.0 - 2026-04-16
 
 - Fix numbered headings

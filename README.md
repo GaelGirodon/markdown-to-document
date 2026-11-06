@@ -5,7 +5,7 @@
 [![node](https://img.shields.io/node/v/markdown-to-document?style=flat-square)](https://nodejs.org/download/)
 [![build](https://img.shields.io/github/actions/workflow/status/GaelGirodon/markdown-to-document/main.yml?branch=develop&style=flat-square)](https://github.com/GaelGirodon/markdown-to-document/actions/workflows/main.yml)
 [![tests](https://img.shields.io/endpoint?style=flat-square&url=https%3A%2F%2Fgist.githubusercontent.com%2FGaelGirodon%2Ffbde4d59b7dd3c4f2cc9c4fea3497ae1%2Fraw%2Fmarkdown-to-document-junit-tests.json)](https://github.com/GaelGirodon/markdown-to-document/actions/workflows/main.yml)
-[![coverage](https://img.shields.io/endpoint?style=flat-square&url=https%3A%2F%2Fgist.githubusercontent.com%2FGaelGirodon%2Ffbde4d59b7dd3c4f2cc9c4fea3497ae1%2Fraw%2Fmarkdown-to-document-cobertura-coverage.json)](https://github.com/GaelGirodon/markdown-to-document/actions/workflows/main.yml)
+[![coverage](https://img.shields.io/endpoint?style=flat-square&url=https%3A%2F%2Fgist.githubusercontent.com%2FGaelGirodon%2Ffbde4d59b7dd3c4f2cc9c4fea3497ae1%2Fraw%2Fmarkdown-to-document-lcov-coverage.json)](https://github.com/GaelGirodon/markdown-to-document/actions/workflows/main.yml)
 
 A command-line tool to easily generate HTML documents from Markdown files.
 

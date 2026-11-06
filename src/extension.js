@@ -27,8 +27,10 @@ export class Extensions {
       }
       try {
         this.extensions.push(await import(pathToFileURL(path.resolve(script)).toString()));
-      } catch (e) {
-        throw new Error(`Invalid extension '${script}': not a valid ES Module (${e}).`);
+      } catch (err) {
+        throw new Error(`Invalid extension '${script}': not a valid ES Module (${err}).`, {
+          cause: err,
+        });
       }
     }
     return this;
@@ -48,8 +50,8 @@ export class Extensions {
       let output;
       try {
         output = await Promise.resolve(ext[hook](data));
-      } catch (e) {
-        throw new Error(`Extension thrown an error during ${hook} hook (${e}).`);
+      } catch (err) {
+        throw new Error(`Extension thrown an error during ${hook} hook (${err}).`, { cause: err });
       }
       if (!output || Object.keys(data).some((k) => !(k in output) || !output[k])) {
         throw new Error(`Extension returned an invalid object for ${hook} hook.`);

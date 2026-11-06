@@ -1,8 +1,0 @@
-#
-# .prettierignore
-#
-
-node_modules
-package*.json
-coverage
-**/*.min.*

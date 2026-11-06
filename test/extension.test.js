@@ -1,4 +1,4 @@
-import { assert } from "chai";
+import { assert, beforeAll, describe, it } from "vitest";
 
 import { Extensions } from "../src/extension.js";
 import { buildDataPath, buildPath } from "./util.js";
@@ -30,7 +30,7 @@ describe("Extensions", () => {
 
   describe("exec", async () => {
     let ext;
-    before(async () => {
+    beforeAll(async () => {
       ext = new Extensions([buildDataPath("extension/invalid.js")]);
       await ext.init();
     });
